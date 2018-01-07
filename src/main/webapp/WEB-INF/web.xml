@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.0">
+
+  <display-name>Lukianova Final Project</display-name>
+
+  <username-config>
+    <auth-method>FORM</auth-method>
+    <form-username-config>
+      <form-username-page>/WEB-INF/view/username.jsp</form-username-page>
+      <form-error-page>/WEB-INF/view/fail_login.jsp</form-error-page>
+    </form-username-config>
+  </username-config>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Admin Area</web-resource-name>
+      <!-- Define the context-relative URL(s) to be protected -->
+      <url-pattern>/admin/*</url-pattern>
+      <http-method>DELETE</http-method>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+      <http-method>PUT</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+    <role-name>ADMIN</role-name>
+    </auth-constraint>
+    <user-data-constraint><transport-guarantee>NONE</transport-guarantee></user-data-constraint>
+  </security-constraint>
+
+  <security-role>
+    <description>Admin security role</description>
+    <role-name>ADMIN</role-name>
+  </security-role>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Student Area</web-resource-name>
+      <!-- Define the context-relative URL(s) to be protected -->
+      <url-pattern>/student/*</url-pattern>
+      <http-method>DELETE</http-method>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+      <http-method>PUT</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+    <role-name>STUDENT</role-name>
+    </auth-constraint>
+    <user-data-constraint><transport-guarantee>NONE</transport-guarantee></user-data-constraint>
+  </security-constraint>
+
+  <security-role>
+    <description>Student security role</description>
+    <role-name>STUDENT</role-name>
+  </security-role>
+
+</web-app>
+
