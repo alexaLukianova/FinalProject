@@ -12,7 +12,7 @@ public class FilterConnect implements Filter {
     @Override
     public void init(FilterConfig config) throws ServletException {
         this.filterConfig = config;
-        isCacheDisable = "true".equals(filterConfig.getInitParameter("isCacheDisable").toLowerCase());
+        isCacheDisable = "true".equals(filterConfig.getInitParameter("active").toLowerCase());
     }
 
     @Override
