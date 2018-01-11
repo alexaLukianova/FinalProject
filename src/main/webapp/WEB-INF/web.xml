@@ -56,5 +56,20 @@
     <role-name>STUDENT</role-name>
   </security-role>
 
+
+  <filter>
+    <filter-name>FilterConnect</filter-name>
+    <filter-class>ua.nure.lukianova.filter.FilterConnect</filter-class>
+    <init-param>
+      <param-name>active</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>FilterConnect</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
 </web-app>
 
