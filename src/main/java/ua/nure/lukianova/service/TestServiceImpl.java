@@ -16,6 +16,12 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public List<Test> findAllTests() {
-        return testDAO.findAllTests();
+        return testDAO.findAll();
     }
+
+    @Override
+    public void create(Test test) {
+        testDAO.create(test);
+    }
+
 }

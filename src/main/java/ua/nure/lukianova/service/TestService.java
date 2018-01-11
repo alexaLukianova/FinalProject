@@ -7,4 +7,6 @@ import java.util.List;
 public interface TestService {
 
     List<Test> findAllTests();
+
+    void create(Test test);
 }

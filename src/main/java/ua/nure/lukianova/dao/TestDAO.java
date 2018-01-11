@@ -8,5 +8,5 @@ public interface TestDAO {
 
     void create (Test test);
 
-    List<Test> findAllTests();
+    List<Test> findAll();
 }

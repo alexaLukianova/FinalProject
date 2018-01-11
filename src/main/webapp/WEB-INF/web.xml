@@ -6,13 +6,13 @@
 
   <display-name>Lukianova Final Project</display-name>
 
-  <username-config>
+  <login-config>
     <auth-method>FORM</auth-method>
-    <form-username-config>
-      <form-username-page>/WEB-INF/view/username.jsp</form-username-page>
+    <form-login-config>
+      <form-login-page>/WEB-INF/view/login.jsp</form-login-page>
       <form-error-page>/WEB-INF/view/fail_login.jsp</form-error-page>
-    </form-username-config>
-  </username-config>
+    </form-login-config>
+  </login-config>
 
   <security-constraint>
     <web-resource-collection>

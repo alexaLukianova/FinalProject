@@ -1,19 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
 
-<html>
+<html lang="${language}">
 <head>
     <title>Admin</title>
 </head>
 <body>
-<h1>Hello, admin!</h1>
+
+<%@ include file = "header.jsp" %>
+
+<h1><fmt:message key = "user.table_name" /></h1>
 
 <table>
     <thead>
-    <th>ID</th>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Username</th>
+    <th><fmt:message key = "id" /></th>
+    <th><fmt:message key = "user.first_name" /></th>
+    <th><fmt:message key = "user.last_name" /></th>
+    <th><fmt:message key = "user.username" /></th>
     </thead>
     <tbody>
     <c:forEach items="${users}" var="user">
@@ -27,30 +31,7 @@
     </tbody>
 </table>
 
-<p>All tests</p>
-<table>
-    <thead>
-    <th>ID</th>
-    <th>name</th>
-    <th>subject</th>
-    <th>complexity</th>
-    </thead>
-    <tbody>
-    <c:forEach items="${tests}" var="test">
-        <tr>
-            <td>${test.getId()}</td>
-            <td>${test.getName()}</td>
-            <td>${test.getSubject()}</td>
-            <td>${test.getComplexity()}</td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-
-
-
-
-
+<a href="/test">All tests</a>
 
 
 </body>

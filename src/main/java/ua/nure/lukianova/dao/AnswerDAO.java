@@ -4,5 +4,5 @@ import ua.nure.lukianova.entity.Answer;
 
 public interface AnswerDAO {
 
-//    boolean create(Answer answer);
+   void create(Answer answer);
 }
