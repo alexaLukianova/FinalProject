@@ -10,6 +10,7 @@ not empty language ? language : en}" scope="session"/>
 
 <html lang="${language}">
 <head>
+
 </head>
 <body>
 

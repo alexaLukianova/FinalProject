@@ -1,0 +1,13 @@
+<Context>
+
+    <Resource name="jdbc/ST4DB"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="100" maxIdle="30" maxWait="10000"
+              username="sa" password=""
+              driverClassName="org.h2.Driver"
+              defaultAutoCommit="false"
+              defaultTransactionIsolation="READ_COMMITTED"
+              url="jdbc:h2:tcp://localhost/~/testing"/>
+
+</Context>
