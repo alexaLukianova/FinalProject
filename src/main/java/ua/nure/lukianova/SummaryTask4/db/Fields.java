@@ -16,5 +16,13 @@ public final class Fields {
     public static final String TEST_COMPLEXITY = "complexity";
     public static final String TEST_TIME = "time";
 
+    public static final String QUESTION_TEXT = "text";
+    public static final String QUESTION_TEST_ID = "test_id";
+
+    public static final String ANSWER_TEXT = "text";
+    public static final String ANSWER_CORRECT = "correct";
+    public static final String ANSWER_QUESTION_ID = "question_id";
+
+
 
 }

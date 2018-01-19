@@ -10,4 +10,8 @@ public interface TestService {
     List<Test> findAllTests() throws DBException;
 
     long create(Test test) throws DBException;
+
+    void delete(long testId) throws DBException;
+
+    Test findTestById(long testId) throws DBException;
 }

@@ -20,15 +20,16 @@ public class ConnectionFactory {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionFactory.class);
 
     private static ConnectionFactory instance;
+    private DataSource ds;
 
     public static synchronized ConnectionFactory getInstance() {
-        try{
+        try {
             if (instance == null) {
                 instance = new ConnectionFactory();
             }
             return instance;
-        }catch (DBException e){
-            throw new RuntimeException(e.getMessage(),e);
+        } catch (DBException e) {
+            throw new RuntimeException(e.getMessage(), e);
         }
 
     }
@@ -45,54 +46,6 @@ public class ConnectionFactory {
         }
     }
 
-    private DataSource ds;
-
-
-
-
-
-
-
-
-
-
-
-
-//    private static final String URL_KEY = "url";
-//    private static final String USER_KEY = "user";
-//    private static final String PASSWORD_KEY = "password";
-//    private static final String DRIVER_KEY = "driver";
-//    private static final String CONFIG = "config";
-//
-//    private String url;
-//    private String driver;
-//    private String user;
-//    private String password;
-//
-//    private static ConnectionFactory connectionFactory = null;
-
-//    private ConnectionFactory() {
-//        if (isNullDbConnectionData()) {
-//            loadConnectionDbData();
-//        }
-//        try {
-//            Class.forName(driver);
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
-//    public Connection getConnection() {
-//        Connection connection = null;
-//        try {
-//            connection = DriverManager.getConnection(url, user, password);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return connection;
-//    }
-
 
     public Connection getConnection() throws DBException {
         Connection con = null;
@@ -105,23 +58,4 @@ public class ConnectionFactory {
         return con;
     }
 
-//    private void loadConnectionDbData() {
-//        ResourceBundle resource = ResourceBundle.getBundle(CONFIG);
-//        user = resource.getString(USER_KEY);
-//        url = resource.getString(URL_KEY);
-//        driver = resource.getString(DRIVER_KEY);
-//        password = resource.getString(PASSWORD_KEY);
-//    }
-//
-//    public static ConnectionFactory getInstance() {
-//        if (connectionFactory == null) {
-//            connectionFactory = new ConnectionFactory();
-//        }
-//        return connectionFactory;
-//    }
-//
-//    private boolean isNullDbConnectionData() {
-//        return Objects.isNull(user) || Objects.isNull(password)
-//                || Objects.isNull(url) || Objects.isNull(driver);
-//    }
 }

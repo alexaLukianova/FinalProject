@@ -18,11 +18,13 @@ public class Controller extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Controller.class);
 
+    @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
@@ -43,13 +45,13 @@ public class Controller extends HttpServlet {
         LOGGER.trace("Obtained command --> " + command);
 
         // execute command and get forward address
-        String forward = Path.PAGE_ERROR_PAGE;
+        String forward = ""; //= Path.PAGE_ERROR_PAGE;
         try {
             forward = command.execute(request, response);
         } catch (AppException ex) {
             request.setAttribute("errorMessage", ex.getMessage());
         }
-        LOGGER.trace("Forward address --> " + forward);
+        LOGGER.trace("Forward address -->" + forward);
 
         LOGGER.debug("Controller finished, now go to forward address --> " + forward);
 

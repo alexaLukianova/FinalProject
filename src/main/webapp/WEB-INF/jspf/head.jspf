@@ -7,15 +7,12 @@
         ${title}
     </title>
 
-    <%--===========================================================================
-    Bind CSS document.
-    ===========================================================================--%>
-    <link rel="stylesheet" type="text/css" media="screen" href="style/st4.css"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/button.css"/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/loginStyle.css"/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/forFields.css"/>"/>
 
-    <%--===========================================================================
-    If you define http-equiv attribute, set the content type and the charset the same
-    as you set them in a page directive.
-    ===========================================================================--%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 </head>

@@ -11,48 +11,32 @@
 <h2>Add necessary information</h2>
 
 <div class="container">
-    <form method="POST" action="/question_add">
-        <label for="fname">First Name</label>
-        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+    <form method="post" action="controller">
+        <input type="hidden" name="command" value="saveTest">
 
-        <label for="lname">Last Name</label>
-        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+        <c:forEach var="i" begin="1" end="${sessionScope.questionsNumber}">
 
 
-
-        <input type="submit" value="Submit">
-    </form>
-</div>
+            <label for="question">Question #${i}</label>
+            <input type="text" id="question" name="question${i}" placeholder="Text of question" size="50"><br>
 
 
 
+        <c:forEach var="j" begin="1" end="${sessionScope.answersNumber}">
 
+            <label for="answer">Answer #${j}</label>
+            <input type="text" id="answer" name="answer${i}${j}" placeholder="Text of answer" size="50">
+            <input type="checkbox" id="answer" name="correct${i}${j}" value="is_correct"/><br>
 
-
-
-
-
-
-
-<form method="POST" action="/question_add">
-    <h2>Add necessary information</h2>
-
-    <c:forEach var="i" begin="1" end="${q}">
-
-        <label>Question text:</label>
-        <input type="text" name="new_question" size="50" placeholder="Question"/><br>
-        <c:forEach var="i" begin="1" end="${a}">
-            <label>Answer text <c:out value="${i}"/>:</label>
-            <input type="text" name="new_answer1" size="50" placeholder="Answer"/>
-            <input type="checkbox" name="correct1" value="is_correct"/><br>
         </c:forEach>
         <br/>
         <br/>
-    </c:forEach>
+        </c:forEach>
 
 
-    <button type="submit">Add</button>
-</form>
+        <button class="button" type="submit">Save</button>
+    </form>
+</div>
 
 </body>
 </html>

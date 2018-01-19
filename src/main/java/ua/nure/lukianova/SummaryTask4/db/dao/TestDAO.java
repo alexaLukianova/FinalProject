@@ -10,4 +10,8 @@ public interface TestDAO {
     long create (Test test) throws DBException;
 
     List<Test> findAll() throws DBException;
+
+    void delete(long testId) throws DBException;
+
+    Test findTestById(long id) throws DBException;
 }

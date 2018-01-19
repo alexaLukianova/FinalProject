@@ -25,4 +25,14 @@ public class TestServiceImpl implements TestService {
         return testDAO.create(test);
     }
 
+    @Override
+    public void delete(long testId) throws DBException {
+        testDAO.delete(testId);
+    }
+
+    @Override
+    public Test findTestById(long testId) throws DBException {
+       return testDAO.findTestById(testId);
+    }
+
 }

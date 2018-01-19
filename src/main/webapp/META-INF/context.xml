@@ -6,7 +6,7 @@
               maxActive="100" maxIdle="30" maxWait="10000"
               username="sa" password=""
               driverClassName="org.h2.Driver"
-              defaultAutoCommit="false"
+              defaultAutoCommit="true"
               defaultTransactionIsolation="READ_COMMITTED"
               url="jdbc:h2:tcp://localhost/~/testing"/>
 

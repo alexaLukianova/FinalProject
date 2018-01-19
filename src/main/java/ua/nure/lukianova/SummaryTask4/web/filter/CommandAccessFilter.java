@@ -49,8 +49,10 @@ public class CommandAccessFilter implements Filter {
             request.setAttribute("errorMessage", errorMessasge);
             LOGGER.trace("Set the request attribute: errorMessage --> " + errorMessasge);
 
+
             request.getRequestDispatcher(Path.PAGE_ERROR_PAGE)
                     .forward(request, response);
+
         }
     }
 

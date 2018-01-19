@@ -29,6 +29,9 @@
     <th><fmt:message key="test.name"/></th>
     <th><fmt:message key="test.subject"/></th>
     <th><fmt:message key="test.complexity"/></th>
+    <th><fmt:message key="test.time"/></th>
+    <th></th>
+    <th></th>
     </thead>
     <tbody>
     <c:forEach items="${tests}" var="test">
@@ -37,6 +40,21 @@
             <td>${test.getName()}</td>
             <td>${test.getSubject()}</td>
             <td>${test.getComplexity()}</td>
+            <td>${test.getTime()}</td>
+
+
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="editTest">
+                <td><button class="button" name="edit_id" value="${test.getId()}">Edit</button></td>
+            </form>
+
+
+
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="deleteTest">
+                <td><button class="button" name="delete_id" value="${test.getId()}">Delete</button></td>
+            </form>
+
         </tr>
     </c:forEach>
     </tbody>

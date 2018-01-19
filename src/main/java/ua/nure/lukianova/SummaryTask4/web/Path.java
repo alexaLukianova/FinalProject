@@ -8,7 +8,11 @@ public final class Path {
     public static final String PAGE_LIST_USERS = "/WEB-INF/jsp/admin/listUsers.jsp";
     public static final String PAGE_LIST_TESTS = "/WEB-INF/jsp/admin/listTests.jsp";
     public static final String PAGE_ADD_TEST = "/WEB-INF/jsp/admin/testAdd.jsp";
+    public static final String PAGE_EDIT_TEST = "/WEB-INF/jsp/admin/editTest.jsp";
 
+    public static final String PAGE_ADD_QUESTIONS = "/WEB-INF/jsp/admin/questionAdd.jsp";
+
+    public static final String COMMAND_LIST_TESTS = "/controller?command=listTests";
 
 
 
@@ -21,5 +25,5 @@ public final class Path {
 
     public static final String COMMAND_LIST_MENU = "/controller?command=listMenu";
 
-    public static final String PAGE_ERROR_PAGE = "/WEB-INF/jsp/error_page.jsp";
+    public static final String PAGE_ERROR_PAGE = "/WEB-INF/jsp/admin/error_page.jsp";
 }
