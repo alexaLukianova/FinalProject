@@ -36,23 +36,23 @@
     <tbody>
     <c:forEach items="${tests}" var="test">
         <tr>
-            <td>${test.getId()}</td>
-            <td>${test.getName()}</td>
-            <td>${test.getSubject()}</td>
-            <td>${test.getComplexity()}</td>
-            <td>${test.getTime()}</td>
+            <td>${test.id}</td>
+            <td>${test.name}</td>
+            <td>${test.subject}</td>
+            <td>${test.complexity}</td>
+            <td>${test.time}</td>
 
 
             <form action="controller" method="post">
                 <input type="hidden" name="command" value="editTest">
-                <td><button class="button" name="edit_id" value="${test.getId()}">Edit</button></td>
+                <td><button class="button" name="edit_test_id" value="${test.id}">Edit</button></td>
             </form>
 
 
 
             <form action="controller" method="post">
                 <input type="hidden" name="command" value="deleteTest">
-                <td><button class="button" name="delete_id" value="${test.getId()}">Delete</button></td>
+                <td><button class="button" name="delete_id" value="${test.id}">Delete</button></td>
             </form>
 
         </tr>
