@@ -14,4 +14,6 @@ public interface TestService {
     void delete(long testId) throws DBException;
 
     Test findTestById(long testId) throws DBException;
+
+    long update(long id, String name, String subject, String complexity, long time) throws DBException;
 }

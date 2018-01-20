@@ -9,6 +9,7 @@ public class User extends Entity {
     private String username;
     private String password;
     private byte[] avatar;
+    private boolean locked;
     private int roleId;
 
     public String getFirstName() {
@@ -57,6 +58,14 @@ public class User extends Entity {
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 
     @Override

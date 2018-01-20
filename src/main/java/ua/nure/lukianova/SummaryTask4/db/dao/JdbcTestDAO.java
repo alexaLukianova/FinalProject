@@ -15,6 +15,7 @@ public class JdbcTestDAO extends JdbcAbstractDAO<Test> implements TestDAO {
             "DELETE FROM TESTS WHERE ID=(?)";
     private static final String SQL__SELECT_TEST_BY_ID =
             "SELECT * FROM TESTS WHERE ID=(?)";
+    private static final String SQL__UPDATE = "UPDATE TESTS SET NAME = ?, SUBJECT = ?, COMPLEXITY =?, TIME = ? WHERE ID = ?";
 
     @Override
     public void delete(long testId) throws DBException {
@@ -26,6 +27,11 @@ public class JdbcTestDAO extends JdbcAbstractDAO<Test> implements TestDAO {
         return findBy(SQL__SELECT_TEST_BY_ID, String.valueOf(id)).get(0);
     }
 
+    @Override
+    public long update(long id, String name, String subject, String complexity, long time) throws DBException {
+        return execute(SQL__UPDATE, name, subject, complexity, String.valueOf(time), String.valueOf(id));
+    }
+
     private static final String SQL__SELECT_ALL_TEST = "SELECT * FROM TESTS";
 
     {
@@ -33,7 +39,7 @@ public class JdbcTestDAO extends JdbcAbstractDAO<Test> implements TestDAO {
     }
 
     @Override
-    public long create(Test test) throws DBException{
+    public long create(Test test) throws DBException {
         return execute(SQL__INSERT_INTO_TESTS_NEW_TEST, test.getName(), test.getComplexity(), test.getSubject());
     }
 

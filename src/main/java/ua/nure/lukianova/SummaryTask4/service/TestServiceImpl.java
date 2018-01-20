@@ -16,6 +16,11 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
+    public long update(long id, String name, String subject, String complexity, long time) throws DBException {
+        return testDAO.update(id, name, subject, complexity, time);
+    }
+
+    @Override
     public List<Test> findAllTests() throws DBException {
         return testDAO.findAll();
     }
@@ -32,7 +37,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public Test findTestById(long testId) throws DBException {
-       return testDAO.findTestById(testId);
+        return testDAO.findTestById(testId);
     }
 
 }

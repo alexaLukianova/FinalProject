@@ -17,8 +17,8 @@
         <c:forEach var="i" begin="1" end="${sessionScope.questionsNumber}">
 
 
-            <label for="question">Question #${i}</label>
-            <input type="text" id="question" name="question${i}" placeholder="Text of question" size="50"><br>
+            <label for="text">Question #${i}</label>
+            <input type="text" id="text" name="question${i}" placeholder="Text of text" size="50"><br>
 
 
 

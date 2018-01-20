@@ -1,6 +1,6 @@
 package ua.nure.lukianova.SummaryTask4.exception;
 
-public class AppException extends Exception{
+public class AppException extends RuntimeException{
 
     private static final long serialVersionUID = -1342193952982597709L;
 

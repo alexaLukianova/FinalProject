@@ -40,35 +40,41 @@ public class LoginCommand extends Command {
             // throw new AppException("Login/password cannot be empty");
         }
 
-        User user = userService.findUserByLogin(login);
+        User user = userService.findByLogin(login);
         LOGGER.trace("Found in DB: user --> " + user);
 
         if (Objects.isNull(user) || !password.equals(user.getPassword())) {
             throw new AppException("Cannot find user with such login/password");
         }
 
-        Role userRole = Role.getRole(user);
-        LOGGER.trace("userRole --> " + userRole);
-
-        String forward = Path.PAGE_ERROR_PAGE;
-
-        if (userRole == Role.ADMIN) {
-            forward = Path.PAGE_ADMIN_LANDING;
+        String forward = Path.PAGE_ERROR_PAGE;;
+        if (user.isLocked()) {
+            throw new AppException("User locked by admin");
         }
+        else{
+            Role userRole = Role.getRole(user);
+            LOGGER.trace("userRole --> " + userRole);
 
-        if (userRole == Role.STUDENT) {
-            forward = Path.COMMAND_LIST_MENU;
+            forward = Path.PAGE_ERROR_PAGE;
+
+            if (userRole == Role.ADMIN) {
+                forward = Path.PAGE_ADMIN_LANDING;
+            }
+
+            if (userRole == Role.STUDENT) {
+                forward = Path.COMMAND_LIST_MENU;
+            }
+
+            session.setAttribute("user", user);
+            LOGGER.trace("Set the session attribute: user --> " + user);
+
+            session.setAttribute("userRole", userRole);
+            LOGGER.trace("Set the session attribute: userRole --> " + userRole);
+
+            LOGGER.info("User " + user + " logged as " + userRole.toString().toLowerCase());
+
+            LOGGER.debug("Command finished");
         }
-
-        session.setAttribute("user", user);
-        LOGGER.trace("Set the session attribute: user --> " + user);
-
-        session.setAttribute("userRole", userRole);
-        LOGGER.trace("Set the session attribute: userRole --> " + userRole);
-
-        LOGGER.info("User " + user + " logged as " + userRole.toString().toLowerCase());
-
-        LOGGER.debug("Command finished");
         return forward;
     }
 }

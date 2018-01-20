@@ -16,6 +16,7 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
             "INSERT INTO ANSWERS (TEXT, CORRECT, QUESTION_ID) VALUES (?, ?, ?)";
     private static final String SQL__SELECT_ANSWERS_BY_QUESTION_ID =
             "SELECT*FROM ANSWERS WHERE QUESTION_ID = ?";
+    private static final String SQL__UPDATE = "UPDATE ANSWERS SET TEXT = ?, CORRECT = ? WHERE ID = ?";
 
     @Override
     public long create(Answer answer) throws DBException {
@@ -26,8 +27,13 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
     }
 
     @Override
-    public List<Answer> findAnswersByQuestionId(long id) throws DBException {
+    public List<Answer> findByQuestionId(long id) throws DBException {
         return findBy(SQL__SELECT_ANSWERS_BY_QUESTION_ID, String.valueOf(id));
+    }
+
+    @Override
+    public long update(long id, String text, boolean correct) throws DBException {
+        return execute(SQL__UPDATE, text, String.valueOf(correct), String.valueOf(id));
     }
 
     @Override

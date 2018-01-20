@@ -9,6 +9,7 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
+
     private UserDAO userDAO;
 
     public UserServiceImpl() {
@@ -16,12 +17,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAll() throws DBException{
+    public List<User> findAll() throws DBException {
         return userDAO.findAll();
     }
 
     @Override
-    public User findUserByLogin(String username) throws DBException {
-        return userDAO.findUserByLogin(username);
+    public User findByLogin(String username) throws DBException {
+        return userDAO.findByLogin(username);
+    }
+
+    @Override
+    public void inverseLockState(String username) throws DBException {
+        userDAO.inverseLockState(username);
     }
 }

@@ -7,61 +7,101 @@
 <body>
 
 
+<form id="testForm" action="controller" method="post">
+    <input type="hidden" name="command" value="updateTest">
+    <input type="hidden" name="test_id" value="${test.id}">
 
-<h2>Rewrite necessary information</h2>
-<label for="name">Topic</label>
-<input type="text" id="name" name="test_name" value="${test_name}"></br>
+    <h2>Rewrite necessary information</h2>
+    <label for="name">Topic</label>
+    <input disabled type="text" id="name" name="name" value="${test.name}"></br>
 
-<label for="subject">Subject</label>
-<input type="text" id="subject" name="test_subject" value="${test_subject}"></br>
+    <label for="subject">Subject</label>
+    <input disabled type="text" id="subject" name="subject" value="${test.subject}"></br>
 
-<label for="complexity">Complexity</label>
-<input type="text" id="complexity" name="test_complexity" value=${test_complexity}></br>
+    <label for="complexity">Complexity</label>
+    <input disabled type="text" id="complexity" name="complexity" value=${test.complexity}></br>
 
-<label for="time">Time</label>
-<input type="text" id="time" name="test_time" value=${test_time}></br>
+    <label for="time">Time</label>
+    <input disabled type="text" id="time" name="time" value=${test.time}></br>
+
+    <button class="button" type="reset">Reset</button>
+    <button class="button" type="submit">Save</button>
+
+</form>
+
+
+
+
+
+<button class="button" onclick="enable('testForm')">Edit</button>
+<script>
+    function enable(elemId) {
+        var c = document.getElementById(elemId).children;
+
+
+        for (var i = 0; i < c.length; i++) {
+            c[i].disabled = false;
+        }}
+
+
+</script>
 
 
 <h3>Test's questions: </h3>
 </br>
-<c:forEach var="i" begin="0" end="${questionList.size()-1}">
-    <label for="question">Question #${i+1}</label>
-    <input type="text" id="question" name="question${i}" value="${questionList[i].getQuestion()}">
+<c:forEach var="i" begin="0" end="${questions.size()-1}">
 
-<c:if test="${questionList[i].id!=null}">
+
+
+    <form action="controller" method="post">
+        <input type="hidden" name="command" value="updateQuestion">
+        <input type="hidden" name="test_id" value="${test.id}">
+        <input type="hidden" name="question_id" value="${questions[i].id}">
+
+
+        <label for="text">Question #${i+1}</label>
+        <input type="text" id="text" name="question" value="${questions[i].text}">
+
+    <br>
+    <c:forEach var="j" begin="0" end="${questionsAndAnswers[questions[i]].size()-1}">
+        <label for="answer">Answer #${j+1}</label>
+        <input type="text" id="answer" name="answer${j}" value="${questionsAndAnswers[questions[i]][j].getText()}">
+        <input type="checkbox" id="answer" name="correct${j}" value="is_correct"
+               <c:if test="${questionsAndAnswers[questions[i]][j].isCorrect()}">checked="checked"</c:if>> <br>
+    </c:forEach>
+
+
+
+        <button class="button" type="submit">Update</button>
+    </form>
+
+
     <form action="controller" method="post">
         <input type="hidden" name="command" value="deleteQuestion">
-        <td><button class="button" name="delete_question_text" value="${questionList[i].getQuestion()}">Delete</button></td>
+        <input type="hidden" name="test_id" value="${test.id}">
+        <button class="button" name="question_id" value="${questions[i].id}">Delete</button>
     </form>
-</c:if>
 
 
 
-    <br>
-    <c:forEach var="j" begin="0" end="${testInfo[questionList[i]].size()-1}">
-        <label for="answer">Answer #${j+1}</label>
-        <input type="text" id="answer" name="answer${i}${j}" value="${testInfo[questionList[i]][j].getText()}">
-        <input type="checkbox" id="answer" name="correct${i}${j}"
-               <c:if test="${testInfo[questionList[i]][j].isCorrect()}">checked="checked"</c:if>> <br>
-    </c:forEach>
-    <br>
-    <br>
+
+
+
 </c:forEach>
 
 
 <form action="controller" method="post">
     <input type="hidden" name="command" value="addNewQuestion">
-    <button class="button" type="submit">Add new question</button>
-</form>
-
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="updateTest">
-<button class="button" type="submit">Update test</button>
+    <input type="hidden" name="test_id" value="${test.id}">
+    <input type="hidden" name="answers_number" value="${questionsAndAnswers[questions[0]].size()}">
+    <button class="button" type="submit">Add question</button>
 </form>
 
 
-
-
+<form method="post" action="controller">
+    <input type="hidden" name="command" value="listTests">
+    <button class="button" type="submit">Return</button>
+</form>
 
 
 </body>

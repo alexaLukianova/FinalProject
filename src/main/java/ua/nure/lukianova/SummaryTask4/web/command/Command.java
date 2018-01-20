@@ -17,12 +17,16 @@ public abstract class Command implements Serializable {
     private TestService testService;
     private QuestionService questionService;
     private AnswerService answerService;
+    private UserService userService;
 
     {
         testService = new TestServiceImpl();
         questionService = new QuestionServiceImpl();
         answerService = new AnswerServiceImpl();
+        userService = new UserServiceImpl();
     }
+
+
 
     private static final long serialVersionUID = 520974220615423152L;
 
@@ -45,6 +49,10 @@ public abstract class Command implements Serializable {
 
     protected AnswerService getAnswerService() {
         return answerService;
+    }
+
+    protected UserService getUserService() {
+        return userService;
     }
 
 

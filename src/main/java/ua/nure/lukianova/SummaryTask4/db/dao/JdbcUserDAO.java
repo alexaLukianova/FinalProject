@@ -12,6 +12,7 @@ public class JdbcUserDAO extends JdbcAbstractDAO<User> implements UserDAO {
 
     private static final String SQL__SELECT_ALL_USERS = "SELECT * FROM USERS";
     private static final String SQL__SELECT_USER_BY_LOGIN = "SELECT * FROM USERS WHERE USERNAME=?";
+    private static final String SQL__UPDATE_LOCK = "UPDATE USERS SET LOCKED = ? WHERE ID = ?";
 
     {
         sqlSelectAll = SQL__SELECT_ALL_USERS;
@@ -26,11 +27,19 @@ public class JdbcUserDAO extends JdbcAbstractDAO<User> implements UserDAO {
         user.setFirstName(resultSet.getString(Fields.USER_FIRST_NAME));
         user.setLastName(resultSet.getString(Fields.USER_LAST_NAME));
         user.setRoleId(resultSet.getInt(Fields.USER_ROLE_ID));
+        user.setLocked(resultSet.getBoolean(Fields.USER_LOCKED));
         return user;
     }
 
     @Override
-    public User findUserByLogin(String username) throws DBException{
+    public User findByLogin(String username) throws DBException {
         return findBy(SQL__SELECT_USER_BY_LOGIN, username).get(0);
+    }
+
+    @Override
+    public void inverseLockState(String username) throws DBException {
+        User user = findByLogin(username);
+        execute(SQL__UPDATE_LOCK, String.valueOf(!user.isLocked()), String.valueOf(user.getId()));
+
     }
 }

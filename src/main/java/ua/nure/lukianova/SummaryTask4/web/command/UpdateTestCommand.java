@@ -11,16 +11,19 @@ import java.io.IOException;
 public class UpdateTestCommand extends Command {
 
 
-
-
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
-        getTestService();//.update(Test test);
-        getAnswerService();
-        getQuestionService();
+        long testId = Long.valueOf(request.getParameter("test_id"));
 
+        request.setAttribute("test_id", request.getParameter("test_id"));
 
-        return Path.COMMAND_LIST_TESTS;
+        getTestService().update(testId,
+                request.getParameter("name"),
+                request.getParameter("subject"),
+                request.getParameter("complexity"),
+                Long.valueOf(request.getParameter("time")));
+
+        return Path.COMMAND_EDIT_TEST;
     }
 }

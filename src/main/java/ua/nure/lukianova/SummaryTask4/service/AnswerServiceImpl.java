@@ -7,7 +7,7 @@ import ua.nure.lukianova.SummaryTask4.exception.DBException;
 
 import java.util.List;
 
-public class AnswerServiceImpl implements AnswerService{
+public class AnswerServiceImpl implements AnswerService {
 
     private AnswerDAO answerDAO;
 
@@ -21,8 +21,13 @@ public class AnswerServiceImpl implements AnswerService{
     }
 
     @Override
-    public List<Answer> findAnswersByQuestionId(long id) throws DBException {
-        return answerDAO.findAnswersByQuestionId(id);
+    public List<Answer> findByQuestionId(long id) throws DBException {
+        return answerDAO.findByQuestionId(id);
+    }
+
+    @Override
+    public long update(long id, String text, boolean correct) throws DBException {
+        return answerDAO.update(id, text, correct);
     }
 }
 

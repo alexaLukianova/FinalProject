@@ -13,7 +13,13 @@ public final class Path {
     public static final String PAGE_ADD_QUESTIONS = "/WEB-INF/jsp/admin/questionAdd.jsp";
 
     public static final String COMMAND_LIST_TESTS = "/controller?command=listTests";
+    public static final String COMMAND_LIST_USERS = "/controller?command=listUsers";
+
     public static final String COMMAND_EDIT_TEST = "/controller?command=editTest";
+
+    public static final String PAGE_ADD_NEW_QUESTION = "/WEB-INF/jsp/admin/addNewQuestion.jsp";
+
+
 
 
 

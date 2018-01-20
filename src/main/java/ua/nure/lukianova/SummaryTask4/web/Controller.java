@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class Controller extends HttpServlet {
@@ -42,6 +43,7 @@ public class Controller extends HttpServlet {
         // obtain command object by its name
         Command command = CommandContainer.get(commandName);
 
+
         LOGGER.trace("Obtained command --> " + command);
 
         // execute command and get forward address
@@ -54,6 +56,9 @@ public class Controller extends HttpServlet {
         LOGGER.trace("Forward address -->" + forward);
 
         LOGGER.debug("Controller finished, now go to forward address --> " + forward);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("command", commandName);
 
         // go to forward
         request.getRequestDispatcher(forward).forward(request, response);

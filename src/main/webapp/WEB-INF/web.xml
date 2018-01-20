@@ -26,7 +26,7 @@
         <filter-class>ua.nure.lukianova.SummaryTask4.web.filter.CommandAccessFilter</filter-class>
         <init-param>
             <param-name>admin</param-name>
-            <param-value>listUsers listTests addTest addQuestion addQuestions saveTest deleteTest editTest addNewQuestion updateTest deleteQuestion</param-value>
+            <param-value>listUsers listTests addTest addQuestion addQuestions saveTest deleteTest editTest addNewQuestion updateTest deleteQuestion saveQuestion updateQuestion lockUser</param-value>
         </init-param>
         <init-param>
             <param-name>student</param-name>
@@ -70,6 +70,8 @@
             <page-encoding>UTF-8</page-encoding>
         </jsp-property-group>
     </jsp-config>
+
+    
 
 
 </web-app>

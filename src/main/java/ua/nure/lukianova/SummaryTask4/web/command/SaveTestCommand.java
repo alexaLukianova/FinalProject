@@ -2,7 +2,6 @@ package ua.nure.lukianova.SummaryTask4.web.command;
 
 import ua.nure.lukianova.SummaryTask4.db.entity.Answer;
 import ua.nure.lukianova.SummaryTask4.db.entity.Question;
-import ua.nure.lukianova.SummaryTask4.db.entity.Test;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.AnswerService;
 import ua.nure.lukianova.SummaryTask4.service.AnswerServiceImpl;
@@ -42,7 +41,7 @@ public class SaveTestCommand extends Command {
         for (int i = 1; i <= questionsNumber; i++) {
 
             question = new Question();
-            question.setQuestion(decode(request.getParameter("question" + i)));
+            question.setText(decode(request.getParameter("question" + i)));
             question.setTestId(testId);
             questionId = questionService.create(question);
 

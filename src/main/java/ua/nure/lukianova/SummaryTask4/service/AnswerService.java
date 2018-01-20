@@ -9,5 +9,7 @@ public interface AnswerService {
 
     long create(Answer answer) throws DBException;
 
-    List<Answer> findAnswersByQuestionId(long id) throws DBException;
+    List<Answer> findByQuestionId(long id) throws DBException;
+
+    long update(long id, String text, boolean correct) throws DBException;
 }

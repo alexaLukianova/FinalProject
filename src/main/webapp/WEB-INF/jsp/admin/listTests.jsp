@@ -1,27 +1,22 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<html lang="${language}">
-<head>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
+<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/button.css"/>"/>
-    <title>Admin</title>
+<html>
 
+<c:set var="title" value="home" scope="page"/>
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
 
-
-
-</head>
 <body>
+
+
 
 <%@ include file="/WEB-INF/jspf/navigation.jspf" %>
 
-<%@ include file="/WEB-INF/view/header.jsp" %>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+
 
 <h1><fmt:message key="test.table_name"/></h1>
-
 
 <table class="table table-bordered">
     <thead>
@@ -45,7 +40,7 @@
 
             <form action="controller" method="post">
                 <input type="hidden" name="command" value="editTest">
-                <td><button class="button" name="edit_test_id" value="${test.id}">Edit</button></td>
+                <td><button class="button" name="test_id" value="${test.id}">Edit</button></td>
             </form>
 
 

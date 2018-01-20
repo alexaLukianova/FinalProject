@@ -21,8 +21,18 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<Question> findQuestionsByTestId(long id) throws DBException {
-        return questionDAO.findQuestionsByTestId(id);
+    public boolean delete(long id) throws DBException {
+        return questionDAO.delete(id);
+    }
+
+    @Override
+    public long update(long id, String text) throws DBException {
+        return questionDAO.update(id, text);
+    }
+
+    @Override
+    public List<Question> findByTestId(long id) throws DBException {
+        return questionDAO.findByTestId(id);
     }
 
 

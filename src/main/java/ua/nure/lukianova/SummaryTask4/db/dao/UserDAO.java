@@ -9,6 +9,8 @@ public interface UserDAO {
 
     List<User> findAll() throws DBException;
 
-    User findUserByLogin(String username) throws DBException;
+    User findByLogin(String username) throws DBException;
+
+    void inverseLockState(String username) throws DBException;
 
 }

@@ -7,13 +7,14 @@ CREATE TABLE roles (
 );
 
 CREATE TABLE users (
-  id         INT AUTO_INCREMENT,
+  id         INT     AUTO_INCREMENT,
   first_name VARCHAR(45),
   last_name  VARCHAR(45),
   username   VARCHAR(45) UNIQUE NOT NULL,
   password   VARCHAR(45)        NOT NULL,
   avatar     BLOB,
   role_id    INT,
+  locked     BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (id),
   FOREIGN KEY (role_id) REFERENCES roles (id)
 );

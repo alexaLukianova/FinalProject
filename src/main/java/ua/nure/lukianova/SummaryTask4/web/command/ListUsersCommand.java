@@ -22,14 +22,7 @@ public class ListUsersCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOGGER.debug("Command starts");
-
-        System.out.println(request.getCharacterEncoding());
-        System.out.println(response.getCharacterEncoding());
-
-        UserService userService = new UserServiceImpl();
-
-        request.setAttribute("users", userService.findAll());
-
+        request.setAttribute("users", getUserService().findAll());
         return Path.PAGE_LIST_USERS;
     }
 }

@@ -9,5 +9,9 @@ public interface QuestionDAO {
 
     long create(Question question) throws DBException;
 
-    List<Question> findQuestionsByTestId(long id) throws DBException;
+    List<Question> findByTestId(long id) throws DBException;
+
+    boolean delete(long id) throws DBException;
+
+    long update(long id, String text) throws DBException;
 }

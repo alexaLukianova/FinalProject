@@ -4,15 +4,15 @@ public class Question extends Entity {
 
     private static final long serialVersionUID = 3435578259315105194L;
 
-    private String question;
+    private String text;
     private Long testId;
 
-    public String getQuestion() {
-        return question;
+    public String getText() {
+        return text;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Long getTestId() {
