@@ -6,6 +6,7 @@ import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.web.command.Command;
 import ua.nure.lukianova.SummaryTask4.web.command.CommandContainer;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ public class Controller extends HttpServlet {
                           HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
     }
+
 
     private void process(HttpServletRequest request,
                          HttpServletResponse response) throws IOException, ServletException {

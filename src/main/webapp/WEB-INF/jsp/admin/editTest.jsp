@@ -60,7 +60,7 @@
 
 
         <label for="text">Question #${i+1}</label>
-        <input type="text" id="text" name="question" value="${questions[i].text}">
+        <input type="text" id="text" name="question" value="${questions[i].text}" size="">
 
     <br>
     <c:forEach var="j" begin="0" end="${questionsAndAnswers[questions[i]].size()-1}">

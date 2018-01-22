@@ -10,8 +10,7 @@
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/button.css"/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/loginStyle.css"/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/forFields.css"/>"/>
+
 
     <%--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
 
