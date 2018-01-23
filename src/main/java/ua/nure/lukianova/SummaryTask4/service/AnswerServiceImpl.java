@@ -29,5 +29,15 @@ public class AnswerServiceImpl implements AnswerService {
     public long update(long id, String text, boolean correct) throws DBException {
         return answerDAO.update(id, text, correct);
     }
+
+    @Override
+    public Answer findById(long id) throws DBException {
+        return answerDAO.findById(id);
+    }
+
+    @Override
+    public List<Answer> findCorrectByQuestionId(long id) throws DBException {
+        return answerDAO.findCorrectByQuestionId(id);
+    }
 }
 

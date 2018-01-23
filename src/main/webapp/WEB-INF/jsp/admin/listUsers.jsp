@@ -21,7 +21,7 @@
     <table class="table table-striped">
         <thead>
         <th><fmt:message key="id"/></th>
-        <th ><fmt:message key="user.first_name"/></th>
+        <th><fmt:message key="user.first_name"/></th>
         <th><fmt:message key="user.last_name"/></th>
         <th><fmt:message key="user.username"/></th>
         <th></th>

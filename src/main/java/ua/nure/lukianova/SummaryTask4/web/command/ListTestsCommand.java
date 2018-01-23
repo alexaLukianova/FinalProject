@@ -32,6 +32,8 @@ public class ListTestsCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOGGER.debug("Command starts");
 
+        request.getParameter("timer");
+
 
 
         List<Test> tests = getTestService().findAllTests();

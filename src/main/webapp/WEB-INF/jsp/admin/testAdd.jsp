@@ -16,10 +16,10 @@
 
 
 
+<div class="col-sm-1 "></div>
 
 
-
-<div class="container">
+<div class="col-sm-10 ">
 
     <form action="controller" method="post">
         <input type="hidden" name="command" value="addQuestions">
@@ -52,7 +52,7 @@
 
 
 
-
+<div class="col-sm-1 "></div>
 
 </body>
 </html>

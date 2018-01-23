@@ -15,6 +15,7 @@ public abstract class JdbcAbstractDAO<T> {
     protected ConnectionFactory connectionFactory = ConnectionFactory.getInstance();
     protected static Logger LOGGER = LoggerFactory.getLogger(JdbcTestDAO.class);
     protected String sqlSelectAll;
+    protected String sqlSelectById;
 
     public List<T> findAll() throws DBException{
         return findBy(sqlSelectAll);
@@ -65,6 +66,11 @@ public abstract class JdbcAbstractDAO<T> {
             close(preparedStatement, connection);
         }
         return entities;
+    }
+
+    public T findById(long id) throws DBException {
+        List<T> question = findBy(sqlSelectById, String.valueOf(id));
+        return question.isEmpty()? null : question.get(0);
     }
 
     protected abstract T extractEntity(ResultSet resultSet) throws SQLException;

@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users, roles, tests, questions, answers;
+DROP TABLE IF EXISTS users, roles, tests, questions, answers, results;
 
 CREATE TABLE roles (
   id   INT,
@@ -49,9 +49,22 @@ CREATE TABLE answers (
   ON UPDATE RESTRICT
 );
 
+CREATE TABLE results (
+  id         INT AUTO_INCREMENT,
+  test_id    INT NOT NULL,
+  result     INT,
+  start_time BIGINT,
+  user_id    INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (test_id) REFERENCES tests (id),
+  FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
 INSERT INTO roles VALUES (0, 'admin'), (1, 'student');
 
-INSERT INTO users (username, password, role_id) VALUES ('admin', 'password', 0), ('student', 'password', 1);
+INSERT INTO users (first_name, last_name, username, password, role_id)
+VALUES ('Alexandra', 'Lukianova', 'admin', 'password', 0),
+  ('Peter', 'Petrov', 'student', 'password', 1);
 
 INSERT INTO tests (name, subject, complexity, time)
 VALUES ('Бобры', 'Зоология', 'Легкая', 10),
@@ -66,7 +79,7 @@ INSERT INTO questions (text, test_id) VALUES
   ('Сколько глаз у бобра обыкновенного?', 1),
   ('К какому отряду относится бобер обыкновенный?', 1),
   ('Где живут бобры?', 1),
-  ('Сколько памяьников бобру установлено в Бобруйске?', 1);
+  ('Сколько памятников бобру установлено в Бобруйске?', 1);
 
 INSERT INTO answers (text, correct, question_id)
 VALUES ('1', FALSE, 1),
@@ -213,24 +226,24 @@ VALUES ('It tells the browser what type of data browser will send', FALSE, 22),
   ('It tells the server what type of data server will receive', FALSE, 22),
   ('It tells the server what type of data server will send', FALSE, 22),
 
-  ('put', TRUE , 23),
+  ('put', TRUE, 23),
   ('post', FALSE, 23),
   ('head', FALSE, 23),
-  ('trace', FALSE , 23),
+  ('trace', FALSE, 23),
 
-  ('application/java', FALSE , 24),
+  ('application/java', FALSE, 24),
   ('image/bmp', FALSE, 24),
   ('text/html', FALSE, 24),
-  ('all of the above', TRUE , 24),
+  ('all of the above', TRUE, 24),
 
   ('we cannot', FALSE, 25),
   ('through URL', TRUE, 25),
   ('through payload', FALSE, 25),
   ('non of these', FALSE, 25),
 
-  ('get', TRUE , 26),
+  ('get', TRUE, 26),
   ('post', FALSE, 26),
-  ('option', FALSE , 26),
+  ('option', FALSE, 26),
   ('put', FALSE, 26),
 
   ('by comma', TRUE, 27),
@@ -242,27 +255,26 @@ INSERT INTO questions (text, test_id) VALUES
   ('Сколько различных звуков производят кошки?', 6),
   ('Сколько существует пород домашних кошек?', 6),
   ('Кто является самой большой дикой кошкой?', 6),
-  ('Сколько примерно усов у кошки?', 6),
-  ('Which HTTP method send by browser that asks the server to get the page only?', 6),
-  ('When we are sending data in URL in get method, how to separate parameters?', 6);
+  ('Сколько примерно усов у кошки?', 6);
+
 
 INSERT INTO answers (text, correct, question_id)
 VALUES ('10', FALSE, 28),
-  ('50', FALSE , 28),
-  ('100', TRUE , 28),
+  ('50', FALSE, 28),
+  ('100', TRUE, 28),
   ('1', FALSE, 28),
 
-  ('127', FALSE , 29),
-  ('256', TRUE , 29),
+  ('127', FALSE, 29),
+  ('256', TRUE, 29),
   ('1к', FALSE, 29),
-  ('2к', FALSE , 29),
+  ('2к', FALSE, 29),
 
-  ('амурский тигр', TRUE , 30),
+  ('амурский тигр', TRUE, 30),
   ('пума', FALSE, 30),
   ('рысь', FALSE, 30),
-  ('пантера', FALSE , 30),
+  ('пантера', FALSE, 30),
 
-  ('24', TRUE , 31),
-  ('100', FALSE , 31),
+  ('24', TRUE, 31),
+  ('100', FALSE, 31),
   ('10', FALSE, 31),
   ('80', FALSE, 31);

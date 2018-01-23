@@ -12,5 +12,9 @@ public interface AnswerDAO {
 
    List<Answer> findByQuestionId(long id) throws DBException;
 
+   List<Answer> findCorrectByQuestionId(long id) throws DBException;
+
    long update(long id, String text, boolean correct) throws DBException;
+
+   Answer findById(long id) throws DBException;
 }

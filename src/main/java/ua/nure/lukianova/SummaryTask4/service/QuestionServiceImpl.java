@@ -31,6 +31,11 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
+    public Question findById(long id) throws DBException {
+        return questionDAO.findById(id);
+    }
+
+    @Override
     public List<Question> findByTestId(long id) throws DBException {
         return questionDAO.findByTestId(id);
     }

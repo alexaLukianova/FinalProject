@@ -17,6 +17,16 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
     private static final String SQL__SELECT_ANSWERS_BY_QUESTION_ID =
             "SELECT*FROM ANSWERS WHERE QUESTION_ID = ?";
     private static final String SQL__UPDATE = "UPDATE ANSWERS SET TEXT = ?, CORRECT = ? WHERE ID = ?";
+    private static final String SQL__SELECT_ALL_ANSWERS = "SELECT * FROM ANSWERS";
+    private static final String SQL__SELECT_CORRECT_ANSWERS_BY_QUESTION_ID =
+            "SELECT*FROM ANSWERS WHERE QUESTION_ID = ? AND CORRECT=TRUE";
+    private static final String SQL__SELECT_ANSWER_BY_ID = "SELECT * FROM ANSWERS WHERE ID = ?";
+
+    {
+        sqlSelectAll = SQL__SELECT_ALL_ANSWERS;
+        sqlSelectById = SQL__SELECT_ANSWER_BY_ID;
+    }
+
 
     @Override
     public long create(Answer answer) throws DBException {
@@ -32,9 +42,15 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
     }
 
     @Override
+    public List<Answer> findCorrectByQuestionId(long id) throws DBException {
+        return findBy(SQL__SELECT_CORRECT_ANSWERS_BY_QUESTION_ID, String.valueOf(id));
+    }
+
+    @Override
     public long update(long id, String text, boolean correct) throws DBException {
         return execute(SQL__UPDATE, text, String.valueOf(correct), String.valueOf(id));
     }
+
 
     @Override
     protected Answer extractEntity(ResultSet resultSet) throws SQLException {

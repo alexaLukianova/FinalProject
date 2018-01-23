@@ -36,4 +36,5 @@ public class Answer extends Entity {
     public String toString() {
         return "Answer [text=" + text + ", correct=" + correct + ", getId()=" + getId() + "]";
     }
+
 }

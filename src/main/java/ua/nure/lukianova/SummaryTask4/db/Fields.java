@@ -24,6 +24,12 @@ public final class Fields {
     public static final String ANSWER_CORRECT = "correct";
     public static final String ANSWER_QUESTION_ID = "question_id";
 
+    public static final String RESULT_TEST_ID = "test_id";
+    public static final String RESULT_RESULT = "result";
+    public static final String RESULT_START_TIME = "start_time";
+    public static final String RESULT_USER_ID = "user_id";
+
+
 
 
 }

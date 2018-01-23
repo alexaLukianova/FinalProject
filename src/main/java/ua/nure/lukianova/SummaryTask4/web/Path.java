@@ -9,6 +9,8 @@ public final class Path {
     public static final String PAGE_LIST_TESTS = "/WEB-INF/jsp/admin/listTests.jsp";
     public static final String PAGE_ADD_TEST = "/WEB-INF/jsp/admin/testAdd.jsp";
     public static final String PAGE_EDIT_TEST = "/WEB-INF/jsp/admin/editTest.jsp";
+    public static final String PAGE_TEST_FORM = "/WEB-INF/jsp/admin/testRunForm.jsp";
+    public static final String PAGE_MESSAGE= "/WEB-INF/jsp/admin/message.jsp";
 
     public static final String PAGE_ADD_QUESTIONS = "/WEB-INF/jsp/admin/questionAdd.jsp";
 

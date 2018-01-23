@@ -11,6 +11,8 @@ public interface QuestionDAO {
 
     List<Question> findByTestId(long id) throws DBException;
 
+    Question findById(long id) throws DBException;
+
     boolean delete(long id) throws DBException;
 
     long update(long id, String text) throws DBException;

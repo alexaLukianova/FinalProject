@@ -15,6 +15,14 @@ public class JdbcQuestionDAO extends JdbcAbstractDAO<Question> implements Questi
     private static final String SQL__SELECT_FROM_QUESTIONS_BY_TEST_ID = "SELECT * FROM QUESTIONS WHERE TEST_ID = ?";
     private static final String SQL__DELETE = "DELETE FROM QUESTIONS WHERE ID = ?";
     private static final String SQL__UPDATE = "UPDATE QUESTIONS SET TEXT = ? WHERE ID = ?";
+    private static final String SQL__SELECT_ALL_QUESTIONS = "SELECT * FROM QUESTIONS";
+    private static final String SQL__SELECT_QUESTION_BY_ID = "SELECT * FROM QUESTIONS WHERE ID = ?";
+
+    {
+        sqlSelectAll = SQL__SELECT_ALL_QUESTIONS;
+        sqlSelectById = SQL__SELECT_QUESTION_BY_ID;
+    }
+
 
     @Override
     public long create(Question question) throws DBException {
@@ -28,6 +36,7 @@ public class JdbcQuestionDAO extends JdbcAbstractDAO<Question> implements Questi
         return findBy(SQL__SELECT_FROM_QUESTIONS_BY_TEST_ID, String.valueOf(id));
     }
 
+
     @Override
     public boolean delete(long id) throws DBException {
         return execute(SQL__DELETE, String.valueOf(id)) != -1;
@@ -38,11 +47,6 @@ public class JdbcQuestionDAO extends JdbcAbstractDAO<Question> implements Questi
         return execute(SQL__UPDATE, text, String.valueOf(id));
     }
 
-
-    private long readId(Question question) throws DBException {
-        sqlSelectAll = SQL__SELECT_FROM_QUESTIONS_BY_TEXT;
-        return findAll().get(0).getId();
-    }
 
 
     @Override

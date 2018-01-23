@@ -36,8 +36,8 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Test findTestById(long testId) throws DBException {
-        return testDAO.findTestById(testId);
+    public Test findById(long testId) throws DBException {
+        return testDAO.findById(testId);
     }
 
 }

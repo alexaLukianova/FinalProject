@@ -62,7 +62,7 @@ public class LoginCommand extends Command {
             }
 
             if (userRole == Role.STUDENT) {
-                forward = Path.COMMAND_LIST_MENU;
+                forward = Path.PAGE_ADMIN_LANDING;
             }
 
             session.setAttribute("user", user);

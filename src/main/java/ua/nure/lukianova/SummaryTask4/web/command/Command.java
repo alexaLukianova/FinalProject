@@ -1,6 +1,7 @@
 package ua.nure.lukianova.SummaryTask4.web.command;
 
 import ua.nure.lukianova.SummaryTask4.db.entity.Question;
+import ua.nure.lukianova.SummaryTask4.db.entity.Result;
 import ua.nure.lukianova.SummaryTask4.db.entity.Test;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.*;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.ResultSet;
 
 public abstract class Command implements Serializable {
 
@@ -19,11 +21,16 @@ public abstract class Command implements Serializable {
     private AnswerService answerService;
     private UserService userService;
 
+
+
+    private ResultService resultService;
+
     {
         testService = new TestServiceImpl();
         questionService = new QuestionServiceImpl();
         answerService = new AnswerServiceImpl();
         userService = new UserServiceImpl();
+        resultService = new ResultServiceImpl();
     }
 
 
@@ -55,5 +62,8 @@ public abstract class Command implements Serializable {
         return userService;
     }
 
+    protected ResultService getResultService() {
+        return resultService;
+    }
 
 }

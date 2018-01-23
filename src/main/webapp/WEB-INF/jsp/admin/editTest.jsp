@@ -83,10 +83,6 @@
     </form>
 
 
-
-
-
-
 </c:forEach>
 
 
@@ -102,6 +98,7 @@
     <input type="hidden" name="command" value="listTests">
     <button class="button" type="submit">Return</button>
 </form>
+
 
 
 </body>
