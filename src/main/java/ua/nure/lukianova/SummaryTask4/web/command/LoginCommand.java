@@ -58,11 +58,11 @@ public class LoginCommand extends Command {
             forward = Path.PAGE_ERROR_PAGE;
 
             if (userRole == Role.ADMIN) {
-                forward = Path.PAGE_ADMIN_LANDING;
+                forward = Path.COMMAND_SHOW_PROFILE;
             }
 
             if (userRole == Role.STUDENT) {
-                forward = Path.PAGE_ADMIN_LANDING;
+                forward = Path.COMMAND_SHOW_PROFILE;
             }
 
             session.setAttribute("user", user);

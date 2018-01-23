@@ -26,11 +26,11 @@
         <filter-class>ua.nure.lukianova.SummaryTask4.web.filter.CommandAccessFilter</filter-class>
         <init-param>
             <param-name>admin</param-name>
-            <param-value>listUsers listTests addTest addQuestion addQuestions saveTest deleteTest editTest addNewQuestion updateTest deleteQuestion saveQuestion updateQuestion lockUser</param-value>
+            <param-value>showProfile listUsers listTests addTest addQuestion addQuestions saveTest deleteTest editTest addNewQuestion updateTest deleteQuestion saveQuestion updateQuestion lockUser</param-value>
         </init-param>
         <init-param>
             <param-name>student</param-name>
-            <param-value>listTests runTest evaluteResult</param-value>
+            <param-value>showProfile listTests runTest evaluteResult</param-value>
         </init-param>
         <init-param>
             <param-name>common</param-name>

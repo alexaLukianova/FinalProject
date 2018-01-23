@@ -1,5 +1,6 @@
 package ua.nure.lukianova.SummaryTask4.service;
 
+import ua.nure.lukianova.SummaryTask4.db.bean.TestResultBean;
 import ua.nure.lukianova.SummaryTask4.db.entity.User;
 import ua.nure.lukianova.SummaryTask4.exception.DBException;
 
@@ -12,4 +13,6 @@ public interface UserService {
     User findByLogin(String username) throws DBException;
 
     void inverseLockState(String username) throws DBException;
+
+
 }

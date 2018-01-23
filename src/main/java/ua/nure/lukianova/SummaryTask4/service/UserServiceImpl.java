@@ -1,6 +1,9 @@
 package ua.nure.lukianova.SummaryTask4.service;
 
+import ua.nure.lukianova.SummaryTask4.db.bean.TestResultBean;
+import ua.nure.lukianova.SummaryTask4.db.dao.JdbcTestResultBeanDAO;
 import ua.nure.lukianova.SummaryTask4.db.dao.JdbcUserDAO;
+import ua.nure.lukianova.SummaryTask4.db.dao.TestResultBeanDAO;
 import ua.nure.lukianova.SummaryTask4.db.dao.UserDAO;
 import ua.nure.lukianova.SummaryTask4.db.entity.User;
 import ua.nure.lukianova.SummaryTask4.exception.DBException;
@@ -11,6 +14,7 @@ public class UserServiceImpl implements UserService {
 
 
     private UserDAO userDAO;
+
 
     public UserServiceImpl() {
         userDAO = new JdbcUserDAO();
@@ -30,4 +34,6 @@ public class UserServiceImpl implements UserService {
     public void inverseLockState(String username) throws DBException {
         userDAO.inverseLockState(username);
     }
+
+
 }

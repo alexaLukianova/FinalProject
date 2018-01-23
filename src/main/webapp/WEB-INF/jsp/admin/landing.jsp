@@ -16,15 +16,9 @@
 <div style="padding-left:16px">
     <h2>Hello, ${userRole.toString()}!!!</h2>
     <p>Your profile:</p>
-
-    <label for="firstName">First Name: </label>
-    <input type="text" id="firstName" name="firstName" size="50" value="${user.firstName}"><br>
-
-    <label for="lastName">Last Name: </label>
-    <input type="text" id="lastName" name="lastName" size="50" value="${user.lastName}"><br>
-
-    <label for="username">Login: </label>
-    <input type="text" id="username" name="username" size="50" value="${user.username}"><br>
+    <label>First Name: ${user.firstName}</label><br>
+    <label>Last Name: ${user.lastName} </label><br>
+    <label>Login: ${user.username} </label><br>
 </div>
 
 <div class="col-sm-1 "></div>
@@ -38,15 +32,23 @@
         <th>Score</th>
         </thead>
         <tbody>
-        <c:forEach items="${users}" var="user">
+        <c:forEach items="${userProgress}" var="progress">
             <tr>
-                <td>${user.id}</td>
-                <td>${user.firstName}</td>
-                <td>${user.lastName}</td>
+                <td>${progress.testName}</td>
+                <td>${progress.testSubject}</td>
+                <td>${progress.result}</td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+
+
+    <%--<p>${userProgress.testName}, ${userProgress.testSubject}</p>--%>
+    <%--<div class="container">--%>
+    <%--<div class="skills html">${userProgress.result}</div>--%>
+    <%--</div>--%>
+
+
 </div>
 <div class="col-sm-1 "></div>
 

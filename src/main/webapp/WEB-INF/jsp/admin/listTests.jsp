@@ -6,6 +6,7 @@
 <c:set var="title" value="home" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 
+
 <body>
 
 
@@ -71,7 +72,9 @@
                             <td>
                                 <form action="controller" method="post">
                                     <input type="hidden" name="command" value="runTest">
-                                    <button class="btn btn-primary btn-md" name="test_id" value="${test.id}">Run</button>
+                                    <button class="btn btn-primary btn-md " name="test_id" value="${test.id}"
+                                    title="Attention!!!Each test can be run only once!">Run
+                                    </button>
                                 </form>
                             </td>
                             <td></td>

@@ -11,6 +11,7 @@ public final class Path {
     public static final String PAGE_EDIT_TEST = "/WEB-INF/jsp/admin/editTest.jsp";
     public static final String PAGE_TEST_FORM = "/WEB-INF/jsp/admin/testRunForm.jsp";
     public static final String PAGE_MESSAGE= "/WEB-INF/jsp/admin/message.jsp";
+    public static final String PAGE_PROFILE= "/WEB-INF/jsp/admin/landing.jsp";
 
     public static final String PAGE_ADD_QUESTIONS = "/WEB-INF/jsp/admin/questionAdd.jsp";
 
@@ -18,6 +19,7 @@ public final class Path {
     public static final String COMMAND_LIST_USERS = "/controller?command=listUsers";
 
     public static final String COMMAND_EDIT_TEST = "/controller?command=editTest";
+    public static final String COMMAND_SHOW_PROFILE = "/controller?command=showProfile";
 
     public static final String PAGE_ADD_NEW_QUESTION = "/WEB-INF/jsp/admin/addNewQuestion.jsp";
 

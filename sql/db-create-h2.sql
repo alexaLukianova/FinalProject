@@ -64,7 +64,8 @@ INSERT INTO roles VALUES (0, 'admin'), (1, 'student');
 
 INSERT INTO users (first_name, last_name, username, password, role_id)
 VALUES ('Alexandra', 'Lukianova', 'admin', 'password', 0),
-  ('Peter', 'Petrov', 'student', 'password', 1);
+  ('Peter', 'Petrov', 'student', 'password', 1),
+  ('Sidor', 'Sidorov', 'student1', 'password1', 1);
 
 INSERT INTO tests (name, subject, complexity, time)
 VALUES ('Бобры', 'Зоология', 'Легкая', 10),
