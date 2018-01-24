@@ -1,7 +1,9 @@
 <div class="topnav">
-    <a class="active" href="/controller?command=showProfile">Home</a>
-    <a href="/controller?command=listUsers">Users</a>
+    <a class="active" href="/controller?command=showProfile">Profile</a>
+    <c:if test="${'admin'.equals(userRole.toString())}">
+        <a href="/controller?command=listUsers">Users </a>
+    </c:if>
     <a href="/controller?command=listTests">Tests</a>
-    <a href="#about">About</a>
-    <a href="#about">Settings</a>
+    <a href="/controller?command=logout">Logout</a>
+    <%--<a href="#about">Settings</a>--%>
 </div>

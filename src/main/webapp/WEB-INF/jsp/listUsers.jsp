@@ -12,8 +12,6 @@
 
 <%@ include file="/WEB-INF/jspf/navigation.jspf" %>
 
-<%@ include file="/WEB-INF/jspf/header.jspf" %>
-
 <div class="col-sm-1 "></div>
 <div class="col-sm-10 ">
     <h1 align="center"><fmt:message key="user.table_name"/></h1>
@@ -24,6 +22,7 @@
         <th><fmt:message key="user.first_name"/></th>
         <th><fmt:message key="user.last_name"/></th>
         <th><fmt:message key="user.username"/></th>
+        <th></th>
         <th></th>
         </thead>
         <tbody>
@@ -49,15 +48,30 @@
 
                         </button>
                     </form>
+                </td>
 
+                <td>
+                    <form action="controller" method="post">
+                        <input type="hidden" name="command" value="deleteUser">
+                        <button class="btn btn-danger btn-md" name="userId" value="${user.id}">Delete
+                        </button>
+                    </form>
                 </td>
 
             </tr>
         </c:forEach>
         </tbody>
     </table>
+
+    <form action="controller" method="post">
+        <input type="hidden" name="command" value="addUser">
+        <button class="btn btn-primary btn-md" name="userId" value="${user.id}">Add new user
+        </button>
+    </form>
 </div>
-<div class="col-sm-1 "></div>
+<div class="col-sm-1 ">
+    <%@ include file="/WEB-INF/jspf/header.jspf" %>
+</div>
 
 
 </body>

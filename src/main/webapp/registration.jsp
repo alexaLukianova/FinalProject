@@ -23,7 +23,7 @@
         <input type="text" id="password" name="password"><br>
 
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        <button class="btn btn-primary btn-md" type="submit">Register</button>
 
     </form>
 </div>
