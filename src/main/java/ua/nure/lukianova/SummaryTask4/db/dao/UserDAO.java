@@ -13,4 +13,6 @@ public interface UserDAO {
 
     void inverseLockState(String username) throws DBException;
 
+    long create(User user) throws DBException;
+
 }

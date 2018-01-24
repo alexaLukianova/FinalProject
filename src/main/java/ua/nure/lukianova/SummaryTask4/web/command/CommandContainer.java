@@ -32,6 +32,7 @@ public class CommandContainer {
         commands.put("runTest", new RunTestCommand());
         commands.put("evaluteResult", new EvaluateResultCommand());
         commands.put("showProfile", new ShowProfileCommand());
+        commands.put("register", new RegisterCommand());
 //        commands.put("logout", new LogoutCommand());
 //        commands.put("viewSettings", new ViewSettingsCommand());
 //        commands.put("noCommand", new NoCommand());

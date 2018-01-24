@@ -14,7 +14,9 @@
         <input class="form-control" type="text" name="username" placeholder="username"/>
         <input class="form-control" type="password" name="password" placeholder="password"/>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <a href="registration.jsp">Register</a>
     </form>
+
 </div>
 
 </body>

@@ -13,6 +13,8 @@ public class JdbcUserDAO extends JdbcAbstractDAO<User> implements UserDAO {
     private static final String SQL__SELECT_ALL_USERS = "SELECT * FROM USERS";
     private static final String SQL__SELECT_USER_BY_LOGIN = "SELECT * FROM USERS WHERE USERNAME=?";
     private static final String SQL__UPDATE_LOCK = "UPDATE USERS SET LOCKED = ? WHERE ID = ?";
+    private static final String SQL__INSERT_USER = "INSERT INTO USERS (FIRST_NAME, LAST_NAME, USERNAME, PASSWORD, ROLE_ID)" +
+            " VALUES(?,?,?,?,?)";
 
     {
         sqlSelectAll = SQL__SELECT_ALL_USERS;
@@ -41,5 +43,11 @@ public class JdbcUserDAO extends JdbcAbstractDAO<User> implements UserDAO {
         User user = findByLogin(username);
         execute(SQL__UPDATE_LOCK, String.valueOf(!user.isLocked()), String.valueOf(user.getId()));
 
+    }
+
+    @Override
+    public long create(User user) throws DBException {
+        return execute(SQL__INSERT_USER, user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(),
+                String.valueOf(user.getRoleId()));
     }
 }

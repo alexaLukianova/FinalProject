@@ -35,5 +35,10 @@ public class UserServiceImpl implements UserService {
         userDAO.inverseLockState(username);
     }
 
+    @Override
+    public long create(User user) throws DBException {
+        return userDAO.create(user);
+    }
+
 
 }

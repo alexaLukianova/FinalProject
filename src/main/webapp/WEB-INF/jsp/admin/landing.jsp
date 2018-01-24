@@ -20,37 +20,44 @@
     <label>Last Name: ${user.lastName} </label><br>
     <label>Login: ${user.username} </label><br>
 </div>
-
-<div class="col-sm-1 "></div>
-<div class="col-sm-10 ">
-    <h1 align="center">Your results</h1>
-
-    <table class="table table-striped">
-        <thead>
-        <th>Test</th>
-        <th>Subject</th>
-        <th>Score</th>
-        </thead>
-        <tbody>
-        <c:forEach items="${userProgress}" var="progress">
-            <tr>
-                <td>${progress.testName}</td>
-                <td>${progress.testSubject}</td>
-                <td>${progress.result}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+<c:if test="${userProgress.equals(null)}">
 
 
-    <%--<p>${userProgress.testName}, ${userProgress.testSubject}</p>--%>
-    <%--<div class="container">--%>
-    <%--<div class="skills html">${userProgress.result}</div>--%>
-    <%--</div>--%>
+    <div class="col-sm-1 "></div>
+    <div class="col-sm-10 ">
+        <h1 align="center">Your results</h1>
+
+        <table class="table table-striped">
+            <thead>
+            <th>Test</th>
+            <th>Subject</th>
+            <th>Score</th>
+            </thead>
+            <tbody>
+            <c:forEach items="${userProgress}" var="progress">
+                <tr>
+                    <td>${progress.testName}</td>
+                    <td>${progress.testSubject}</td>
+                    <td>${progress.result}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
 
 
-</div>
-<div class="col-sm-1 "></div>
+            <%--<p>${userProgress.testName}, ${userProgress.testSubject}</p>--%>
+            <%--<div class="container">--%>
+            <%--<div class="skills html">${userProgress.result}</div>--%>
+            <%--</div>--%>
+
+
+    </div>
+    <div class="col-sm-1 "></div>
+
+</c:if>
+
+
+
 
 </body>
 </html>
