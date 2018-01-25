@@ -35,8 +35,8 @@
     <label for="complexity">Complexity</label>
     <input type="text" id="complexity" name="test_complexity" placeholder="Complexity">
 
-    <label for="time">Time</label>
-    <input type="text" id="time" name="test_time" placeholder="Time">
+    <label for="duration">Time</label>
+    <input type="text" id="duration" name="test_time" placeholder="Time">
 
     <label for="questionQuantity">Question quantity</label>
     <input type="text" id="questionQuantity" name="test_questionQuantity" placeholder="10">

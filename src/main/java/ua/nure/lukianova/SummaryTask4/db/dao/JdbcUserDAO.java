@@ -2,7 +2,6 @@ package ua.nure.lukianova.SummaryTask4.db.dao;
 
 import ua.nure.lukianova.SummaryTask4.db.Fields;
 import ua.nure.lukianova.SummaryTask4.db.entity.User;
-import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.exception.DBException;
 
 import java.sql.ResultSet;
@@ -15,6 +14,7 @@ public class JdbcUserDAO extends JdbcAbstractDAO<User> implements UserDAO {
     private static final String SQL__UPDATE_LOCK = "UPDATE USERS SET LOCKED = ? WHERE ID = ?";
     private static final String SQL__INSERT_USER = "INSERT INTO USERS (FIRST_NAME, LAST_NAME, USERNAME, PASSWORD, ROLE_ID)" +
             " VALUES(?,?,?,?,?)";
+    private static final String SQL__DELETE_USER_BY_LOGIN = "DELETE FROM USERS WHERE ID=(?)";
 
     {
         sqlSelectAll = SQL__SELECT_ALL_USERS;
@@ -49,5 +49,10 @@ public class JdbcUserDAO extends JdbcAbstractDAO<User> implements UserDAO {
     public long create(User user) throws DBException {
         return execute(SQL__INSERT_USER, user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(),
                 String.valueOf(user.getRoleId()));
+    }
+
+    @Override
+    public void delete(long userId) throws DBException {
+        execute(SQL__DELETE_USER_BY_LOGIN,String.valueOf(userId));
     }
 }

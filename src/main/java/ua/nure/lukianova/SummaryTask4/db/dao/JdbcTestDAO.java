@@ -50,7 +50,7 @@ public class JdbcTestDAO extends JdbcAbstractDAO<Test> implements TestDAO {
         test.setName(resultSet.getString(Fields.TEST_NAME));
         test.setSubject(resultSet.getString(Fields.TEST_SUBJECT));
         test.setComplexity(resultSet.getString(Fields.TEST_COMPLEXITY));
-        test.setTime(resultSet.getLong(Fields.TEST_TIME));
+        test.setDuration(resultSet.getLong(Fields.TEST_TIME));
         return test;
     }
 }

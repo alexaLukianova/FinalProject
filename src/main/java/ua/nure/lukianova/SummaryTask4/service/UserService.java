@@ -15,4 +15,6 @@ public interface UserService {
     void inverseLockState(String username) throws DBException;
 
     long create(User user) throws DBException;
+
+    void delete(long userId) throws DBException;
 }

@@ -71,6 +71,8 @@ public class LoginCommand extends Command {
             session.setAttribute("userRole", userRole);
             LOGGER.trace("Set the session attribute: userRole --> " + userRole);
 
+
+
             LOGGER.info("User " + user + " logged as " + userRole.toString().toLowerCase());
 
             LOGGER.debug("Command finished");

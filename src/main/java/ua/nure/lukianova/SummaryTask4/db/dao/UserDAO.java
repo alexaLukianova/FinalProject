@@ -15,4 +15,6 @@ public interface UserDAO {
 
     long create(User user) throws DBException;
 
+    void delete(long userId) throws DBException;
+
 }

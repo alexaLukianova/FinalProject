@@ -2,6 +2,9 @@ package ua.nure.lukianova.SummaryTask4.db.bean;
 
 import ua.nure.lukianova.SummaryTask4.db.entity.Entity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class TestResultBean extends Entity {
 
     private static final long serialVersionUID = -978119869981368579L;
@@ -9,6 +12,7 @@ public class TestResultBean extends Entity {
     private String testName;
     private String testSubject;
     private int result;
+    private String date;
 
     public String getTestName() {
         return testName;
@@ -32,6 +36,15 @@ public class TestResultBean extends Entity {
 
     public void setResult(int result) {
         this.result = result;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    //TODO how to make it more krasivo
+    public void setDate(Date date) {
+        this.date = new SimpleDateFormat("MM/DD/YYYY").format(date);
     }
 
     @Override

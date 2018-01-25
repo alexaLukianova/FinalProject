@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class ListTestsCommand extends Command {
 
@@ -25,20 +26,35 @@ public class ListTestsCommand extends Command {
 
     private static final long serialVersionUID = -1776868124132437863L;
 
-    private static Comparator<Test> compareByName = new CompareByName();
+    private static Comparator<Test> comparator;
 
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOGGER.debug("Command starts");
 
-        request.getParameter("timer");
-
-
 
         List<Test> tests = getTestService().findAllTests();
+        String parameter = request.getParameter("sortBy");
 
-        Collections.sort(tests, compareByName);
+        if (Objects.nonNull(parameter)) {
+            switch (parameter) {
+                case "name":
+                    comparator = new CompareByName();
+                    break;
+                case "time":
+                    comparator = new CompareByTime();
+                    break;
+                case "subject":
+                    comparator = new CompareBySubject();
+                    break;
+                case "complexity":
+                    break;
+            }
+
+            Collections.sort(tests, comparator);
+        }
+
 
         request.setAttribute("tests", tests);
 
@@ -47,11 +63,31 @@ public class ListTestsCommand extends Command {
 
     private static class CompareByName implements Comparator<Test>, Serializable {
 
-
         private static final long serialVersionUID = -2147688237145998268L;
 
         public int compare(Test test1, Test test2) {
             return test1.getName().compareTo(test2.getName());
+        }
+    }
+
+    private static class CompareByTime implements Comparator<Test>, Serializable {
+
+
+        private static final long serialVersionUID = 7639555025203948782L;
+
+        public int compare(Test test1, Test test2) {
+            long delta = test1.getDuration() - (test2.getDuration());
+            return (int) delta;
+        }
+    }
+
+    private static class CompareBySubject implements Comparator<Test>, Serializable {
+
+
+        private static final long serialVersionUID = -5969079642574366256L;
+
+        public int compare(Test test1, Test test2) {
+            return test1.getSubject().compareTo(test2.getSubject());
         }
     }
 }

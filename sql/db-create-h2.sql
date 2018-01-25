@@ -24,7 +24,7 @@ CREATE TABLE tests (
   name       VARCHAR(255) NOT NULL,
   subject    VARCHAR(255) NOT NULL,
   complexity VARCHAR(45)  NOT NULL,
-  time       INT,
+  duration       INT,
   PRIMARY KEY (id)
 );
 
@@ -67,7 +67,7 @@ VALUES ('Alexandra', 'Lukianova', 'admin', 'password', 0),
   ('Peter', 'Petrov', 'student', 'password', 1),
   ('Sidor', 'Sidorov', 'student1', 'password1', 1);
 
-INSERT INTO tests (name, subject, complexity, time)
+INSERT INTO tests (name, subject, complexity, duration)
 VALUES ('Бобры', 'Зоология', 'Легкая', 10),
   ('Variable types', 'Java', 'Высокая', 20),
   ('HTML', 'Programming', 'Высокая', 20),

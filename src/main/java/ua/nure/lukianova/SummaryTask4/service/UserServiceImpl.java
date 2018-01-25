@@ -40,5 +40,10 @@ public class UserServiceImpl implements UserService {
         return userDAO.create(user);
     }
 
+    @Override
+    public void delete(long userId) throws DBException {
+        userDAO.delete(userId);
+    }
+
 
 }

@@ -34,6 +34,7 @@ public class CommandContainer {
         commands.put("showProfile", new ShowProfileCommand());
         commands.put("register", new RegisterCommand());
         commands.put("logout", new LogoutCommand());
+        commands.put("deleteUser", new DeleteUserCommand());
 
 
 //        commands.put("logout", new LogoutCommand());

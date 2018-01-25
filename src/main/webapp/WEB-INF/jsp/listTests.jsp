@@ -22,23 +22,19 @@
 
     <table class="table table-striped">
         <thead>
-        <th><fmt:message key="id"/></th>
         <th><fmt:message key="test.name"/></th>
         <th><fmt:message key="test.subject"/></th>
         <th><fmt:message key="test.complexity"/></th>
-        <th><fmt:message key="test.time"/></th>
+        <th><fmt:message key="test.duration"/></th>
         <th colspan="2"></th>
-
         </thead>
         <tbody>
         <c:forEach items="${tests}" var="test">
             <tr>
-                <td>${test.id}</td>
                 <td>${test.name}</td>
                 <td>${test.subject}</td>
                 <td>${test.complexity}</td>
-                <td>${test.time}</td>
-
+                <td>${test.duration}</td>
                 <c:set var="role" scope="session" value="${userRole.toString()}"/>
                 <c:choose>
                     <c:when test="${'admin'.equals(role)}">
@@ -51,11 +47,9 @@
                             </form>
                         </td>
                         <td>
-
                             <form action="controller" method="post">
                                 <input type="hidden" name="command" value="deleteTest">
                                 <button class="btn btn-danger btn-md" name="delete_id" value="${test.id}">
-
                                     Delete
                                 </button>
                             </form>
@@ -90,11 +84,38 @@
         </form>
     </c:if>
 
+    <label name="sortType" value="Sort by"></label>
+
+    <form action="controller" method="post">
+        <input type="hidden" name="command" value="listTests">
+        <button class="btn btn-success btn-md" name="sortBy" value="name">Name</button>
+        <button class="btn btn-success btn-md" name="sortBy" value="subject">Subject</button>
+        <button class="btn btn-success btn-md" name="sortBy" value="time">Time</button>
+        <button class="btn btn-success btn-md" name="sortBy" value="complexity">Complexity</button>
+    </form>
+
 
 </div>
 <div class="col-sm-1 ">
-    <%@ include file="/WEB-INF/jspf/header.jspf" %>
+
 </div>
+
+
+<script>
+    function sortTable(n) {
+        var dir;
+        table = document.getElementById("myTable");
+        switching = true;
+        //Set the sorting direction to ascending:
+        dir = "asc";
+
+                if (dir == "asc") {
+    }
+</script>
+
+
+
+
 
 
 </body>

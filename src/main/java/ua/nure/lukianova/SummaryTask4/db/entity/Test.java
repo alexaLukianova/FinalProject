@@ -6,7 +6,7 @@ public class Test extends Entity {
     private String name;
     private String subject;
     private String complexity;
-    private long time;
+    private long duration;
 
     public String getName() {
         return name;
@@ -32,17 +32,17 @@ public class Test extends Entity {
         this.complexity = complexity;
     }
 
-    public long getTime() {
-        return time;
+    public long getDuration() {
+        return duration;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
     @Override
     public String toString() {
         return "Test [name=" + name + ", subject=" + subject + ", complexity="
-                + complexity + ", time=" + time + ", getId()=" + getId() + "]";
+                + complexity + ", duration=" + duration + ", getId()=" + getId() + "]";
     }
 }

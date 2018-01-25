@@ -21,8 +21,8 @@
     <label for="complexity">Complexity</label>
     <input disabled type="text" id="complexity" name="complexity" value=${test.complexity}></br>
 
-    <label for="time">Time</label>
-    <input disabled type="text" id="time" name="time" value=${test.time}></br>
+    <label for="duration">Time</label>
+    <input disabled type="text" id="duration" name="duration" value=${test.duration}></br>
 
     <button class="button" type="reset">Reset</button>
     <button class="button" type="submit">Save</button>

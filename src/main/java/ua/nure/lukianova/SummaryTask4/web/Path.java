@@ -14,6 +14,8 @@ public final class Path {
     public static final String PAGE_ADD_QUESTIONS = "/WEB-INF/jsp/questionAdd.jsp";
     public static final String PAGE_ADD_NEW_QUESTION = "/WEB-INF/jsp/addNewQuestion.jsp";
     public static final String PAGE_ERROR_PAGE = "/WEB-INF/jsp/error_page.jsp";
+    public static final String PAGE_REGISTRATION = "/registration.jsp";
+
 
     public static final String COMMAND_LIST_TESTS = "/controller?command=listTests";
     public static final String COMMAND_LIST_USERS = "/controller?command=listUsers";

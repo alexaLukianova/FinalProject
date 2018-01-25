@@ -50,7 +50,7 @@ public class QuestionAddCommand extends Command {
         test.setName(decode(request.getParameter("test_name")));
         test.setSubject(decode(request.getParameter("test_subject")));
         test.setComplexity(decode(request.getParameter("test_complexity")));
-        test.setTime(Long.valueOf(decode(request.getParameter("test_time"))));
+        test.setDuration(Long.valueOf(decode(request.getParameter("test_time"))));
         return test;
     }
 

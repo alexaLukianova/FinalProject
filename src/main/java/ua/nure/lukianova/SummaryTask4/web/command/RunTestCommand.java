@@ -12,42 +12,44 @@ import java.io.IOException;
 import java.util.*;
 
 public class RunTestCommand extends Command {
+    private static final long serialVersionUID = 166914390870487363L;
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         long testId = Long.valueOf(request.getParameter("test_id"));
+        HttpSession session = request.getSession();
+        long userId = ((User) session.getAttribute("user")).getId();
         Test test = getTestService().findById(testId);
 
-        List<Question> questions = new ArrayList<>(getQuestionService().findByTestId(testId));
+        Result result = getResultService().findByUserAndTestId(userId, testId);
+        if (Objects.nonNull(result)) {
+            request.setAttribute("message", "You have already passed the test \"" + test.getName() + "\". " +
+                    "Your score is " + result.getResult() + "%.");
+            return Path.PAGE_MESSAGE;
+        } else {
+            List<Question> questions = new ArrayList<>(getQuestionService().findByTestId(testId));
+            Collections.shuffle(questions);
+            Map<Question, List<Answer>> questionsAndAnswers = new HashMap<>();
+            for (Question question : questions) {
+                List<Answer> answers = new ArrayList<>(getAnswerService().findByQuestionId(question.getId()));
+                Collections.shuffle(answers);
+                questionsAndAnswers.put(question, answers);
+            }
+            request.setAttribute("test", test);
+            request.setAttribute("questions", questions);
+            request.setAttribute("questionsAndAnswers", questionsAndAnswers);
+            long currentTime = System.currentTimeMillis();
 
-        Collections.shuffle(questions);
-
-        Map<Question, List<Answer>> questionsAndAnswers = new HashMap<>();
-        for (Question question : questions) {
-            List<Answer> answers = new ArrayList<>(getAnswerService().findByQuestionId(question.getId()));
-            Collections.shuffle(answers);
-            questionsAndAnswers.put(question, answers);
+            result = new Result();
+            result.setUserId(userId);
+            result.setTestId(testId);
+            result.setStartTime(currentTime);
+            getResultService().create(result);
+            request.setAttribute("startTime", currentTime);
+            return Path.PAGE_TEST_FORM;
         }
 
 
-//        Map<Question, List<Answer>> questionsAndAnswers = questions.stream()
-//                .collect(Collectors.toMap(Function.identity(),
-//                        question -> getAnswerService().findById(question.getId())));
-
-        request.setAttribute("test", test);
-        request.setAttribute("questions", questions);
-        request.setAttribute("questionsAndAnswers", questionsAndAnswers);
-        long currentTime = System.currentTimeMillis();
-
-        HttpSession session = request.getSession();
-        long userId = ((User)session.getAttribute("user")).getId();
-        Result result = new Result();
-        result.setUserId(userId);
-        result.setTestId(testId);
-        result.setStartTime(currentTime);
-        getResultService().create(result);
-
-        request.setAttribute("time", currentTime);
-
-        return Path.PAGE_TEST_FORM;
     }
+
 }
