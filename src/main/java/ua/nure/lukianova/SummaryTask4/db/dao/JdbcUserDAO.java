@@ -6,6 +6,7 @@ import ua.nure.lukianova.SummaryTask4.exception.DBException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class JdbcUserDAO extends JdbcAbstractDAO<User> implements UserDAO {
 
@@ -35,7 +36,9 @@ public class JdbcUserDAO extends JdbcAbstractDAO<User> implements UserDAO {
 
     @Override
     public User findByLogin(String username) throws DBException {
-        return findBy(SQL__SELECT_USER_BY_LOGIN, username).get(0);
+        List<User> users = findBy(SQL__SELECT_USER_BY_LOGIN, username);
+        return users.isEmpty() ? null : users.get(0);
+
     }
 
     @Override
@@ -53,6 +56,6 @@ public class JdbcUserDAO extends JdbcAbstractDAO<User> implements UserDAO {
 
     @Override
     public void delete(long userId) throws DBException {
-        execute(SQL__DELETE_USER_BY_LOGIN,String.valueOf(userId));
+        execute(SQL__DELETE_USER_BY_LOGIN, String.valueOf(userId));
     }
 }

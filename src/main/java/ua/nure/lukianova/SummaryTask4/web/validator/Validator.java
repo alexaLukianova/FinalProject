@@ -7,6 +7,10 @@ public interface Validator {
     Map<String, String> validate(Object o);
 
     interface FieldKeys {
-        final String USERNAME = "username";
+        String USER_USERNAME = "username";
+        String USER_FIRST_NAME = "firstName";
+        String USER_LAST_NAME = "lastName";
+        String USER_PASSWORD = "password";
+        String USER_REENTER_PASSWORD = "reenterPassword";
     }
 }

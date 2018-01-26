@@ -1,12 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/loginStyle.css"/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
 </head>
 <body>
+<%@ include file="/WEB-INF/jspf/navigation.jspf" %>
+
 <div class="wrapper">
     <form class="form-signin" id="login_form" method="POST" action="controller">
         <input type="hidden" name="command" value="login">

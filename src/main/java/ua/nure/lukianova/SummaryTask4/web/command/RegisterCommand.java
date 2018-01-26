@@ -3,6 +3,7 @@ package ua.nure.lukianova.SummaryTask4.web.command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.nure.lukianova.SummaryTask4.db.Role;
+import ua.nure.lukianova.SummaryTask4.db.bean.UserValidatorBean;
 import ua.nure.lukianova.SummaryTask4.db.entity.User;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.web.Path;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class RegisterCommand extends Command {
 
@@ -30,17 +32,28 @@ public class RegisterCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOGGER.debug("Command starts");
 
+        UserValidatorBean userValidatorBean = new UserValidatorBean();
         User user = new User();
-        user.setFirstName(request.getParameter("firstName"));
-        user.setLastName(request.getParameter("lastName"));
-        user.setUsername(request.getParameter("username"));
-        user.setPassword(request.getParameter("password"));
-        user.setRoleId(Role.STUDENT.ordinal());
+        userValidatorBean.setFirstName(request.getParameter("firstName").trim());
+        userValidatorBean.setLastName(request.getParameter("lastName").trim());
+        userValidatorBean.setUsername(request.getParameter("username").trim());
+        userValidatorBean.setPassword(request.getParameter("password").trim());
+        userValidatorBean.setPassword(request.getParameter("password").trim());
+        userValidatorBean.setReenterPassword(request.getParameter("reenterPassword").trim());
+        userValidatorBean.setRoleId(Role.STUDENT.ordinal());
 
-        List<String> errors = validator.validate(user);
+
+
+        Map<String, String> errors = validator.validate(userValidatorBean);
 
         if(!errors.isEmpty()){
+
             request.setAttribute("errors", errors);
+            request.setAttribute("username", userValidatorBean.getUsername());
+            request.setAttribute("firstName", userValidatorBean.getFirstName());
+            request.setAttribute("lastName", userValidatorBean.getLastName());
+            request.setAttribute("password", userValidatorBean.getPassword());
+            request.setAttribute("reenterPassword", userValidatorBean.getReenterPassword());
            return Path.PAGE_REGISTRATION;
         }
 
