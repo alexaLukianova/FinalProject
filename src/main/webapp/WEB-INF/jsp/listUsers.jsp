@@ -75,8 +75,7 @@
         </tbody>
     </table>
 
-    <form action="controller" method="post">
-        <input type="hidden" name="command" value="addUser">
+    <form action="/registration.jsp" method="get">
         <button class="btn btn-primary btn-md" name="userId" value="${user.id}">Add new user
         </button>
     </form>

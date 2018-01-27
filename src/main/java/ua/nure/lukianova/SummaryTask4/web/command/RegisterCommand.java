@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class RegisterCommand extends Command {
 
@@ -33,53 +34,48 @@ public class RegisterCommand extends Command {
         LOGGER.debug("Command starts");
 
         UserValidatorBean userValidatorBean = new UserValidatorBean();
-        User user = new User();
         userValidatorBean.setFirstName(request.getParameter("firstName").trim());
         userValidatorBean.setLastName(request.getParameter("lastName").trim());
         userValidatorBean.setUsername(request.getParameter("username").trim());
         userValidatorBean.setPassword(request.getParameter("password").trim());
         userValidatorBean.setPassword(request.getParameter("password").trim());
         userValidatorBean.setReenterPassword(request.getParameter("reenterPassword").trim());
-        userValidatorBean.setRoleId(Role.STUDENT.ordinal());
+        userValidatorBean.setRoleId(Integer.valueOf(request.getParameter("role")));
 
 
 
         Map<String, String> errors = validator.validate(userValidatorBean);
 
-        if(!errors.isEmpty()){
-
+        if (!errors.isEmpty()) {
             request.setAttribute("errors", errors);
             request.setAttribute("username", userValidatorBean.getUsername());
             request.setAttribute("firstName", userValidatorBean.getFirstName());
             request.setAttribute("lastName", userValidatorBean.getLastName());
             request.setAttribute("password", userValidatorBean.getPassword());
             request.setAttribute("reenterPassword", userValidatorBean.getReenterPassword());
-           return Path.PAGE_REGISTRATION;
+
+            return Path.PAGE_REGISTRATION;
         }
 
+        getUserService().create(userValidatorBean);
+        User user = getUserService().findByLogin(userValidatorBean.getUsername());
 
-
-
-        getUserService().create(user);
-        user = getUserService().findByLogin(user.getUsername());
 
         HttpSession session = request.getSession();
 
 
+        if (Objects.nonNull(session.getAttribute("userRole"))) {
+            return Path.COMMAND_LIST_USERS;
+        }
+
         String forward = Path.COMMAND_SHOW_PROFILE;
-
         Role userRole = Role.getRole(user);
-
         session.setAttribute("user", user);
         LOGGER.trace("Set the session attribute: user --> " + user);
-
         session.setAttribute("userRole", userRole);
         LOGGER.trace("Set the session attribute: userRole --> " + userRole);
-
         LOGGER.info("User " + user + " logged as " + userRole.toString().toLowerCase());
-
         LOGGER.debug("Command finished");
-
         return forward;
     }
 }

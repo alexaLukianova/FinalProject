@@ -12,12 +12,7 @@
 
 <%@ include file="/WEB-INF/jspf/navigation.jspf" %>
 
-<div class="col-sm-1 ">
-
-</div>
-<div class="col-sm-10">
-
-
+<div class="container">
     <h1 align="center"><fmt:message key="test.table_name"/></h1>
 
     <table class="table table-striped">
@@ -84,38 +79,29 @@
         </form>
     </c:if>
 
-    <label name="sortType" value="Sort by"></label>
 
     <form action="controller" method="post">
         <input type="hidden" name="command" value="listTests">
-        <button class="btn btn-success btn-md" name="sortBy" value="name">Name</button>
-        <button class="btn btn-success btn-md" name="sortBy" value="subject">Subject</button>
-        <button class="btn btn-success btn-md" name="sortBy" value="time">Time</button>
-        <button class="btn btn-success btn-md" name="sortBy" value="complexity">Complexity</button>
+        <button class="btn btn-success btn-md" name="sortBy" value="name">Sort by</button>
+        <div class="form-group">
+            <select class="form-control" name="order">
+                <option value="decs">DECS</option>
+                <option value="acs">ACS</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select class="form-control" name="field">
+                <option value="name">topic</option>
+                <option value="time">time</option>
+                <option value="subject">subject</option>
+                <option value="questions">question quantity</option>
+                <option value="complexity">complexity</option>
+            </select>
+        </div>
+
     </form>
-
-
 </div>
-<div class="col-sm-1 ">
-
-</div>
-
-
-<script>
-    function sortTable(n) {
-        var dir;
-        table = document.getElementById("myTable");
-        switching = true;
-        //Set the sorting direction to ascending:
-        dir = "asc";
-
-                if (dir == "asc") {
-    }
-</script>
-
-
-
-
 
 
 </body>

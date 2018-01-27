@@ -12,5 +12,7 @@ public interface Validator {
         String USER_LAST_NAME = "lastName";
         String USER_PASSWORD = "password";
         String USER_REENTER_PASSWORD = "reenterPassword";
+
+        String TEST_NAME = "name";
     }
 }

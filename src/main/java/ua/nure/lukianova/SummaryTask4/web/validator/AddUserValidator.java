@@ -15,9 +15,10 @@ import static java.util.regex.Pattern.UNICODE_CHARACTER_CLASS;
 
 public class AddUserValidator implements Validator {
 
-    private static final int BOTTOM_PASSWORD_BOUND = 6;
-    private static final int UPPER_BOUND = 12;
-    private static final int VALID_LENGTH = 3;
+    private static final int PASSWORD_LOWER_BOUND = 6;
+    private static final int PASSWORD_UPPER_BOUND = 12;
+    private static final int TEXT_UPPER_BOUND = 45;
+    private static final int TEXT_LOWER_BOUND = 3;
     private Map<String, String> errors;
     private UserService userService;
 
@@ -53,14 +54,19 @@ public class AddUserValidator implements Validator {
             if (Objects.nonNull(userService.findByLogin(username))) {
                 errors.put(FieldKeys.USER_USERNAME, "error.username.occupied");
             } else {
-                if (username.length() < 3) {
+                if (username.length() < TEXT_LOWER_BOUND) {
                     errors.put(FieldKeys.USER_USERNAME, "error.username.short");
                 } else {
-                    Pattern pattern = Pattern.compile(REGEX_NON_ALPHANUMERIC, UNICODE_CHARACTER_CLASS);
-                    Matcher matcher = pattern.matcher(username);
-                    if (matcher.find()) {
-                        errors.put(FieldKeys.USER_USERNAME, "error.username.non_alphanumeric");
+                    if (username.length() > TEXT_UPPER_BOUND) {
+                        errors.put(FieldKeys.USER_USERNAME, "error.username.long");
+                    } else {
+                        Pattern pattern = Pattern.compile(REGEX_NON_ALPHANUMERIC, UNICODE_CHARACTER_CLASS);
+                        Matcher matcher = pattern.matcher(username);
+                        if (matcher.find()) {
+                            errors.put(FieldKeys.USER_USERNAME, "error.username.non_alphanumeric");
+                        }
                     }
+
                 }
             }
         }
@@ -71,14 +77,19 @@ public class AddUserValidator implements Validator {
         if (Objects.isNull(firstName) || firstName.trim().isEmpty()) {
             errors.put(FieldKeys.USER_FIRST_NAME, "error.first_name.required");
         } else {
-            if (firstName.length() < VALID_LENGTH) {
+            if (firstName.length() < TEXT_LOWER_BOUND) {
                 errors.put(FieldKeys.USER_FIRST_NAME, "error.first_name.short");
             } else {
-                Pattern pattern = Pattern.compile(REGEX_NON_ALPHABETIC, UNICODE_CHARACTER_CLASS);
-                Matcher matcher = pattern.matcher(firstName);
-                if (matcher.find()) {
-                    errors.put(FieldKeys.USER_FIRST_NAME, "error.first_name.non_alphabetic");
+                if (firstName.length() > TEXT_UPPER_BOUND) {
+                    errors.put(FieldKeys.USER_FIRST_NAME, "error.first_name.long");
+                } else {
+                    Pattern pattern = Pattern.compile(REGEX_NON_ALPHABETIC, UNICODE_CHARACTER_CLASS);
+                    Matcher matcher = pattern.matcher(firstName);
+                    if (matcher.find()) {
+                        errors.put(FieldKeys.USER_FIRST_NAME, "error.first_name.non_alphabetic");
+                    }
                 }
+
             }
         }
     }
@@ -88,14 +99,19 @@ public class AddUserValidator implements Validator {
         if (Objects.isNull(lastName) || lastName.trim().isEmpty()) {
             errors.put(FieldKeys.USER_LAST_NAME, "error.last_name.required");
         } else {
-            if (lastName.length() < 3) {
+            if (lastName.length() < TEXT_LOWER_BOUND) {
                 errors.put(FieldKeys.USER_LAST_NAME, "error.last_name.short");
             } else {
-                Pattern pattern = Pattern.compile(REGEX_NON_ALPHABETIC, UNICODE_CHARACTER_CLASS);
-                Matcher matcher = pattern.matcher(lastName);
-                if (matcher.find()) {
-                    errors.put(FieldKeys.USER_LAST_NAME, "error.last_name.non_alphabetic");
+                if (lastName.length() > TEXT_UPPER_BOUND) {
+                    errors.put(FieldKeys.USER_LAST_NAME, "error.last_name.long");
+                } else {
+                    Pattern pattern = Pattern.compile(REGEX_NON_ALPHABETIC, UNICODE_CHARACTER_CLASS);
+                    Matcher matcher = pattern.matcher(lastName);
+                    if (matcher.find()) {
+                        errors.put(FieldKeys.USER_LAST_NAME, "error.last_name.non_alphabetic");
+                    }
                 }
+
             }
         }
     }
@@ -105,7 +121,7 @@ public class AddUserValidator implements Validator {
         if (Objects.isNull(password) || password.trim().isEmpty()) {
             errors.put(FieldKeys.USER_PASSWORD, "error.password.required");
         } else {
-            if (password.length() < BOTTOM_PASSWORD_BOUND || password.length() > UPPER_BOUND) {
+            if (password.length() < PASSWORD_LOWER_BOUND || password.length() > PASSWORD_UPPER_BOUND) {
                 errors.put(FieldKeys.USER_PASSWORD, "error.password.invalid_length");
             } else {
                 Pattern pattern = Pattern.compile(REGEX_WHITESPACE, UNICODE_CHARACTER_CLASS);

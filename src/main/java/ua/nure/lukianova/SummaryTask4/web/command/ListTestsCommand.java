@@ -35,10 +35,11 @@ public class ListTestsCommand extends Command {
 
 
         List<Test> tests = getTestService().findAllTests();
-        String parameter = request.getParameter("sortBy");
+        String order = request.getParameter("order");
+        String field = request.getParameter("field");
 
-        if (Objects.nonNull(parameter)) {
-            switch (parameter) {
+        if (Objects.nonNull(field)) {
+            switch (field) {
                 case "name":
                     comparator = new CompareByName();
                     break;
@@ -50,9 +51,16 @@ public class ListTestsCommand extends Command {
                     break;
                 case "complexity":
                     break;
+                case "questions":
+                    break;
             }
 
             Collections.sort(tests, comparator);
+            if(Objects.nonNull(order)){
+                if(order.equals("decs")){
+                    Collections.reverse(tests);
+                }
+            }
         }
 
 

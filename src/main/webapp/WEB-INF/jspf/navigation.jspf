@@ -1,12 +1,12 @@
 <div class="topnav">
-    <c:if test="${not empty user}">
-        <a class="active" href="/controller?command=showProfile">Profile</a>
-        <c:if test="${'admin'.equals(userRole.toString())}">
-            <a href="/controller?command=listUsers">Users </a>
-        </c:if>
-        <a href="/controller?command=listTests">Tests</a>
-        <a href="/controller?command=logout">Logout</a>
+
+    <a class="active" href="/controller?command=showProfile">Profile</a>
+    <c:if test="${'admin'.equals(userRole.toString())}">
+        <a href="/controller?command=listUsers">Users </a>
     </c:if>
+    <a href="/controller?command=listTests">Tests</a>
+    <a href="/controller?command=logout">Logout</a>
+
 
     <div class="lang-selector">
         <form class="form-group" action="controller" method="post">
