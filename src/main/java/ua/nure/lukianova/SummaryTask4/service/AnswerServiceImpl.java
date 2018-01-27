@@ -26,8 +26,8 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public long update(long id, String text, boolean correct) throws DBException {
-        return answerDAO.update(id, text, correct);
+    public long update(Answer answer) throws DBException {
+        return answerDAO.update(answer);
     }
 
     @Override

@@ -10,8 +10,6 @@ import java.util.List;
 public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO {
 
 
-    private static String sqlQuery;
-
     private static final String SQL__INSERT_INTO_ANSWERS_NEW_ANSWER =
             "INSERT INTO ANSWERS (TEXT, CORRECT, QUESTION_ID) VALUES (?, ?, ?)";
     private static final String SQL__SELECT_ANSWERS_BY_QUESTION_ID =
@@ -47,8 +45,8 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
     }
 
     @Override
-    public long update(long id, String text, boolean correct) throws DBException {
-        return execute(SQL__UPDATE, text, String.valueOf(correct), String.valueOf(id));
+    public long update(Answer answer) throws DBException {
+        return execute(SQL__UPDATE, answer.getText(), String.valueOf(answer.isCorrect()), String.valueOf(answer.getId()));
     }
 
 
@@ -62,7 +60,4 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
         return answer;
     }
 
-    public static void setSqlInsert(String sql) {
-        sqlQuery = sql;
-    }
 }

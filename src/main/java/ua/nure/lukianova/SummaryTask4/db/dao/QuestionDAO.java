@@ -15,5 +15,5 @@ public interface QuestionDAO {
 
     boolean delete(long id) throws DBException;
 
-    long update(long id, String text) throws DBException;
+    long update(Question question) throws DBException;
 }

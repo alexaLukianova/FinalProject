@@ -28,7 +28,7 @@
             <tr>
                 <td>${test.name}</td>
                 <td>${test.subject}</td>
-                <td>${test.complexity}</td>
+                <td>${test.complexityId}</td>
                 <td>${test.duration}</td>
                 <c:set var="role" scope="session" value="${userRole.toString()}"/>
                 <c:choose>

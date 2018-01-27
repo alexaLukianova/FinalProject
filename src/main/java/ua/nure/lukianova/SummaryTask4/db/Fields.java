@@ -14,8 +14,8 @@ public final class Fields {
 
     public static final String TEST_NAME = "name";
     public static final String TEST_SUBJECT = "subject";
-    public static final String TEST_COMPLEXITY = "complexity";
-    public static final String TEST_TIME = "time";
+    public static final String TEST_COMPLEXITY = "complexity_id";
+    public static final String TEST_DURATION = "duration";
 
     public static final String QUESTION_TEXT = "text";
     public static final String QUESTION_TEST_ID = "test_id";

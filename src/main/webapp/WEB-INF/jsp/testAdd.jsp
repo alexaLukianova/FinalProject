@@ -33,7 +33,7 @@
     <input type="text" id="subject" name="test_subject" placeholder="Subject">
 
     <label for="complexity">Complexity</label>
-    <input type="text" id="complexity" name="test_complexity" placeholder="Complexity">
+    <input type="text" id="complexity" name="test_complexityId" placeholder="Complexity">
 
     <label for="duration">Time</label>
     <input type="text" id="duration" name="test_time" placeholder="Time">

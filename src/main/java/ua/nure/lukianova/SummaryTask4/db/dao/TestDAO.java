@@ -15,6 +15,6 @@ public interface TestDAO {
 
     Test findById(long id) throws DBException;
 
-    long update(long id, String name, String subject, String complexity, long time) throws DBException;
+    long update(Test test) throws DBException;
 
 }

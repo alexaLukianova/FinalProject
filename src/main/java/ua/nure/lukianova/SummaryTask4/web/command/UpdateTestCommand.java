@@ -1,5 +1,6 @@
 package ua.nure.lukianova.SummaryTask4.web.command;
 
+import ua.nure.lukianova.SummaryTask4.db.entity.Test;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
@@ -14,16 +15,21 @@ public class UpdateTestCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
-        long testId = Long.valueOf(request.getParameter("test_id"));
-
         request.setAttribute("test_id", request.getParameter("test_id"));
 
-        getTestService().update(testId,
-                request.getParameter("name"),
-                request.getParameter("subject"),
-                request.getParameter("complexity"),
-                Long.valueOf(request.getParameter("time")));
+        getTestService().update(extractTest(request));
 
         return Path.COMMAND_EDIT_TEST;
+    }
+
+    private Test extractTest(HttpServletRequest request) {
+        Test test = new Test();
+        test.setId(Long.valueOf(request.getParameter("test_id")));
+        test.setName(request.getParameter("name"));
+        test.setSubject(request.getParameter("subject"));
+        test.setComplexityId(Integer.valueOf(request.getParameter("complexity_id")));
+        test.setDuration(Long.valueOf(request.getParameter("time")));
+
+        return test;
     }
 }

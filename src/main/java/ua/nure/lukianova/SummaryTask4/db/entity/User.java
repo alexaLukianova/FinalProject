@@ -8,7 +8,6 @@ public class User extends Entity {
     private String lastName;
     private String username;
     private String password;
-    private byte[] avatar;
     private boolean locked;
     private int roleId;
 
@@ -42,14 +41,6 @@ public class User extends Entity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public byte[] getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
     }
 
     public int getRoleId() {

@@ -1,8 +1,14 @@
-DROP TABLE IF EXISTS users, roles, tests, questions, answers, results;
+DROP TABLE IF EXISTS users, roles, tests, questions, answers, results, complexity;
 
 CREATE TABLE roles (
   id   INT,
   name VARCHAR(45) UNIQUE NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE complexity (
+  id   INT,
+  name VARCHAR(15) UNIQUE NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -12,20 +18,20 @@ CREATE TABLE users (
   last_name  VARCHAR(45),
   username   VARCHAR(45) UNIQUE NOT NULL,
   password   VARCHAR(45)        NOT NULL,
-  avatar     BLOB,
-  role_id    INT,
+  role_id    INT                NOT NULL,
   locked     BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (id),
   FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
 CREATE TABLE tests (
-  id         INT AUTO_INCREMENT,
-  name       VARCHAR(255) NOT NULL,
-  subject    VARCHAR(255) NOT NULL,
-  complexity VARCHAR(45)  NOT NULL,
-  duration       INT,
-  PRIMARY KEY (id)
+  id            INT AUTO_INCREMENT,
+  name          VARCHAR(255) NOT NULL,
+  subject       VARCHAR(255) NOT NULL,
+  complexity_id INT          NOT NULL,
+  duration      INT,
+  PRIMARY KEY (id),
+  FOREIGN KEY (complexity_id) REFERENCES complexity(id)
 );
 
 CREATE TABLE questions (
@@ -62,18 +68,20 @@ CREATE TABLE results (
 
 INSERT INTO roles VALUES (0, 'admin'), (1, 'student');
 
+INSERT INTO complexity VALUES (0, 'easy'), (1, 'medium'), (2, 'hard');
+
 INSERT INTO users (first_name, last_name, username, password, role_id)
 VALUES ('Alexandra', 'Lukianova', 'admin', 'password', 0),
   ('Peter', 'Petrov', 'student', 'password', 1),
   ('Sidor', 'Sidorov', 'student1', 'password1', 1);
 
-INSERT INTO tests (name, subject, complexity, duration)
-VALUES ('Бобры', 'Зоология', 'Легкая', 10),
-  ('Variable types', 'Java', 'Высокая', 20),
-  ('HTML', 'Programming', 'Высокая', 20),
-  ('SQL', 'Programming', 'Высокая', 20),
-  ('Servlet', 'Java', 'Высокая', 20),
-  ('Котики', 'Зоология', 'Легкая', 10);
+INSERT INTO tests (name, subject, complexity_id, duration)
+VALUES ('Бобры', 'Зоология', 0, 10),
+  ('Variable types', 'Java', 1, 20),
+  ('HTML', 'Programming', 2, 20),
+  ('SQL', 'Programming', 0, 20),
+  ('Servlet', 'Java', 1, 20),
+  ('Котики', 'Зоология', 2, 10);
 
 INSERT INTO questions (text, test_id) VALUES
   ('Сколько лап у бобра обыкновенного?', 1),
@@ -164,15 +172,15 @@ VALUES ('Home Tool Markup Language', FALSE, 12),
   ('The World Wide Web Consortium', TRUE, 13),
   ('Google', FALSE, 13),
 
-  ('<heading>', FALSE, 14),
-  ('<h1>', TRUE, 14),
-  ('<h6>', FALSE, 14),
-  ('<head>', FALSE, 14),
+  ('heading', FALSE, 14),
+  ('h1', TRUE, 14),
+  ('h6', FALSE, 14),
+  ('head', FALSE, 14),
 
-  ('<br>', TRUE, 15),
-  ('<break>', FALSE, 15),
-  ('<lb>', FALSE, 15),
-  ('<line>', FALSE, 15);
+  ('br', TRUE, 15),
+  ('break', FALSE, 15),
+  ('lb', FALSE, 15),
+  ('line', FALSE, 15);
 
 INSERT INTO questions (text, test_id) VALUES
   ('What does SQL stand for?', 4),

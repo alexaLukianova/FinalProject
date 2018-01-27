@@ -47,16 +47,13 @@ public class QuestionAddCommand extends Command {
 
     private Test extract( HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         Test test = new Test();
-        test.setName(decode(request.getParameter("test_name")));
-        test.setSubject(decode(request.getParameter("test_subject")));
-        test.setComplexity(decode(request.getParameter("test_complexity")));
-        test.setDuration(Long.valueOf(decode(request.getParameter("test_time"))));
+        test.setName(request.getParameter("test_name"));
+        test.setSubject(request.getParameter("test_subject"));
+        test.setComplexityId(Integer.valueOf(request.getParameter("test_complexityId")));
+        test.setDuration(Long.valueOf(request.getParameter("test_time")));
         return test;
     }
 
-    private String  decode(String item){
-        byte[] bytes = item.getBytes(StandardCharsets.ISO_8859_1);
-        return new String(bytes, StandardCharsets.UTF_8);
-    }
+
 }
 

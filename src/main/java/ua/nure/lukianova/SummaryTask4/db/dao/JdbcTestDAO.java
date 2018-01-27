@@ -10,12 +10,12 @@ import java.sql.SQLException;
 public class JdbcTestDAO extends JdbcAbstractDAO<Test> implements TestDAO {
 
     private static final String SQL__INSERT_INTO_TESTS_NEW_TEST =
-            "INSERT INTO TESTS (NAME, COMPLEXITY, SUBJECT) VALUES (?, ?, ?)";
+            "INSERT INTO TESTS (NAME, COMPLEXITY_ID, SUBJECT, DURATION) VALUES (?, ?, ?, ?)";
     private static final String SQL__DELETE_TEST_BY_LOGIN =
             "DELETE FROM TESTS WHERE ID=(?)";
     private static final String SQL__SELECT_TEST_BY_ID =
             "SELECT * FROM TESTS WHERE ID=(?)";
-    private static final String SQL__UPDATE = "UPDATE TESTS SET NAME = ?, SUBJECT = ?, COMPLEXITY =?, TIME = ? WHERE ID = ?";
+    private static final String SQL__UPDATE = "UPDATE TESTS SET NAME = ?, SUBJECT = ?, COMPLEXITY_ID =?, TIME = ? WHERE ID = ?";
     private static final String SQL__SELECT_ALL_TEST = "SELECT * FROM TESTS";
 
     {
@@ -31,15 +31,17 @@ public class JdbcTestDAO extends JdbcAbstractDAO<Test> implements TestDAO {
 
 
     @Override
-    public long update(long id, String name, String subject, String complexity, long time) throws DBException {
-        return execute(SQL__UPDATE, name, subject, complexity, String.valueOf(time), String.valueOf(id));
+    public long update(Test test) throws DBException {
+        return execute(SQL__UPDATE, test.getName(), test.getSubject(), String.valueOf(test.getComplexityId()),
+                String.valueOf(test.getDuration()), String.valueOf(test.getId()));
     }
 
 
 
     @Override
     public long create(Test test) throws DBException {
-        return execute(SQL__INSERT_INTO_TESTS_NEW_TEST, test.getName(), test.getComplexity(), test.getSubject());
+        return execute(SQL__INSERT_INTO_TESTS_NEW_TEST, test.getName(), String.valueOf(test.getComplexityId()),
+                test.getSubject(), String.valueOf(test.getDuration()));
     }
 
 
@@ -49,8 +51,8 @@ public class JdbcTestDAO extends JdbcAbstractDAO<Test> implements TestDAO {
         test.setId(resultSet.getLong(Fields.ENTITY_ID));
         test.setName(resultSet.getString(Fields.TEST_NAME));
         test.setSubject(resultSet.getString(Fields.TEST_SUBJECT));
-        test.setComplexity(resultSet.getString(Fields.TEST_COMPLEXITY));
-        test.setDuration(resultSet.getLong(Fields.TEST_TIME));
+        test.setComplexityId(resultSet.getInt(Fields.TEST_COMPLEXITY));
+        test.setDuration(resultSet.getLong(Fields.TEST_DURATION));
         return test;
     }
 }

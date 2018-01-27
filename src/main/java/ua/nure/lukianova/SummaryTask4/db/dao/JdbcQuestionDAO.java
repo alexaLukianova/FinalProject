@@ -11,7 +11,6 @@ import java.util.List;
 public class JdbcQuestionDAO extends JdbcAbstractDAO<Question> implements QuestionDAO {
 
     private static final String SQL__INSERT_INTO_QUESTIONS = "INSERT INTO QUESTIONS (TEXT, TEST_ID) VALUES (?, ?)";
-    private static final String SQL__SELECT_FROM_QUESTIONS_BY_TEXT = "SELECT * FROM QUESTIONS WHERE TEXT = ?";
     private static final String SQL__SELECT_FROM_QUESTIONS_BY_TEST_ID = "SELECT * FROM QUESTIONS WHERE TEST_ID = ?";
     private static final String SQL__DELETE = "DELETE FROM QUESTIONS WHERE ID = ?";
     private static final String SQL__UPDATE = "UPDATE QUESTIONS SET TEXT = ? WHERE ID = ?";
@@ -43,8 +42,8 @@ public class JdbcQuestionDAO extends JdbcAbstractDAO<Question> implements Questi
     }
 
     @Override
-    public long update(long id, String text) throws DBException {
-        return execute(SQL__UPDATE, text, String.valueOf(id));
+    public long update(Question question) throws DBException {
+        return execute(SQL__UPDATE, question.getText(), String.valueOf(question.getId()));
     }
 
 

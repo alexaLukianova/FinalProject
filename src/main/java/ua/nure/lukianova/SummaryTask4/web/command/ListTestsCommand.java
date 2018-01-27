@@ -15,10 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class ListTestsCommand extends Command {
 
@@ -37,6 +36,9 @@ public class ListTestsCommand extends Command {
         List<Test> tests = getTestService().findAllTests();
         String order = request.getParameter("order");
         String field = request.getParameter("field");
+
+        Map<Long,Integer> questionsCountByTestId = tests.stream()
+                .collect(Collectors.toMap(Test::getId, test -> getQuestionService().findByTestId(test.getId()).size()));
 
         if (Objects.nonNull(field)) {
             switch (field) {

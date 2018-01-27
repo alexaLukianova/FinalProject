@@ -5,7 +5,10 @@ public class Test extends Entity {
     private static final long serialVersionUID = -5753114648879271413L;
     private String name;
     private String subject;
-    private String complexity;
+
+
+
+    private int complexityId;
     private long duration;
 
     public String getName() {
@@ -24,12 +27,12 @@ public class Test extends Entity {
         this.subject = subject;
     }
 
-    public String getComplexity() {
-        return complexity;
+    public int getComplexityId() {
+        return complexityId;
     }
 
-    public void setComplexity(String complexity) {
-        this.complexity = complexity;
+    public void setComplexityId(int complexityId) {
+        this.complexityId = complexityId;
     }
 
     public long getDuration() {
@@ -43,6 +46,6 @@ public class Test extends Entity {
     @Override
     public String toString() {
         return "Test [name=" + name + ", subject=" + subject + ", complexity="
-                + complexity + ", duration=" + duration + ", getId()=" + getId() + "]";
+                + complexityId + ", duration=" + duration + ", getId()=" + getId() + "]";
     }
 }

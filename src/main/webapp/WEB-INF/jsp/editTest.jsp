@@ -19,7 +19,7 @@
     <input disabled type="text" id="subject" name="subject" value="${test.subject}"></br>
 
     <label for="complexity">Complexity</label>
-    <input disabled type="text" id="complexity" name="complexity" value=${test.complexity}></br>
+    <input disabled type="text" id="complexity" name="complexity_id" value=${test.complexityId}></br>
 
     <label for="duration">Time</label>
     <input disabled type="text" id="duration" name="duration" value=${test.duration}></br>
@@ -30,9 +30,6 @@
 </form>
 
 
-
-
-
 <button class="button" onclick="enable('testForm')">Edit</button>
 <script>
     function enable(elemId) {
@@ -41,7 +38,8 @@
 
         for (var i = 0; i < c.length; i++) {
             c[i].disabled = false;
-        }}
+        }
+    }
 
 
 </script>
@@ -50,7 +48,6 @@
 <h3>Test's questions: </h3>
 </br>
 <c:forEach var="i" begin="0" end="${questions.size()-1}">
-
 
 
     <form action="controller" method="post">
@@ -62,14 +59,14 @@
         <label for="text">Question #${i+1}</label>
         <input type="text" id="text" name="question" value="${questions[i].text}" size="">
 
-    <br>
-    <c:forEach var="j" begin="0" end="${questionsAndAnswers[questions[i]].size()-1}">
-        <label for="answer">Answer #${j+1}</label>
-        <input type="text" id="answer" name="answer${j}" value="${questionsAndAnswers[questions[i]][j].getText()}">
-        <input type="checkbox" id="answer" name="correct${j}" value="is_correct"
-               <c:if test="${questionsAndAnswers[questions[i]][j].isCorrect()}">checked="checked"</c:if>> <br>
-    </c:forEach>
-
+        <br>
+        <c:forEach var="j" begin="0" end="${questionsAndAnswers[questions[i]].size()-1}">
+            <label for="answer">Answer #${j+1}</label>
+            <input type="hidden" name="answer_id" value="${questionsAndAnswers[questions[i]][j].getId()}">
+            <input type="text" id="answer" name="answer" value="${questionsAndAnswers[questions[i]][j].getText()}">
+            <input type="checkbox" id="answer" name="correct" value="is_correct"
+                   <c:if test="${questionsAndAnswers[questions[i]][j].isCorrect()}">checked="checked"</c:if>> <br>
+        </c:forEach>
 
 
         <button class="button" type="submit">Update</button>
@@ -98,7 +95,6 @@
     <input type="hidden" name="command" value="listTests">
     <button class="button" type="submit">Return</button>
 </form>
-
 
 
 </body>
