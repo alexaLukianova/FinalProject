@@ -2,6 +2,7 @@ package ua.nure.lukianova.SummaryTask4.web.command;
 
 import ua.nure.lukianova.SummaryTask4.db.entity.*;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
+import ua.nure.lukianova.SummaryTask4.exception.DBException;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.ServletException;
@@ -84,7 +85,7 @@ public class EvaluateResultCommand extends Command {
 
     }
 
-    private TreeSet<Long> getIdOfCorrectAnswers(long id) {
+    private TreeSet<Long> getIdOfCorrectAnswers(long id) throws DBException {
         List<Answer> answers = getAnswerService().findCorrectByQuestionId(id);
         TreeSet<Long> answersId = new TreeSet<>();
         for (Answer answer : answers) {

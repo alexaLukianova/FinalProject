@@ -16,4 +16,6 @@ public interface AnswerService {
     Answer findById(long id) throws DBException;
 
     List<Answer> findCorrectByQuestionId (long id) throws DBException;
+
+    void updateAll(List<Answer> answers) throws DBException;
 }

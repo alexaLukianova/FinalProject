@@ -8,6 +8,9 @@ import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.exception.DBException;
 import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
+import ua.nure.lukianova.SummaryTask4.web.Utils;
+import ua.nure.lukianova.SummaryTask4.web.validator.AddAnswersValidator;
+import ua.nure.lukianova.SummaryTask4.web.validator.AddQuestionValidator;
 import ua.nure.lukianova.SummaryTask4.web.validator.TestValidator;
 import ua.nure.lukianova.SummaryTask4.web.validator.Validator;
 
@@ -15,82 +18,69 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class EditTestCommand extends Command {
 
     private static final long serialVersionUID = -7228884081045892629L;
-    private Validator validator;
+    private Validator testValidator;
+    private Validator answerValidator;
+    private Validator questionValidator;
+    private Map<String, String> errors;
+
 
     public EditTestCommand() {
-        this.validator = new TestValidator();
+        this.testValidator = new TestValidator();
+        this.questionValidator = new AddQuestionValidator();
+        this.answerValidator = new AddAnswersValidator();
+
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException, DBException {
+        errors = new LinkedHashMap<>();
 
-        if (Objects.nonNull(request.getParameter(Parameter.TEST_ID))) {
-            long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
-
-            if (Objects.isNull(request.getParameter("validate"))) {
-                Test test = getTestService().findById(testId);
-                request.setAttribute(Parameter.TEST, test);
-            } else {
-
-                TestValidationBean testValidationBean = extractTestValidationBean(request);
-                Map<String, String> errors = validator.validate(testValidationBean);
-
-                if (errors.isEmpty()) {
-
-                    getTestService().update(extractTest(testValidationBean));
-                } else {
-                    request.setAttribute(Parameter.ERRORS, errors);
-                }
+        long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
 
 
-                request.setAttribute("test", testValidationBean);
+        Map<Question, List<Answer>> questAnsMap = extractQuestionInfoFromDB(testId);
+        int answersNumber = getAnswersNumber(questAnsMap.keySet().iterator().next().getId());
 
-
+        if (isChangedQuestionInfo(request)) {
+            Question question = Utils.extractQuestion(request);
+            List<Answer> answers = Utils.extractAnswers(request);
+            if (isValidQuestionInfo(question, answers)) {
+                updateQuestionInfo(question, answers);
+                questAnsMap = extractQuestionInfoFromDB(testId);
             }
-
-            request.setAttribute(Parameter.TEST_ID, request.getParameter(Parameter.TEST_ID));
-
-            Map<Question, List<Answer>> questAnsMap =
-                    getQuestionService().findByTestId(testId)
-                            .stream()
-                            .collect(Collectors.toMap(Function.identity(),
-                                    question -> getAnswerService().findByQuestionId(question.getId()),
-                                    (a, b) -> a,
-                                    LinkedHashMap::new));
-
-            request.setAttribute(Parameter.QUEST_ANS_MAP, questAnsMap);
-
-            if (!questAnsMap.isEmpty()) {
-                Map.Entry<Question, List<Answer>> entry = questAnsMap.entrySet().iterator().next();
-                request.setAttribute("answers_number", entry.getValue().size());
-            }
-
-
-        } else {
-            //error
         }
+
+        Test test;
+
+        if (isChangedTestInfo(request)) {
+            TestValidationBean testValidationBean = extractTestValidationBean(request);
+            if (isValidTestInfo(testValidationBean)) {
+                test = extractTest(testValidationBean);
+                request.setAttribute(Parameter.TEST, getTestService().update(test));
+            } else {
+                request.setAttribute(Parameter.TEST, testValidationBean);
+            }
+        } else {
+            test = getTestService().findById(testId);
+            request.setAttribute(Parameter.TEST, test);
+        }
+
+        request.setAttribute(Parameter.ERRORS, errors);
+        request.setAttribute(Parameter.TEST_ID, request.getParameter(Parameter.TEST_ID));
+        request.setAttribute(Parameter.ANSWERS_NUMBER, answersNumber);
+        request.setAttribute(Parameter.QUEST_ANS_MAP, questAnsMap);
+        request.setAttribute(Parameter.QUESTION_ID, request.getParameter(Parameter.QUESTION_ID));
 
 
         return Path.PAGE_EDIT_TEST;
     }
-
-//    private void setTestAttributes(HttpServletRequest request, TestValidationBean testValidationBean) {
-//        request.setAttribute(Parameter.TEST_NAME, testValidationBean.getName());
-//        request.setAttribute(Parameter.TEST_SUBJECT, testValidationBean.getSubject());
-//        request.setAttribute(Parameter.TEST_COMPLEXITY_ID, testValidationBean.getComplexityId());
-//        request.setAttribute(Parameter.TEST_DURATION, testValidationBean.getDuration());
-//        request.setAttribute(Parameter.TEST_ID, request.getParameter(Parameter.TEST_ID));
-//    }
 
     private TestValidationBean extractTestValidationBean(HttpServletRequest request) {
         TestValidationBean test = new TestValidationBean();
@@ -103,6 +93,17 @@ public class EditTestCommand extends Command {
         return test;
     }
 
+
+
+    private boolean isChangedQuestionInfo(HttpServletRequest request) {
+        return Objects.nonNull(request.getParameter(Parameter.QUESTION_ID))
+                && Objects.nonNull(request.getParameterValues(Parameter.ANSWER_ID));
+    }
+
+    private boolean isChangedTestInfo(HttpServletRequest request) {
+        return Objects.nonNull(request.getParameter(Parameter.CHANGED));
+    }
+
     private Test extractTest(TestValidationBean validTest) {
         Test test = new Test();
         test.setId(validTest.getId());
@@ -112,6 +113,44 @@ public class EditTestCommand extends Command {
         test.setDuration(Long.valueOf(validTest.getDuration()));
 
         return test;
+    }
+
+
+    private boolean isValidQuestionInfo(Question question, List<Answer> answers) {
+        Map<String, String> questionErrors = new LinkedHashMap<>();
+        questionErrors.putAll(questionValidator.validate(question));
+        questionErrors.putAll(answerValidator.validate(answers));
+        errors.putAll(questionErrors);
+        return questionErrors.isEmpty();
+    }
+
+    private void updateQuestionInfo(Question question, List<Answer> answers) throws DBException {
+        getQuestionService().update(question);
+        getAnswerService().updateAll(answers);
+    }
+
+    private boolean isValidTestInfo(TestValidationBean testValidationBean) {
+        Map<String, String> testErrors = new LinkedHashMap<>();
+        testErrors.putAll(testValidator.validate(testValidationBean));
+        errors.putAll(testErrors);
+        return testErrors.isEmpty();
+    }
+
+
+    private Map<Question, List<Answer>> extractQuestionInfoFromDB(long testId) {
+        Map<Question, List<Answer>> map =
+                getQuestionService().findByTestId(testId)
+                        .stream()
+                        .collect(Collectors.toMap(Function.identity(),
+                                question -> getAnswerService().findByQuestionId(question.getId())
+                                , (a, b) -> a,
+                                LinkedHashMap::new));
+
+        return map;
+    }
+
+    private int getAnswersNumber(long questionId) {
+        return getAnswerService().findByQuestionId(questionId).size();
     }
 
 

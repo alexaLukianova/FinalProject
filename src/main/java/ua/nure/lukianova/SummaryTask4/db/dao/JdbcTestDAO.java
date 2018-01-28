@@ -31,9 +31,10 @@ public class JdbcTestDAO extends JdbcAbstractDAO<Test> implements TestDAO {
 
 
     @Override
-    public void update(Test test) throws DBException {
+    public Test update(Test test) throws DBException {
          execute(SQL__UPDATE, test.getName(), test.getSubject(), String.valueOf(test.getComplexityId()),
                 String.valueOf(test.getDuration()), String.valueOf(test.getId()));
+         return findById(test.getId());
     }
 
 

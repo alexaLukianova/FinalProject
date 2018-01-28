@@ -17,16 +17,14 @@ public abstract class JdbcAbstractDAO<T> {
     protected String sqlSelectAll;
     protected String sqlSelectById;
 
-    public List<T> findAll() throws DBException{
+    public List<T> findAll() throws DBException {
         return findBy(sqlSelectAll);
     }
 
-    protected long execute(String sql, String... parameters) throws DBException{
+    protected long execute(String sql, String... parameters) throws DBException {
         long id = -1;
-        Connection connection = connectionFactory.getConnection();
-        PreparedStatement preparedStatement = null;
-        try {
-            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (Connection connection = connectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             int index = 0;
             for (String parameter : parameters) {
                 preparedStatement.setString(++index, parameter);
@@ -38,19 +36,17 @@ public abstract class JdbcAbstractDAO<T> {
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
-        } finally {
-            close(preparedStatement, connection);
-            return id;
         }
+
+        return id;
     }
 
-    protected List<T> findBy(String sql, String... parameters) throws DBException{
+
+    protected List<T> findBy(String sql, String... parameters) throws DBException {
         List<T> entities = new ArrayList<>();
-        Connection connection = connectionFactory.getConnection();
-        PreparedStatement preparedStatement = null;
         ResultSet result;
-        try {
-            preparedStatement = connection.prepareStatement(sql);
+        try (Connection connection = connectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             int index = 0;
             for (String parameter : parameters) {
                 preparedStatement.setString(++index, parameter);
@@ -62,29 +58,15 @@ public abstract class JdbcAbstractDAO<T> {
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
 
-        } finally {
-            close(preparedStatement, connection);
         }
         return entities;
     }
 
     public T findById(long id) throws DBException {
         List<T> question = findBy(sqlSelectById, String.valueOf(id));
-        return question.isEmpty()? null : question.get(0);
+        return question.isEmpty() ? null : question.get(0);
     }
 
     protected abstract T extractEntity(ResultSet resultSet) throws SQLException;
 
-    private static void close(Statement statement, Connection connection) {
-        try {
-            if (Objects.nonNull(statement)) {
-                statement.close();
-            }
-            if (Objects.nonNull(connection)) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

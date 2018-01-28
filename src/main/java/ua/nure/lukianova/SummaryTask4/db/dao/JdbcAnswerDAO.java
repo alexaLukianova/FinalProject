@@ -4,8 +4,11 @@ import ua.nure.lukianova.SummaryTask4.db.Fields;
 import ua.nure.lukianova.SummaryTask4.db.entity.Answer;
 import ua.nure.lukianova.SummaryTask4.exception.DBException;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.sql.*;
 import java.util.List;
+import java.util.Objects;
 
 public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO {
 
@@ -49,6 +52,38 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
         execute(SQL__UPDATE, answer.getText(), String.valueOf(answer.isCorrect()), String.valueOf(answer.getId()));
     }
 
+    @Override
+    public void updateAll(List<Answer> answers) throws DBException {
+        Connection connection = connectionFactory.getConnection();
+        try {
+            connection.setAutoCommit(false);
+            answers
+                    .stream()
+                    .forEach(answer -> {
+                        try {
+                            executeTransactional(
+                                    SQL__UPDATE,
+                                    answer.getText(),
+                                    String.valueOf(answer.isCorrect()),
+                                    String.valueOf(answer.getId()));
+                        } catch (DBException e) {
+                            e.printStackTrace();
+                        }
+                    });
+            connection.commit();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            close(connection);
+
+        }
+    }
+
 
     @Override
     protected Answer extractEntity(ResultSet resultSet) throws SQLException {
@@ -59,5 +94,32 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
         answer.setQuestionId(resultSet.getLong(Fields.ANSWER_QUESTION_ID));
         return answer;
     }
+
+    private void executeTransactional(String sql, String... parameters) throws DBException {
+        Connection connection = connectionFactory.getConnection();
+        PreparedStatement preparedStatement = null;
+        try  {
+            preparedStatement = connection.prepareStatement(sql);
+            int index = 0;
+            for (String parameter : parameters) {
+                preparedStatement.setString(++index, parameter);
+            }
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+    }
+
+
+    private void close(Connection connection) {
+        if (Objects.nonNull(connection)) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 }

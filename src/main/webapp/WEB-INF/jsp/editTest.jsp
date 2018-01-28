@@ -17,8 +17,7 @@
         <form method="post" action="controller">
             <input type="hidden" name="command" value="editTest">
             <input type="hidden" name="testId" value="${test.id}">
-
-            <input type="hidden" name="validate" value="true">
+            <input type="hidden" name="changed" value="true">
 
             <h2 id="top" class="form-signin-heading">Update necessary information</h2>
 
@@ -111,7 +110,7 @@
                     <form id="deleteForm" action="controller" method="post">
                         <input type="hidden" name="command" value="deleteQuestion">
                         <input type="hidden" name="testId" value="${test.id}">
-                        <button class="btn btn-outline-danger btn-sm" name="questionId" value="${map.key.id}">Delete
+                        <button class="btn btn-outline-warning btn-sm" name="questionId" value="${map.key.id}">Delete
                         </button>
                     </form>
                 </c:if>
@@ -125,11 +124,20 @@
 
 
                 <c:choose>
-                    <c:when test="${errors.containsKey('question')}">
+                    <%--<c:when test="${errors.containsKey('question') && map.key.id eq questionId}">--%>
+                    <c:when test="${not empty errors && not errors.containsKey('test')}">
                         <div class="form-group has-danger">
                             <input type="text" class="form-control form-control-sm is-invalid" name="question"
                                    value="${map.key.text}">
-                            <div class="invalid-feedback"><fmt:message key="${errors.get('question')}"/></div>
+                            <c:if test="${errors.containsKey('question') && map.key.id eq questionId}">
+                                <div class="invalid-feedback"><fmt:message key="${errors.get('question')}"/></div>
+                            </c:if>
+                            <c:if test="${errors.containsKey('answer') && map.key.id eq questionId}">
+                                <div class="invalid-feedback"><fmt:message key="${errors.get('answer')}"/></div>
+                            </c:if>
+                            <c:if test="${errors.containsKey('correct') && map.key.id eq questionId}">
+                                <div class="invalid-feedback"><fmt:message key="${errors.get('correct')}"/></div>
+                            </c:if>
                         </div>
                     </c:when>
                     <c:otherwise>
@@ -144,14 +152,14 @@
                 <c:forEach var="answer" items="${map.value}" varStatus="answerCount">
                     <input type="hidden" name="answerId" value="${answer.id}">
                     <div>
-                        <input type="checkbox" name="correct" value="is_correct"
+                        <input type="checkbox" name="correct" value="${answer.id}"
                                <c:if test="${answer.correct}">checked="checked"</c:if>>
                         <c:choose>
                             <c:when test="${ errors.containsKey('answer')}">
                                 <div class="form-group has-danger">
                                     <input type="text" class="form-control form-control-sm is-invalid" name="answer"
                                            value="${answer.text}">
-                                    <div class="invalid-feedback"><fmt:message key="${errors.get('answer')}"/></div>
+                                    <div class="invalid-feedback"></div>
                                 </div>
                             </c:when>
                             <c:otherwise>
@@ -169,18 +177,12 @@
 
 
                 </c:forEach>
+
                 <button class="btn btn-info" type="reset">Reset</button>
                 <button class="btn btn-success" type="submit">Update</button>
 
-                <c:if test="${errors.containsKey('correct')}}">
-                    <div class="form-group has-danger">
-                        <input type="hidden" class="form-control form-control-sm is-invalid">
-                        <div class="invalid-feedback"><fmt:message key="${errors.get('answer')}"/></div>
-                    </div>
-                </c:if>
 
             </form>
-
 
             <hr class="my-6">
         </c:forEach>
@@ -189,7 +191,7 @@
             <form action="controller" method="post">
                 <input type="hidden" name="command" value="addNewQuestion">
                 <input type="hidden" name="testId" value="${test.id}">
-                <input type="hidden" name="answers_number" value="${answers_number}">
+                <input type="hidden" name="answers_number" value="${answersNumber}">
                 <button class="btn btn-warning" type="submit">Add question</button>
             </form>
 
@@ -204,8 +206,6 @@
 
     </div>
 </div>
-
-
 
 
 </body>

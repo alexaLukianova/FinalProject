@@ -15,18 +15,27 @@
 
         <form class="questionForm" method="post" action="controller">
             <input type="hidden" name="command" value="saveQuestion">
-            <input type="hidden" name="test_id" value="${testId}">
-            <input type="hidden" name="validate" value="true">
+            <input type="hidden" name="testId" value="${testId}">
 
             <label class="form-control-label">Question</label>
 
 
             <c:choose>
-                <c:when test="${errors.containsKey('questionAdd')}">
+                <c:when test="${not empty errors}">
+
                     <div class="form-group has-danger">
                         <input type="text" class="form-control form-control-sm is-invalid" name="question"
-                               value="${questtion}">
-                        <div class="invalid-feedback"><fmt:message key="${errors.get('question')}"/></div>
+                               value="${question}">
+
+                        <c:if test="${errors.containsKey('question')}">
+                            <div class="invalid-feedback"><fmt:message key="${errors.get('question')}"/></div>
+                        </c:if>
+                        <c:if test="${errors.containsKey('answer')}">
+                            <div class="invalid-feedback"><fmt:message key="${errors.get('answer')}"/></div>
+                        </c:if>
+                        <c:if test="${errors.containsKey('correct')}">
+                            <div class="invalid-feedback"><fmt:message key="${errors.get('correct')}"/></div>
+                        </c:if>
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -41,17 +50,18 @@
 
 
             <label class="form-control-label">Answers</label>
-            <c:forEach var="j" begin="1" end="${answers_number}">
+            <c:forEach var="j" begin="1" end="${answersNumber}">
+                <input type="hidden" name="answersNumber" value="${answersNumber}">
 
                 <div>
-                    <input type="checkbox" name="correct" value="is_correct"
+                    <input type="checkbox" name="correct" value="${answer.id}"
                            <c:if test="${answer.correct}">checked="checked"</c:if>>
                     <c:choose>
-                        <c:when test="${ errors.containsKey('answerAdd')}">
+                        <c:when test="${ errors.containsKey('answer')}">
                             <div class="form-group has-danger">
                                 <input type="text" class="form-control form-control-sm is-invalid" name="answer"
                                        value="${answer.text}">
-                                <div class="invalid-feedback"><fmt:message key="${errors.get('answer')}"/></div>
+                                <div class="invalid-feedback"></div>
                             </div>
                         </c:when>
                         <c:otherwise>
@@ -68,13 +78,6 @@
                 </div>
 
             </c:forEach>
-
-            <c:if test="${errors.containsKey('correctAdd')}}">
-                <div class="form-group has-danger">
-                    <input type="hidden" class="form-control form-control-sm is-invalid">
-                    <div class="invalid-feedback"><fmt:message key="${errors.get('correctAdd')}"/></div>
-                </div>
-            </c:if>
 
             <button class="btn btn-success" type="submit">Save</button> <br><br>
 

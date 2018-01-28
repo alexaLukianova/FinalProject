@@ -16,5 +16,7 @@ public interface AnswerDAO {
 
    void update(Answer answer) throws DBException;
 
+   void updateAll(List<Answer> answers) throws DBException;
+
    Answer findById(long id) throws DBException;
 }
