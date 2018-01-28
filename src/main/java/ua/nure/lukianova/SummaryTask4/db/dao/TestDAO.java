@@ -15,6 +15,6 @@ public interface TestDAO {
 
     Test findById(long id) throws DBException;
 
-    long update(Test test) throws DBException;
+    void update(Test test) throws DBException;
 
 }

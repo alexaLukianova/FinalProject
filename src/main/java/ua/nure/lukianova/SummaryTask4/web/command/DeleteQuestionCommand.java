@@ -1,6 +1,7 @@
 package ua.nure.lukianova.SummaryTask4.web.command;
 
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.ServletException;
@@ -11,14 +12,19 @@ import java.io.IOException;
 
 public class DeleteQuestionCommand extends Command {
 
+    private static final int MIN_QUESTION_NUMBER = 1;
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
-        long questionId = Long.valueOf(request.getParameter("question_id"));
+        long questionId = Long.valueOf(request.getParameter(Parameter.QUESTION_ID));
+        long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
 
-        getQuestionService().delete(questionId);
+        if (getQuestionService().findByTestId(testId).size() > MIN_QUESTION_NUMBER) {
+            getQuestionService().delete(questionId);
+        }
 
-        request.setAttribute("test_id", request.getParameter("test_id"));
+        request.setAttribute(Parameter.TEST_ID, testId);
 
         return Path.COMMAND_EDIT_TEST;
     }

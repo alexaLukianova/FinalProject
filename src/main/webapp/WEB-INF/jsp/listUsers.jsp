@@ -11,11 +11,10 @@
 
 <%@ include file="/WEB-INF/jspf/navigation.jspf" %>
 
-<div class="col-sm-1 "></div>
-<div class="col-sm-10 ">
+<div class="container ">
     <h1 align="center"><fmt:message key="user.table_name"/></h1>
 
-    <table class="table table-striped">
+    <table class="table table-striped table-sm">
         <thead>
 
         <th><fmt:message key="user.first_name"/></th>
@@ -27,7 +26,7 @@
         </thead>
         <tbody>
         <c:forEach items="${users}" var="user">
-            <tr>
+            <tr <c:if test="${sessionScope.user.username eq user.username}">class="table-warning"</c:if>>
 
                 <td>${user.firstName}</td>
                 <td>${user.lastName}</td>
@@ -65,7 +64,7 @@
                     <form action="controller" method="post">
                         <input type="hidden" name="command" value="deleteUser">
                         <button class="btn btn-danger btn-md" name="userId" value="${user.id}"
-                                <c:if test="${sessionScope.user.username.equals(user.username)}">disabled</c:if>>Delete
+                                <c:if test="${sessionScope.user.username eq user.username}">disabled</c:if>>Delete
                         </button>
                     </form>
                 </td>
@@ -79,9 +78,6 @@
         <button class="btn btn-primary btn-md" name="userId" value="${user.id}">Add new user
         </button>
     </form>
-</div>
-<div class="col-sm-1 ">
-
 </div>
 
 

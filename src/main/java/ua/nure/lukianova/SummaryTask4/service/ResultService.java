@@ -12,7 +12,7 @@ public interface ResultService {
 
     Result findByUserAndTestId(long userId, long testId) throws DBException;
 
-    long update(long id, int result) throws DBException;
+    void update(long id, int result) throws DBException;
 
     List<TestResultBean> findResultByUserId(long id) throws  DBException;
 }

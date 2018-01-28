@@ -1,101 +1,214 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
 <html>
 <head>
     <title>Title</title>
+
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css"/>"/>
 </head>
 <body>
 
 
-<form id="testForm" action="controller" method="post">
-    <input type="hidden" name="command" value="updateTest">
-    <input type="hidden" name="test_id" value="${test.id}">
+<div class="container">
 
-    <h2>Rewrite necessary information</h2>
-    <label for="name">Topic</label>
-    <input disabled type="text" id="name" name="name" value="${test.name}"></br>
+    <div class="bs-component col-lg-6">
+        <form method="post" action="controller">
+            <input type="hidden" name="command" value="editTest">
+            <input type="hidden" name="testId" value="${test.id}">
 
-    <label for="subject">Subject</label>
-    <input disabled type="text" id="subject" name="subject" value="${test.subject}"></br>
+            <input type="hidden" name="validate" value="true">
 
-    <label for="complexity">Complexity</label>
-    <input disabled type="text" id="complexity" name="complexity_id" value=${test.complexityId}></br>
+            <h2 id="top" class="form-signin-heading">Update necessary information</h2>
 
-    <label for="duration">Time</label>
-    <input disabled type="text" id="duration" name="duration" value=${test.duration}></br>
+            <label class="form-control-label">Topic</label>
+            <c:choose>
+                <c:when test="${errors.containsKey('name')}">
+                    <div class="form-group has-danger">
+                        <input type="text" class="form-control form-control-sm is-invalid" name="name"
+                               value="${test.name}">
+                        <div class="invalid-feedback"><fmt:message key="${errors.get('name')}"/></div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="form-group has-success">
+                        <input type="text" class="form-control form-control-sm is-valid" name="name"
+                               value="${test.name}" maxlength="255">
+                    </div>
+                </c:otherwise>
+            </c:choose>
 
-    <button class="button" type="reset">Reset</button>
-    <button class="button" type="submit">Save</button>
+            <label class="form-control-label">Subject</label>
+            <c:choose>
+                <c:when test="${errors.containsKey('subject')}">
+                    <div class="form-group has-danger">
+                        <input type="text" class="form-control form-control-sm is-invalid" name="subject">
+                        <div class="invalid-feedback"><fmt:message key="${errors.get('subject')}"/></div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="form-group has-success">
+                        <input type="text" class="form-control form-control-sm is-valid" name="subject"
+                               value="${test.subject}" maxlength="255">
+                    </div>
+                </c:otherwise>
+            </c:choose>
 
-</form>
+            <label class="form-control-label">Complexity</label>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="complexityId" value="0"
+                           <c:if test="${test.complexityId eq 0}">checked="checked"</c:if>>
+                    Easy
+                </label><br>
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="complexityId" value="1"
+                           <c:if test="${test.complexityId eq 1}">checked="checked"</c:if>>
+                    Medium
+                </label><br>
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="complexityId" value="2"
+                           <c:if test="${test.complexityId eq 2}">checked="checked"</c:if>>
+                    Hard
+                </label>
+            </div>
 
 
-<button class="button" onclick="enable('testForm')">Edit</button>
-<script>
-    function enable(elemId) {
-        var c = document.getElementById(elemId).children;
+            <label class="form-control-label">Time (min)</label>
+            <c:choose>
+                <c:when test="${errors.containsKey('duration')}">
+                    <div class="form-group has-danger">
+                        <input type="text" class="form-control form-control-sm is-invalid" name="duration"
+                               value="${test.duration}">
+                        <div class="invalid-feedback"><fmt:message key="${errors.get('duration')}"/></div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="form-group has-success">
+                        <input type="text" class="form-control form-control-sm is-valid" name="duration"
+                               value="${test.duration}" maxlength="255">
+                    </div>
+                </c:otherwise>
+            </c:choose>
 
 
-        for (var i = 0; i < c.length; i++) {
-            c[i].disabled = false;
-        }
-    }
+            <button class="btn btn-info" type="reset">Reset</button>
+            <button class="btn btn-success" type="submit">Update</button>
+
+            <hr class="my-6">
+        </form>
 
 
-</script>
+        <h3 class="form-signin-heading">Questions</h3>
+
+        <c:forEach var="map" items="${questAnsMap}" varStatus="questionCount">
+
+            <div class="d-inline">
+                <label class="form-control-label">Question #${questionCount.count}</label>
+
+                <c:if test="${questAnsMap.keySet().size() > 1}">
+                    <form id="deleteForm" action="controller" method="post">
+                        <input type="hidden" name="command" value="deleteQuestion">
+                        <input type="hidden" name="testId" value="${test.id}">
+                        <button class="btn btn-outline-danger btn-sm" name="questionId" value="${map.key.id}">Delete
+                        </button>
+                    </form>
+                </c:if>
+            </div>
 
 
-<h3>Test's questions: </h3>
-</br>
-<c:forEach var="i" begin="0" end="${questions.size()-1}">
+            <form class="questionForm" method="post" action="controller">
+                <input type="hidden" name="command" value="editTest">
+                <input type="hidden" name="testId" value="${test.id}">
+                <input type="hidden" name="questionId" value="${map.key.id}">
 
 
-    <form action="controller" method="post">
-        <input type="hidden" name="command" value="updateQuestion">
-        <input type="hidden" name="test_id" value="${test.id}">
-        <input type="hidden" name="question_id" value="${questions[i].id}">
+                <c:choose>
+                    <c:when test="${errors.containsKey('question')}">
+                        <div class="form-group has-danger">
+                            <input type="text" class="form-control form-control-sm is-invalid" name="question"
+                                   value="${map.key.text}">
+                            <div class="invalid-feedback"><fmt:message key="${errors.get('question')}"/></div>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="form-group has-success">
+                            <input type="text" class="form-control form-control-sm is-valid" name="question"
+                                   value="${map.key.text}" maxlength="255">
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+
+                <br> <label class="form-control-label">Answers</label>
+                <c:forEach var="answer" items="${map.value}" varStatus="answerCount">
+                    <input type="hidden" name="answerId" value="${answer.id}">
+                    <div>
+                        <input type="checkbox" name="correct" value="is_correct"
+                               <c:if test="${answer.correct}">checked="checked"</c:if>>
+                        <c:choose>
+                            <c:when test="${ errors.containsKey('answer')}">
+                                <div class="form-group has-danger">
+                                    <input type="text" class="form-control form-control-sm is-invalid" name="answer"
+                                           value="${answer.text}">
+                                    <div class="invalid-feedback"><fmt:message key="${errors.get('answer')}"/></div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="form-group has-success">
+                                    <input type="text" class="form-control form-control-sm is-valid" name="answer"
+                                           value="${answer.text}" maxlength="255">
+                                    <div class="valid-feedback"></div>
+                                </div>
+
+                            </c:otherwise>
+
+                        </c:choose>
+
+                    </div>
 
 
-        <label for="text">Question #${i+1}</label>
-        <input type="text" id="text" name="question" value="${questions[i].text}" size="">
+                </c:forEach>
+                <button class="btn btn-info" type="reset">Reset</button>
+                <button class="btn btn-success" type="submit">Update</button>
 
-        <br>
-        <c:forEach var="j" begin="0" end="${questionsAndAnswers[questions[i]].size()-1}">
-            <label for="answer">Answer #${j+1}</label>
-            <input type="hidden" name="answer_id" value="${questionsAndAnswers[questions[i]][j].getId()}">
-            <input type="text" id="answer" name="answer" value="${questionsAndAnswers[questions[i]][j].getText()}">
-            <input type="checkbox" id="answer" name="correct" value="is_correct"
-                   <c:if test="${questionsAndAnswers[questions[i]][j].isCorrect()}">checked="checked"</c:if>> <br>
+                <c:if test="${errors.containsKey('correct')}}">
+                    <div class="form-group has-danger">
+                        <input type="hidden" class="form-control form-control-sm is-invalid">
+                        <div class="invalid-feedback"><fmt:message key="${errors.get('answer')}"/></div>
+                    </div>
+                </c:if>
+
+            </form>
+
+
+            <hr class="my-6">
         </c:forEach>
 
+        <div id="bottomBtns">
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="addNewQuestion">
+                <input type="hidden" name="testId" value="${test.id}">
+                <input type="hidden" name="answers_number" value="${answers_number}">
+                <button class="btn btn-warning" type="submit">Add question</button>
+            </form>
 
-        <button class="button" type="submit">Update</button>
-    </form>
+            <form method="post" action="controller">
+                <input type="hidden" name="command" value="listTests">
+                <button class="btn btn-secondary" type="submit">Return</button>
+            </form>
 
-
-    <form action="controller" method="post">
-        <input type="hidden" name="command" value="deleteQuestion">
-        <input type="hidden" name="test_id" value="${test.id}">
-        <button class="button" name="question_id" value="${questions[i].id}">Delete</button>
-    </form>
-
-
-</c:forEach>
-
-
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="addNewQuestion">
-    <input type="hidden" name="test_id" value="${test.id}">
-    <input type="hidden" name="answers_number" value="${questionsAndAnswers[questions[0]].size()}">
-    <button class="button" type="submit">Add question</button>
-</form>
+            <a href="#top">Back to top</a>
+        </div>
 
 
-<form method="post" action="controller">
-    <input type="hidden" name="command" value="listTests">
-    <button class="button" type="submit">Return</button>
-</form>
+    </div>
+</div>
+
+
 
 
 </body>
 </html>
+
+

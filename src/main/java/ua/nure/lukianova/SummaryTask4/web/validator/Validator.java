@@ -14,5 +14,7 @@ public interface Validator {
         String USER_REENTER_PASSWORD = "reenterPassword";
 
         String TEST_NAME = "name";
+        String TEST_SUBJECT = "subject";
+        String TEST_DURATION = "duration";
     }
 }

@@ -1,73 +1,71 @@
 package ua.nure.lukianova.SummaryTask4.web.validator;
 
-import ua.nure.lukianova.SummaryTask4.db.entity.Test;
-import ua.nure.lukianova.SummaryTask4.service.TestService;
-import ua.nure.lukianova.SummaryTask4.service.TestServiceImpl;
+import ua.nure.lukianova.SummaryTask4.db.bean.TestValidationBean;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.util.regex.Pattern.UNICODE_CHARACTER_CLASS;
 
 public class TestValidator implements Validator {
+
+    private static final int UPPER_TEXT_BOUND = 255;
+    private static final int MAX_TIME_IN_MINUTES = 1000;
     private Map<String, String> errors;
-    private TestService testService;
 
-    public TestValidator() {
-        testService = new TestServiceImpl();
-    }
-
-    private static final String REGEX_NON_ALPHANUMERIC = "\\W";
-    private static final String REGEX_NON_ALPHABETIC = "[^\\p{L}|\\s|-]";
-    private static final String REGEX_WHITESPACE = "\\s";
+    private static final String REGEX_NON_NUMERIC = "\\D";
 
     @Override
-    public Map<String, String> validate(Object o) {
+    public Map<String, String> validate(Object object) {
         errors = new HashMap<>();
-        Test test = (Test) o;
-
+        TestValidationBean test = (TestValidationBean) object;
+        nameValidate(test);
+        subjectValidate(test);
+        timeValidate(test);
 
         return errors;
     }
 
-    private void nameValidate(Test test) {
+    private void nameValidate(TestValidationBean test) {
         String name = test.getName();
         if (Objects.isNull(name) || name.trim().isEmpty()) {
-            errors.put(FieldKeys.TEST_NAME, "error.test.required");
+            errors.put(FieldKeys.TEST_NAME, "error.name.required");
         } else {
-            if (name.length() < 3){
-                errors.put(FieldKeys.TEST_NAME, "error.test.short");
-            }
-            if (name.length() > 256){
-                errors.put(FieldKeys.TEST_NAME, "error.test.long");
+            if (name.length() > UPPER_TEXT_BOUND) {
+                errors.put(FieldKeys.TEST_NAME, "error.name.long");
             }
         }
     }
 
-    private void subjectValidate(Test test) {
+    private void subjectValidate(TestValidationBean test) {
         String subject = test.getSubject();
         if (Objects.isNull(subject) || subject.trim().isEmpty()) {
-            errors.put(FieldKeys.TEST_NAME, "error.subject.required");
+            errors.put(FieldKeys.TEST_SUBJECT, "error.subject.required");
         } else {
-            if (subject.length() < 3){
-                errors.put(FieldKeys.TEST_NAME, "error.subject.short");
-            }
-            if (subject.length() > 256){
-                errors.put(FieldKeys.TEST_NAME, "error.subject.long");
+            if (subject.length() > UPPER_TEXT_BOUND) {
+                errors.put(FieldKeys.TEST_SUBJECT, "error.subject.long");
             }
         }
     }
 
-    private void timeValidate(Test test) {
-        long time = test.getDuration();
-        if (Objects.isNull(time)) {
-            errors.put(FieldKeys.TEST_NAME, "error.time.required");
+    private void timeValidate(TestValidationBean test) {
+        String time = test.getDuration();
+        if (Objects.isNull(time)|| time.trim().isEmpty()) {
+            errors.put(FieldKeys.TEST_DURATION, "error.duration.required");
         } else {
-            if (time <= 0){
-                errors.put(FieldKeys.TEST_NAME, "error.subject.short");
+            Pattern pattern = Pattern.compile(REGEX_NON_NUMERIC, UNICODE_CHARACTER_CLASS);
+            Matcher matcher = pattern.matcher(time);
+            if (matcher.find()) {
+                errors.put(FieldKeys.TEST_DURATION, "error.duration.non_numeric");
+            } else {
+                if (Long.valueOf(time) > MAX_TIME_IN_MINUTES) {
+                    errors.put(FieldKeys.TEST_DURATION, "error.duration.long");
+                }
             }
-//            if (subject.length() > 256){
-//                errors.put(FieldKeys.TEST_NAME, "error.subject.long");
-//            }
+
         }
     }
 }

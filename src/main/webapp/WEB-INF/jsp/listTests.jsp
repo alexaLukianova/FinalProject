@@ -15,28 +15,41 @@
 <div class="container">
     <h1 align="center"><fmt:message key="test.table_name"/></h1>
 
-    <table class="table table-striped">
+    <table class="table table-striped table-sm">
         <thead>
         <th><fmt:message key="test.name"/></th>
         <th><fmt:message key="test.subject"/></th>
         <th><fmt:message key="test.complexity"/></th>
         <th><fmt:message key="test.duration"/></th>
+        <th>Question number</th>
         <th colspan="2"></th>
         </thead>
         <tbody>
-        <c:forEach items="${tests}" var="test">
+        <c:forEach var="test" items="${tests}">
             <tr>
                 <td>${test.name}</td>
                 <td>${test.subject}</td>
-                <td>${test.complexityId}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${test.complexityId eq 0}">
+                            Easy
+                        </c:when>
+                        <c:when test="${test.complexityId eq 1}">
+                            Medium
+                        </c:when>
+                        <c:otherwise>Hard</c:otherwise>
+                    </c:choose>
+
+                </td>
                 <td>${test.duration}</td>
+                <td>${questionsCountByTestId.get(test.id)}</td>
                 <c:set var="role" scope="session" value="${userRole.toString()}"/>
                 <c:choose>
                     <c:when test="${'admin'.equals(role)}">
                         <td>
                             <form action="controller" method="post">
                                 <input type="hidden" name="command" value="editTest">
-                                <button class="btn btn-warning btn-md" name="test_id" value="${test.id}"
+                                <button class="btn btn-warning btn-md" name="testId" value="${test.id}"
                                 >View
                                 </button>
                             </form>

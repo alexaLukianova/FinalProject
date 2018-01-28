@@ -14,10 +14,12 @@ import java.io.IOException;
 import java.util.*;
 
 public class ShowAddQuestionForm extends Command {
+    private static final long serialVersionUID = -878132076893965513L;
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
-        request.setAttribute("test_id", request.getParameter("test_id"));
+        request.setAttribute("testId", request.getParameter("testId"));
         request.setAttribute("answers_number",request.getParameter("answers_number") );
 
         return Path.PAGE_ADD_NEW_QUESTION;

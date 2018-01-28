@@ -9,48 +9,45 @@
 
 <body>
 
-<div class="page-wrap">
 
-    <%@ include file="/WEB-INF/jspf/navigation.jspf" %>
-    <div class="col-sm-1 "></div>
-    <div class="col-sm-10" style="padding-left:16px">
-        <h2>Hello, ${userRole.toString()}!!!</h2>
-        <p>Your profile:</p>
-        <label>First Name: ${user.firstName}</label><br>
-        <label>Last Name: ${user.lastName} </label><br>
-        <label>Login: ${user.username} </label><br>
+<%@ include file="/WEB-INF/jspf/navigation.jspf" %>
+<div class="container">
 
-        <c:if test="${not empty userProgress}">
-            <h1 align="center">Your results</h1>
-            <table class="table table-striped">
-                <thead>
-                <th>Test</th>
-                <th>Subject</th>
-                <th>Score</th>
-                <th>Date of test</th>
-                </thead>
-                <tbody>
-                <c:forEach items="${userProgress}" var="progress">
-                    <tr>
-                        <td>${progress.testName}</td>
-                        <td>${progress.testSubject}</td>
-                        <td>${progress.result}</td>
-                        <td> ${progress.date}</td>
+    <div class="card text-white bg-success mb-3" style="max-width: 15rem;">
+        <div class="card-header">Hello, ${userRole.toString()}!!!</div>
+        <div class="card-body">
+            <h4 class="card-title">Your profile:</h4>
+            <p class="card-text">First Name: ${user.firstName}</p>
+            <p class="card-text">Last Name: ${user.lastName}</p>
+            <p class="card-text">Login: ${user.username}</p>
 
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </c:if>
-    </div>
-    <div class="col-sm-1 ">
+        </div>
     </div>
 
 
+    <c:if test="${not empty userProgress}">
+        <h1 align="center">Your results</h1>
+        <table class="table table-striped table-sm">
+            <thead>
+            <th>Test</th>
+            <th>Subject</th>
+            <th>Score</th>
+            <th>Date of test</th>
+            </thead>
+            <tbody>
+            <c:forEach items="${userProgress}" var="progress">
+                <tr>
+                    <td>${progress.testName}</td>
+                    <td>${progress.testSubject}</td>
+                    <td>${progress.result}</td>
+                    <td> ${progress.date}</td>
+
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </c:if>
 </div>
-
-
-<p id="demo"></p>
 
 
 </body>

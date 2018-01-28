@@ -13,7 +13,7 @@ public interface QuestionService {
 
     boolean delete(long id) throws  DBException;
 
-    long update(Question question) throws DBException;
+    void update(Question question) throws DBException;
 
     Question findById(long id) throws DBException;
 }

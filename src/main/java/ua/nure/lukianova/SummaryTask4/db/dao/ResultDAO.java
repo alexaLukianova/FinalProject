@@ -9,5 +9,5 @@ public interface ResultDAO {
 
     Result findByUserAndTestId(long userId, long testId) throws DBException;
 
-    long update(long id, int result) throws DBException;
+    void update(long id, int result) throws DBException;
 }

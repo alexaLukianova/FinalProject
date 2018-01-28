@@ -42,8 +42,8 @@ public class JdbcQuestionDAO extends JdbcAbstractDAO<Question> implements Questi
     }
 
     @Override
-    public long update(Question question) throws DBException {
-        return execute(SQL__UPDATE, question.getText(), String.valueOf(question.getId()));
+    public void update(Question question) throws DBException {
+         execute(SQL__UPDATE, question.getText(), String.valueOf(question.getId()));
     }
 
 

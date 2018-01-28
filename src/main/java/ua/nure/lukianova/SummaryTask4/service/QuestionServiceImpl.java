@@ -26,8 +26,8 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public long update(Question question) throws DBException {
-        return questionDAO.update(question);
+    public void update(Question question) throws DBException {
+         questionDAO.update(question);
     }
 
     @Override

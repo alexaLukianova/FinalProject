@@ -32,7 +32,7 @@ public abstract class JdbcAbstractDAO<T> {
                 preparedStatement.setString(++index, parameter);
             }
             preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys(); //return if only auto-generated key
             if (resultSet.next()) {
                 id = resultSet.getLong(1);
             }

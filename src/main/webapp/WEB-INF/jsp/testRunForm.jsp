@@ -26,7 +26,7 @@
     <h2>Chosen test</h2>
     <label>Topic: ${test.name}</label><br>
     <label>Subject: ${test.subject}</label><br>
-    <label>Complexity: ${test.complexity}</label><br>
+    <label>Complexity: ${test.complexityId}</label><br>
     <label>Your duration: <p style="color:red; font-size:20px" id="demo"></p></label>
 
 

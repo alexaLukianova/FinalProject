@@ -40,6 +40,9 @@ public class ListTestsCommand extends Command {
         Map<Long,Integer> questionsCountByTestId = tests.stream()
                 .collect(Collectors.toMap(Test::getId, test -> getQuestionService().findByTestId(test.getId()).size()));
 
+
+        request.setAttribute("questionsCountByTestId", questionsCountByTestId);
+
         if (Objects.nonNull(field)) {
             switch (field) {
                 case "name":

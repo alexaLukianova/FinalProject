@@ -19,3 +19,24 @@ html, body {
 .site-footer {
     background: #95a5a6;
 }
+
+.questionForm .form-group {
+    display: inline!important;
+}
+
+.questionForm .form-group .form-control {
+    width: 90% !important;
+    display: inherit !important;
+}
+
+#deleteForm {
+    display: inherit;
+}
+
+#bottomBtns form {
+    display: inline;
+}
+
+#bottomBtns {
+    padding-bottom: 20px;
+}

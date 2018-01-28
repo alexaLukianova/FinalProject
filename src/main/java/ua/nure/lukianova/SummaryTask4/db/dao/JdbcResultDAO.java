@@ -52,8 +52,8 @@ public class JdbcResultDAO extends JdbcAbstractDAO<Result> implements ResultDAO 
     }
 
     @Override
-    public long update(long id, int result) throws DBException {
-        return execute(SQL__UPDATE, String.valueOf(result), String.valueOf(id));
+    public void update(long id, int result) throws DBException {
+         execute(SQL__UPDATE, String.valueOf(result), String.valueOf(id));
     }
 
 

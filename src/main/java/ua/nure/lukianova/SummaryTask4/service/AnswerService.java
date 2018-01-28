@@ -11,7 +11,7 @@ public interface AnswerService {
 
     List<Answer> findByQuestionId(long id) throws DBException;
 
-    long update(Answer answer) throws DBException;
+    void update(Answer answer) throws DBException;
 
     Answer findById(long id) throws DBException;
 

@@ -16,8 +16,8 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public long update(Test test) throws DBException {
-        return testDAO.update(test);
+    public void update(Test test) throws DBException {
+         testDAO.update(test);
     }
 
     @Override

@@ -26,8 +26,8 @@ public class ResultServiceImpl  implements  ResultService{
     }
 
     @Override
-    public long update(long id, int result) throws DBException {
-        return resultDAO.update(id,result);
+    public void update(long id, int result) throws DBException {
+         resultDAO.update(id,result);
     }
 
     @Override

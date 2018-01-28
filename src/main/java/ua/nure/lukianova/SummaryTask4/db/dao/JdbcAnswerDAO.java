@@ -45,8 +45,8 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
     }
 
     @Override
-    public long update(Answer answer) throws DBException {
-        return execute(SQL__UPDATE, answer.getText(), String.valueOf(answer.isCorrect()), String.valueOf(answer.getId()));
+    public void update(Answer answer) throws DBException {
+        execute(SQL__UPDATE, answer.getText(), String.valueOf(answer.isCorrect()), String.valueOf(answer.getId()));
     }
 
 
