@@ -16,6 +16,7 @@
         <form class="questionForm" method="post" action="controller">
             <input type="hidden" name="command" value="saveQuestion">
             <input type="hidden" name="testId" value="${testId}">
+            <input type="hidden" name="add" value="${true}">
 
             <label class="form-control-label">Question</label>
 
@@ -54,7 +55,7 @@
                 <input type="hidden" name="answersNumber" value="${answersNumber}">
 
                 <div>
-                    <input type="checkbox" name="correct" value="${answer.id}"
+                    <input type="checkbox" name="correct" value="${j}"
                            <c:if test="${answer.correct}">checked="checked"</c:if>>
                     <c:choose>
                         <c:when test="${ errors.containsKey('answer')}">

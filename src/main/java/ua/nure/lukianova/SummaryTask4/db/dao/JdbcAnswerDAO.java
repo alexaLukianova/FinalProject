@@ -49,7 +49,7 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
 
     @Override
     public void update(Answer answer) throws DBException {
-        execute(SQL__UPDATE, answer.getText(), String.valueOf(answer.isCorrect()), String.valueOf(answer.getId()));
+        execute(SQL__UPDATE, answer.getText(), String.valueOf(answer.isCorrect()), String.valueOf(answer.getQuestionId()));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
                                     SQL__UPDATE,
                                     answer.getText(),
                                     String.valueOf(answer.isCorrect()),
-                                    String.valueOf(answer.getId()));
+                                    String.valueOf(answer.getQuestionId()));
                         } catch (DBException e) {
                             e.printStackTrace();
                         }
@@ -83,6 +83,39 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
 
         }
     }
+
+    @Override
+    public void createAll(List<Answer> answers) throws DBException {
+        Connection connection = connectionFactory.getConnection();
+        try {
+            connection.setAutoCommit(false);
+            answers
+                    .stream()
+                    .forEach(answer -> {
+                        try {
+                            executeTransactional(
+                                    SQL__INSERT_INTO_ANSWERS_NEW_ANSWER,
+                                    answer.getText(),
+                                    String.valueOf(answer.isCorrect()),
+                                    String.valueOf(answer.getQuestionId()));
+                        } catch (DBException e) {
+                            e.printStackTrace();
+                        }
+                    });
+            connection.commit();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            close(connection);
+
+        }
+    }
+
 
 
     @Override

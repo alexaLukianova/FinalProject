@@ -189,9 +189,9 @@
 
         <div id="bottomBtns">
             <form action="controller" method="post">
-                <input type="hidden" name="command" value="addNewQuestion">
+                <input type="hidden" name="command" value="saveQuestion">
                 <input type="hidden" name="testId" value="${test.id}">
-                <input type="hidden" name="answers_number" value="${answersNumber}">
+                <input type="hidden" name="answersNumber" value="${answersNumber}">
                 <button class="btn btn-warning" type="submit">Add question</button>
             </form>
 

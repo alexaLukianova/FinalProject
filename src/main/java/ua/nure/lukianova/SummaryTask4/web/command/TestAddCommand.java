@@ -33,7 +33,7 @@ public class TestAddCommand extends Command {
         System.out.println(request.getCharacterEncoding());
         System.out.println(response.getCharacterEncoding());
 
-        return Path.PAGE_ADD_TEST;
+        return Path.PAGE_EDIT_TEST;
     }
 
 

@@ -45,6 +45,11 @@ public class AnswerServiceImpl implements AnswerService {
         answerDAO.updateAll(answers);
     }
 
+    @Override
+    public void createAll(List<Answer> answers) throws DBException {
+        answerDAO.updateAll(answers);
+    }
+
 
 }
 

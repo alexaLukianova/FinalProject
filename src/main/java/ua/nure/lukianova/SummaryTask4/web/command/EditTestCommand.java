@@ -8,7 +8,6 @@ import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.exception.DBException;
 import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
-import ua.nure.lukianova.SummaryTask4.web.Utils;
 import ua.nure.lukianova.SummaryTask4.web.validator.AddAnswersValidator;
 import ua.nure.lukianova.SummaryTask4.web.validator.AddQuestionValidator;
 import ua.nure.lukianova.SummaryTask4.web.validator.TestValidator;
@@ -49,8 +48,8 @@ public class EditTestCommand extends Command {
         int answersNumber = getAnswersNumber(questAnsMap.keySet().iterator().next().getId());
 
         if (isChangedQuestionInfo(request)) {
-            Question question = Utils.extractQuestion(request);
-            List<Answer> answers = Utils.extractAnswers(request);
+            Question question = extractQuestion(request);
+            List<Answer> answers = extractAnswers(request);
             if (isValidQuestionInfo(question, answers)) {
                 updateQuestionInfo(question, answers);
                 questAnsMap = extractQuestionInfoFromDB(testId);
@@ -94,7 +93,6 @@ public class EditTestCommand extends Command {
     }
 
 
-
     private boolean isChangedQuestionInfo(HttpServletRequest request) {
         return Objects.nonNull(request.getParameter(Parameter.QUESTION_ID))
                 && Objects.nonNull(request.getParameterValues(Parameter.ANSWER_ID));
@@ -102,17 +100,6 @@ public class EditTestCommand extends Command {
 
     private boolean isChangedTestInfo(HttpServletRequest request) {
         return Objects.nonNull(request.getParameter(Parameter.CHANGED));
-    }
-
-    private Test extractTest(TestValidationBean validTest) {
-        Test test = new Test();
-        test.setId(validTest.getId());
-        test.setName(validTest.getName());
-        test.setSubject(validTest.getSubject());
-        test.setComplexityId(Integer.valueOf(validTest.getComplexityId()));
-        test.setDuration(Long.valueOf(validTest.getDuration()));
-
-        return test;
     }
 
 
@@ -151,6 +138,49 @@ public class EditTestCommand extends Command {
 
     private int getAnswersNumber(long questionId) {
         return getAnswerService().findByQuestionId(questionId).size();
+    }
+
+    public Question extractQuestion(HttpServletRequest request) {
+        Question question = new Question();
+        question.setTestId(Long.valueOf(request.getParameter(Parameter.TEST_ID)));
+        question.setId(Long.valueOf(request.getParameter(Parameter.QUESTION_ID)));
+        question.setText(request.getParameter(Parameter.QUESTION));
+        return question;
+    }
+
+
+    public List<Answer> extractAnswers(HttpServletRequest request) {
+        List<Answer> answers = new ArrayList<>();
+        String[] id = request.getParameterValues(Parameter.ANSWER_ID);
+        String[] text = request.getParameterValues(Parameter.ANSWER);
+        String[] correct = request.getParameterValues(Parameter.ANSWER_CORRECT);
+        List<String> correctAnswers = new ArrayList<>();
+        if (Objects.nonNull(correct)) {
+            correctAnswers = new ArrayList<>(Arrays.asList(correct));
+        }
+
+
+        for (int i = 0; i < id.length; i++) {
+            Answer answer = new Answer();
+            answer.setId(Long.valueOf(id[i]));
+            answer.setText(text[i]);
+            answer.setCorrect(correctAnswers.contains(id[i]));
+            answers.add(answer);
+        }
+
+        return answers;
+    }
+
+
+    public static Test extractTest(TestValidationBean validTest) {
+        Test test = new Test();
+        test.setId(validTest.getId());
+        test.setName(validTest.getName());
+        test.setSubject(validTest.getSubject());
+        test.setComplexityId(Integer.valueOf(validTest.getComplexityId()));
+        test.setDuration(Long.valueOf(validTest.getDuration()));
+
+        return test;
     }
 
 
