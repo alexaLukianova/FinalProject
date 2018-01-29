@@ -17,38 +17,41 @@ public class RunTestCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        Result result;
+
         long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
         HttpSession session = request.getSession();
-        long userId = ((User) session.getAttribute("user")).getId();
+        long userId = ((User) session.getAttribute(Parameter.USER)).getId();
         Test test = getTestService().findById(testId);
 
-        Result result = getResultService().findByUserAndTestId(userId, testId);
-        if (Objects.nonNull(result)) {
-            request.setAttribute("message", "You have already passed the test \"" + test.getName() + "\". " +
-                    "Your score is " + result.getResult() + "%.");
-            return Path.PAGE_MESSAGE;
-        } else {
-            List<Question> questions = new ArrayList<>(getQuestionService().findByTestId(testId));
-            Collections.shuffle(questions);
-            Map<Question, List<Answer>> questAnsMap = new HashMap<>();
-            for (Question question : questions) {
-                List<Answer> answers = new ArrayList<>(getAnswerService().findByQuestionId(question.getId()));
-                Collections.shuffle(answers);
-                questAnsMap.put(question, answers);
-            }
-            request.setAttribute("test", test);
-            request.setAttribute("questions", questions);
-            request.setAttribute(Parameter.QUEST_ANS_MAP, questAnsMap);
-            long currentTime = System.currentTimeMillis();
 
-            result = new Result();
-            result.setUserId(userId);
-            result.setTestId(testId);
-            result.setStartTime(currentTime);
-            getResultService().create(result);
-            request.setAttribute("startTime", currentTime);
-            return Path.PAGE_TEST_FORM;
+
+
+        List<Question> questions = new ArrayList<>(getQuestionService().findByTestId(testId));
+        Collections.shuffle(questions);
+        Map<Question, List<Answer>> questAnsMap = new HashMap<>();
+        for (Question question : questions) {
+            List<Answer> answers = new ArrayList<>(getAnswerService().findByQuestionId(question.getId()));
+            Collections.shuffle(answers);
+            questAnsMap.put(question, answers);
         }
+
+        request.setAttribute(Parameter.TEST, test);
+//        request.setAttribute(Parameter.QUESTIONS, questions);
+        request.setAttribute(Parameter.QUEST_ANS_MAP, questAnsMap);
+
+
+
+        result = new Result();
+        result.setUserId(userId);
+        result.setTestId(testId);
+        result.setStartTime(System.currentTimeMillis());
+       long resultId =  getResultService().create(result);
+
+        request.setAttribute( Parameter.START_TIME, result.getStartTime());
+        request.setAttribute(Parameter.RESULT_ID, resultId);
+
+        return Path.PAGE_TEST_FORM;
 
 
     }

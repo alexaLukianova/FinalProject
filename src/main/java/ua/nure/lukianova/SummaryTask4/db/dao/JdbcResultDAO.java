@@ -14,7 +14,6 @@ public class JdbcResultDAO extends JdbcAbstractDAO<Result> implements ResultDAO 
             "INSERT INTO RESULTS (TEST_ID, RESULT, START_TIME, USER_ID) VALUES (?, ?, ?, ?)";
     private static final String SQL__SELECT_ALL_RESULTS = "SELECT * FROM RESULTS";
     private static final String SQL__SELECT_RESULT_BY_ID = "SELECT * FROM RESULTS WHERE ID = ?";
-    private static final String SQL__SELECT_RESULT_BY_USER_AND_TEST_ID = "SELECT * FROM RESULTS WHERE USER_ID = ? AND TEST_ID = ?";
     private static final String SQL__UPDATE = "UPDATE RESULTS SET RESULT = ? WHERE ID = ?";
 
 
@@ -42,13 +41,6 @@ public class JdbcResultDAO extends JdbcAbstractDAO<Result> implements ResultDAO 
                 String.valueOf(result.getResult()),
                 String.valueOf(result.getStartTime()),
                 String.valueOf(result.getUserId()));
-    }
-
-    @Override
-    public Result findByUserAndTestId(long userId, long testId) throws DBException {
-        List<Result> results = findBy(SQL__SELECT_RESULT_BY_USER_AND_TEST_ID, String.valueOf(userId), String.valueOf(testId));
-        return results.isEmpty() ? null : results.get(0);
-
     }
 
     @Override

@@ -16,6 +16,8 @@ public class Parameter {
 
     public static final String QUESTION_ID ="questionId";
     public static final String QUESTION ="question";
+    public static final String QUESTIONS ="questions";
+
 
     public static final String  ANSWER ="answer";
     public static final String ANSWER_CORRECT = "correct";
@@ -28,6 +30,18 @@ public class Parameter {
     public static final String PARAMETER = "parameter";
     public static final String QUESTIONS_COUNT = "questionsCount";
     public static final String DESC_ORDER = "desc";
+
+    public static final String USER = "user";
+    public static final String USERS = "users";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String USER_ROLE = "userRole";
+    public static final String LOGIN = "login";
+
+    public static final String START_TIME = "startTime";
+    public static final String RESULT_ID = "resultId";
+
+
 
 }
 

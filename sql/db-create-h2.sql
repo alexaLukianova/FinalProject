@@ -31,7 +31,7 @@ CREATE TABLE tests (
   complexity_id INT          NOT NULL,
   duration      INT,
   PRIMARY KEY (id),
-  FOREIGN KEY (complexity_id) REFERENCES complexity(id)
+  FOREIGN KEY (complexity_id) REFERENCES complexity (id)
 );
 
 CREATE TABLE questions (
@@ -62,8 +62,10 @@ CREATE TABLE results (
   start_time BIGINT,
   user_id    INT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (test_id) REFERENCES tests (id),
-  FOREIGN KEY (user_id) REFERENCES users (id)
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE RESTRICT,
+  FOREIGN KEY (test_id) REFERENCES tests (id)
+  ON DELETE CASCADE
+  ON UPDATE RESTRICT
 );
 
 INSERT INTO roles VALUES (0, 'admin'), (1, 'student');

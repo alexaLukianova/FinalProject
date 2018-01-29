@@ -4,7 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.nure.lukianova.SummaryTask4.db.entity.Test;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
-import ua.nure.lukianova.SummaryTask4.service.*;
+import ua.nure.lukianova.SummaryTask4.service.QuestionService;
+import ua.nure.lukianova.SummaryTask4.service.QuestionServiceImpl;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.ServletException;

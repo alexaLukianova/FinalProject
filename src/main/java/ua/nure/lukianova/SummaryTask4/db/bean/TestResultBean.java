@@ -42,9 +42,8 @@ public class TestResultBean extends Entity {
         return date;
     }
 
-    //TODO how to make it more krasivo
     public void setDate(Date date) {
-        this.date = new SimpleDateFormat("MM/DD/YYYY").format(date);
+        this.date = new SimpleDateFormat("MM/DD/YYYY 'at' HH:mm:ss").format(date);
     }
 
     @Override

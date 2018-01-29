@@ -7,7 +7,7 @@ public interface ResultDAO {
 
     long create(Result result) throws DBException;
 
-    Result findByUserAndTestId(long userId, long testId) throws DBException;
+    Result findById(long resultId) throws DBException;
 
     void update(long id, int result) throws DBException;
 }

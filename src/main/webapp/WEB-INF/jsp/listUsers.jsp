@@ -45,7 +45,7 @@
                 <td>
                     <form action="controller" method="post">
                         <input type="hidden" name="command" value="lockUser">
-                        <button class="btn btn-warning btn-md" name="user_username" value="${user.username}"
+                        <button class="btn btn-warning btn-md" name="login" value="${user.username}"
                                 <c:if test="${sessionScope.user.username eq user.username}">disabled</c:if>>
                             <c:choose>
                                 <c:when test="${user.locked}">

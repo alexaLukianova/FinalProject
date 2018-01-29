@@ -21,8 +21,8 @@ public class ResultServiceImpl  implements  ResultService{
     }
 
     @Override
-    public Result findByUserAndTestId(long userId, long testId) throws DBException {
-        return resultDAO.findByUserAndTestId(userId,testId);
+    public Result findById(long resultId) throws DBException {
+        return resultDAO.findById(resultId);
     }
 
     @Override

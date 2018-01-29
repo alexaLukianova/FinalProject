@@ -58,7 +58,7 @@
         </c:forEach>
 
         <div id="bottomLast">
-            <button class="btn btn-success btn-lg btn-block" type="submit" id="finishButton">Finish test</button>
+            <button class="btn btn-success btn-lg btn-block" type="submit" name="resultId" value="${resultId}">Finish test</button>
         </div>
 
     </form>

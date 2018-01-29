@@ -57,7 +57,7 @@
                         <td>
                             <form action="controller" method="post">
                                 <input type="hidden" name="command" value="deleteTest">
-                                <button class="btn btn-danger btn-md" name="delete_id" value="${test.id}">
+                                <button class="btn btn-danger btn-md" name="testId" value="${test.id}">
                                     Delete
                                 </button>
                             </form>

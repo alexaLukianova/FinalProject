@@ -17,7 +17,7 @@
         <div class="card-header">Result</div>
         <div class="card-body">
             <h4 class="card-title">${message}</h4>
-            <p class="card-text">Ask admin to permit your new attempt.</p>
+            <p class="card-text">Nice try.</p>
         </div>
         <form action="controller" method="post">
             <input type="hidden" name="command" value="listTests">

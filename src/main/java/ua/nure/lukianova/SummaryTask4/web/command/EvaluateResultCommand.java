@@ -17,13 +17,14 @@ public class EvaluateResultCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
-        long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
 
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        Result result = getResultService().findByUserAndTestId(user.getId(), testId);
+        long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
+        long resultId = Long.valueOf(request.getParameter(Parameter.RESULT_ID));
+
+        Result result = getResultService().findById(resultId);
 
         long currentTime = System.currentTimeMillis();
+
         Test test = getTestService().findById(testId);
         if (currentTime - result.getStartTime() > test.getDuration()) {
             System.out.println("FAIL");

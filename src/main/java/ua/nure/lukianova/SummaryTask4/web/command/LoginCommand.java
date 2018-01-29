@@ -7,6 +7,7 @@ import ua.nure.lukianova.SummaryTask4.db.entity.User;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.UserService;
 import ua.nure.lukianova.SummaryTask4.service.UserServiceImpl;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.ServletException;
@@ -28,19 +29,17 @@ public class LoginCommand extends Command {
 
         HttpSession session = request.getSession();
 
-        // obtain login and password from a request
-        UserService userService = new UserServiceImpl();
-        //  DBManager manager = DBManager.getInstance();
-        String login = request.getParameter("username");
+
+        String login = request.getParameter(Parameter.USERNAME);
         LOGGER.trace("Request parameter: loging --> " + login);
 
-        String password = request.getParameter("password");
+        String password = request.getParameter(Parameter.PASSWORD);
         if (Objects.isNull(login) || Objects.isNull(password)
                 || login.isEmpty() || password.isEmpty()) {
             // throw new AppException("Login/password cannot be empty");
         }
 
-        User user = userService.findByLogin(login);
+        User user = getUserService().findByLogin(login);
         LOGGER.trace("Found in DB: user --> " + user);
 
         if (Objects.isNull(user) || !password.equals(user.getPassword())) {
@@ -65,10 +64,10 @@ public class LoginCommand extends Command {
                 forward = Path.COMMAND_SHOW_PROFILE;
             }
 
-            session.setAttribute("user", user);
+            session.setAttribute(Parameter.USER, user);
             LOGGER.trace("Set the session attribute: user --> " + user);
 
-            session.setAttribute("userRole", userRole);
+            session.setAttribute(Parameter.USER_ROLE, userRole);
             LOGGER.trace("Set the session attribute: userRole --> " + userRole);
 
 

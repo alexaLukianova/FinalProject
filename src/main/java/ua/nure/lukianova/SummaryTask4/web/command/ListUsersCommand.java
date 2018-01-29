@@ -3,8 +3,7 @@ package ua.nure.lukianova.SummaryTask4.web.command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
-import ua.nure.lukianova.SummaryTask4.service.UserService;
-import ua.nure.lukianova.SummaryTask4.service.UserServiceImpl;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.ServletException;
@@ -22,7 +21,7 @@ public class ListUsersCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOGGER.debug("Command starts");
-        request.setAttribute("users", getUserService().findAll());
+        request.setAttribute(Parameter.USERS, getUserService().findAll());
         return Path.PAGE_LIST_USERS;
     }
 }

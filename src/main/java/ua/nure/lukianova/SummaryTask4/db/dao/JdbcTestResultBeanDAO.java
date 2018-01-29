@@ -13,7 +13,7 @@ public class JdbcTestResultBeanDAO extends JdbcAbstractDAO<TestResultBean> imple
 
     private static final String SQL__SELECT_BY_USER_ID = "SELECT TESTS.NAME, TESTS.SUBJECT, RESULTS.RESULT, " +
             "RESULTS.START_TIME FROM TESTS JOIN RESULTS ON TESTS.ID = RESULTS.TEST_ID JOIN USERS ON " +
-            "RESULTS.USER_ID = USERS.ID WHERE USERS.ID = ?";
+            "RESULTS.USER_ID = USERS.ID WHERE USERS.ID = ? ORDER BY RESULTS.START_TIME DESC";
 
 
     @Override
