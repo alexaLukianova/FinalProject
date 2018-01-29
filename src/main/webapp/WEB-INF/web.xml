@@ -30,7 +30,7 @@
         </init-param>
         <init-param>
             <param-name>student</param-name>
-            <param-value>showProfile listTests runTest evaluteResult</param-value>
+            <param-value>showProfile listTests runTest evaluateResult</param-value>
         </init-param>
         <init-param>
             <param-name>common</param-name>

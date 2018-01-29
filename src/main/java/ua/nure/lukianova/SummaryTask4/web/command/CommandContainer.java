@@ -20,7 +20,7 @@ public class CommandContainer {
         commands.put("listTests", new ListTestsCommand());
         //commands.put("addTest", new TestAddCommand());
         //commands.put("addQuestions", new QuestionAddCommand());
-        commands.put("saveTest", new SaveTestCommand());
+       // commands.put("saveTest", new SaveTestCommand());
         commands.put("deleteTest", new DeleteTestCommand());
         commands.put("editTest", new EditTestCommand());
         commands.put("addNewQuestion", new ShowAddQuestionForm());
@@ -30,7 +30,7 @@ public class CommandContainer {
         commands.put("updateQuestion", new UpdateQuestionsCommand());
         commands.put("lockUser", new LockUserCommand());
         commands.put("runTest", new RunTestCommand());
-        commands.put("evaluteResult", new EvaluateResultCommand());
+        commands.put("evaluateResult", new EvaluateResultCommand());
         commands.put("showProfile", new ShowProfileCommand());
         commands.put("register", new RegisterCommand());
         commands.put("logout", new LogoutCommand());

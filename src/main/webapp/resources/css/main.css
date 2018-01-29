@@ -40,3 +40,23 @@ html, body {
 #bottomBtns {
     padding-bottom: 20px;
 }
+
+#bottomLast {
+    padding-bottom: 80px;
+}
+
+#bottomSides {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#addButton {
+    position: absolute;
+    right:10px;
+    width: 300px;
+}
+
+#profile {
+    /*position: absolute;*/
+    top:80px;
+}

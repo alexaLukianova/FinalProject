@@ -3,6 +3,7 @@ package ua.nure.lukianova.SummaryTask4.web.command;
 import ua.nure.lukianova.SummaryTask4.db.entity.*;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.exception.DBException;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.ServletException;
@@ -16,7 +17,7 @@ public class EvaluateResultCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
-        long testId = Long.valueOf(request.getParameter("test_id"));
+        long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -29,12 +30,12 @@ public class EvaluateResultCommand extends Command {
         }
 
 
-        String[] questions = request.getParameterValues("question");
+        String[] questions = request.getParameterValues(Parameter.QUESTION);
 
 
-        request.getParameterValues("answer");
+        request.getParameterValues(Parameter.ANSWER);
 
-        String[] answers = request.getParameterValues("correct");
+        String[] answers = request.getParameterValues(Parameter.ANSWER_CORRECT);
         String[] value = null;
 
 

@@ -2,6 +2,7 @@ package ua.nure.lukianova.SummaryTask4.web.command;
 
 import ua.nure.lukianova.SummaryTask4.db.entity.*;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.ServletException;
@@ -16,7 +17,7 @@ public class RunTestCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
-        long testId = Long.valueOf(request.getParameter("test_id"));
+        long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
         HttpSession session = request.getSession();
         long userId = ((User) session.getAttribute("user")).getId();
         Test test = getTestService().findById(testId);
@@ -29,15 +30,15 @@ public class RunTestCommand extends Command {
         } else {
             List<Question> questions = new ArrayList<>(getQuestionService().findByTestId(testId));
             Collections.shuffle(questions);
-            Map<Question, List<Answer>> questionsAndAnswers = new HashMap<>();
+            Map<Question, List<Answer>> questAnsMap = new HashMap<>();
             for (Question question : questions) {
                 List<Answer> answers = new ArrayList<>(getAnswerService().findByQuestionId(question.getId()));
                 Collections.shuffle(answers);
-                questionsAndAnswers.put(question, answers);
+                questAnsMap.put(question, answers);
             }
             request.setAttribute("test", test);
             request.setAttribute("questions", questions);
-            request.setAttribute("questionsAndAnswers", questionsAndAnswers);
+            request.setAttribute(Parameter.QUEST_ANS_MAP, questAnsMap);
             long currentTime = System.currentTimeMillis();
 
             result = new Result();

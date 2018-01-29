@@ -37,7 +37,6 @@ public class SaveQuestionCommand extends Command {
         long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
         int answersNumber = Integer.valueOf(request.getParameter(Parameter.ANSWERS_NUMBER));
 
-
         request.setAttribute(Parameter.TEST_ID, testId);
         request.setAttribute(Parameter.ANSWERS_NUMBER, answersNumber);
 
@@ -48,27 +47,23 @@ public class SaveQuestionCommand extends Command {
                 setQuestionInfo(question, answers);
                 return Path.COMMAND_EDIT_TEST;
 
-            }else{
+            } else {
                 request.setAttribute(Parameter.ERRORS, errors);
                 request.setAttribute(Parameter.QUESTION, question.getText());
             }
         }
 
-
-
-        return Path.PAGE_ADD_NEW_QUESTION;
+         return Path.PAGE_ADD_NEW_QUESTION;
     }
 
-
-    public Question extractNewQuestion(HttpServletRequest request) {
+    private Question extractNewQuestion(HttpServletRequest request) {
         Question question = new Question();
         question.setText(request.getParameter(Parameter.QUESTION));
         question.setTestId(Long.valueOf(request.getParameter(Parameter.TEST_ID)));
         return question;
     }
 
-
-    public static List<Answer> extractNewAnswers(HttpServletRequest request) {
+    private List<Answer> extractNewAnswers(HttpServletRequest request) {
         List<Answer> answers = new ArrayList<>();
         String[] text = request.getParameterValues(Parameter.ANSWER);
         String[] correct = request.getParameterValues(Parameter.ANSWER_CORRECT);
@@ -79,7 +74,7 @@ public class SaveQuestionCommand extends Command {
         for (int i = 0; i < text.length; i++) {
             Answer answer = new Answer();
             answer.setText(text[i]);
-            answer.setCorrect(correctAnswers.contains(String.valueOf(i+1)));
+            answer.setCorrect(correctAnswers.contains(String.valueOf(i + 1)));
             answers.add(answer);
         }
 

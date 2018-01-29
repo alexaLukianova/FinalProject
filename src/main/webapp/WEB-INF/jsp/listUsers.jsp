@@ -14,7 +14,7 @@
 <div class="container ">
     <h1 align="center"><fmt:message key="user.table_name"/></h1>
 
-    <table class="table table-striped table-sm">
+    <table  class="table table-striped table-sm">
         <thead>
 
         <th><fmt:message key="user.first_name"/></th>
@@ -74,7 +74,7 @@
         </tbody>
     </table>
 
-    <form action="/registration.jsp" method="get">
+    <form id="bottomLast" action="/registration.jsp" method="get">
         <button class="btn btn-primary btn-md" name="userId" value="${user.id}">Add new user
         </button>
     </form>

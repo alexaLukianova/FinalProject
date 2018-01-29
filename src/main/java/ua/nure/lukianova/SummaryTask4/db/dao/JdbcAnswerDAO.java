@@ -49,7 +49,7 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
 
     @Override
     public void update(Answer answer) throws DBException {
-        execute(SQL__UPDATE, answer.getText(), String.valueOf(answer.isCorrect()), String.valueOf(answer.getQuestionId()));
+        execute(SQL__UPDATE, answer.getText(), String.valueOf(answer.isCorrect()), String.valueOf(answer.getId()));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
                                     SQL__UPDATE,
                                     answer.getText(),
                                     String.valueOf(answer.isCorrect()),
-                                    String.valueOf(answer.getQuestionId()));
+                                    String.valueOf(answer.getId()));
                         } catch (DBException e) {
                             e.printStackTrace();
                         }

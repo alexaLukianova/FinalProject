@@ -7,8 +7,11 @@
 
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css"/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
 </head>
 <body>
+
+
 
 <div class="container">
     <div class="bs-component col-lg-6">

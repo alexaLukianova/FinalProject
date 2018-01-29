@@ -18,64 +18,66 @@
             cursor: pointer;
         }
     </style>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css"/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
 </head>
 <body>
+
+
 <div id="overlay"></div>
-
-<div>
-    <h2>Chosen test</h2>
-    <label>Topic: ${test.name}</label><br>
-    <label>Subject: ${test.subject}</label><br>
-    <label>Complexity: ${test.complexityId}</label><br>
-    <label>Your duration: <p style="color:red; font-size:20px" id="demo"></p></label>
-
-
-</div>
-
-<script>
-    function enable(elemId) {
-        var c = document.getElementById(elemId).children;
+<div class="container">
+    <div>
+        <h2 class="text-primary">
+            <small class="text-muted">Test</small>
+            ${test.name}</h2>
+        <small class="text-muted">Choose correct answer or answers on each questions:</small>
+        <hr class="my-4">
+    </div>
 
 
-        for (var i = 0; i < c.length; i++) {
-            c[i].disabled = false;
-        }
-    }
+    <form id="finish" action="controller" method="post">
+        <input type="hidden" name="command" value="evaluateResult">
+        <input type="hidden" name="testId" value="${test.id}">
+        <c:forEach var="map" items="${questAnsMap}" varStatus="questionCount">
+            <strong>Question #${questionCount.count}. ${map.key.text}</strong>
+            <input type="hidden" name="question" value="${map.key.id}"> <br>
 
+            <c:forEach var="answer" items="${map.value}">
+                <input type="checkbox" name="correct"
+                       value="${map.key.id}&${answer.getId()}">
 
-</script>
+                <label> ${answer.text}
+                    <input type="hidden" name="answer" value="${answer.id}">
 
-<form id="finish" action="controller" method="post">
-    <input type="hidden" name="command" value="evaluteResult">
-    <input type="hidden" name="test_id" value="${test.id}">
+                </label>
 
-    <h3>Choose correct answer or answers on each questions: </h3>
-    </br>
-    <c:forEach var="i" begin="0" end="${questions.size()-1}">
-        <label>Question #${i+1}. ${questions[i].text}</label>
-        <input type="hidden" name="question" value="${questions[i].id}"> <br>
-
-        <c:forEach var="j" begin="0" end="${questionsAndAnswers[questions[i]].size()-1}">
-            <input type="checkbox" name="correct"
-                   value="${questions[i].id}&${questionsAndAnswers[questions[i]][j].getId()}">
-
-            <label> ${questionsAndAnswers[questions[i]][j].getText()}
-                <input type="hidden" name="answer" value="${questionsAndAnswers[questions[i]][j].getId()}">
-
-            </label>
-            <br>
-
+                <br>
+            </c:forEach>
+            <hr class="my-4">
         </c:forEach>
 
-        <hr>
-        <br>
-    </c:forEach>
+        <div id="bottomLast">
+            <button class="btn btn-success btn-lg btn-block" type="submit" id="finishButton">Finish test</button>
+        </div>
 
-    <button class="button" type="submit" id="finishButton">Finish test</button>
-</form>
+    </form>
 
 
 </div>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
+    <h4 class="text-secondary"> ${test.name}</h4>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <div class="my-2 my-lg-0">
+            <h4 class="nav-link text-danger" id="timer"></h4>
+        </div>
+    </div>
+</nav>
 
 
 <script>
@@ -88,7 +90,7 @@
         var seconds = Math.floor((duration % (1000 * 60)) / 1000);
 
         if (duration <= 0) {
-            document.getElementById("demo").innerHTML = "EXPIRED";
+            document.getElementById("timer").innerHTML = "EXPIRED";
             document.getElementById("overlay").style.display = "block";
             clearInterval(timer);
             setTimeout("alert('Your duration is over')", 100);
@@ -98,15 +100,27 @@
         }
         else {
             if (hours != 0) {
-                document.getElementById("demo").innerHTML = hours + "h : "
+                document.getElementById("timer").innerHTML = hours + "h : "
                     + minutes + "m : " + seconds + "s ";
             }
             else {
-                document.getElementById("demo").innerHTML = minutes + "m : " + seconds + "s ";
+                document.getElementById("timer").innerHTML = minutes + "m : " + seconds + "s ";
             }
         }
 
     }, 1000);
+</script>
+<script>
+    function enable(elemId) {
+        var c = document.getElementById(elemId).children;
+
+
+        for (var i = 0; i < c.length; i++) {
+            c[i].disabled = false;
+        }
+    }
+
+
 </script>
 
 

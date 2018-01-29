@@ -11,9 +11,9 @@
 
 
 <%@ include file="/WEB-INF/jspf/navigation.jspf" %>
-<div class="container">
-
-    <div class="card text-white bg-success mb-3" style="max-width: 15rem;">
+<div id="profile" class="container">
+    <br>
+    <div class="card border-info mb-3">
         <div class="card-header">Hello, ${userRole.toString()}!!!</div>
         <div class="card-body">
             <h4 class="card-title">Your profile:</h4>
@@ -27,7 +27,7 @@
 
     <c:if test="${not empty userProgress}">
         <h1 align="center">Your results</h1>
-        <table class="table table-striped table-sm">
+        <table id="bottomLast" class="table table-striped table-sm">
             <thead>
             <th>Test</th>
             <th>Subject</th>

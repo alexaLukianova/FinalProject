@@ -7,6 +7,8 @@
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
 </head>
 <body>
+
+
 <div class="topnav">
     <div class="lang-selector">
         <form class="form-group" action="/login.jsp" method="get">
@@ -16,6 +18,8 @@
             </select>
         </form>
     </div>
+</div>
+
 
 </div>
 

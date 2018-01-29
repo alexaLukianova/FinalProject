@@ -7,8 +7,10 @@
 
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css"/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
 </head>
 <body>
+
 
 
 <div class="container">
@@ -205,11 +207,12 @@
             </div>
         </c:if>
 
+        <div id="bottomBtns">
         <form method="post" action="controller">
             <input type="hidden" name="command" value="listTests">
             <button class="btn btn-secondary" type="submit">Return</button>
         </form>
-
+        </div>
 
     </div>
 </div>
