@@ -58,7 +58,8 @@
             <div class="form-check">
                 <label class="form-check-label">
                     <input type="radio" class="form-check-input" name="complexityId" value="0"
-                           <c:if test="${test.complexityId eq 0}">checked="checked"</c:if>>
+                           <c:if test="${test.complexityId eq 0}">checked="checked"</c:if>
+                           <c:if test="${empty testId}">checked="checked"</c:if>>
                     Easy
                 </label><br>
                 <label class="form-check-label">
@@ -98,8 +99,10 @@
             <hr class="my-6">
         </form>
 
+        <c:if test="${ empty errors && not empty test}">
+            <h3 class="form-signin-heading">Questions</h3>
+        </c:if>
 
-        <h3 class="form-signin-heading">Questions</h3>
 
         <c:forEach var="map" items="${questAnsMap}" varStatus="questionCount">
 
@@ -187,21 +190,25 @@
             <hr class="my-6">
         </c:forEach>
 
-        <div id="bottomBtns">
-            <form action="controller" method="post">
-                <input type="hidden" name="command" value="saveQuestion">
-                <input type="hidden" name="testId" value="${test.id}">
-                <input type="hidden" name="answersNumber" value="${answersNumber}">
-                <button class="btn btn-warning" type="submit">Add question</button>
-            </form>
 
-            <form method="post" action="controller">
-                <input type="hidden" name="command" value="listTests">
-                <button class="btn btn-secondary" type="submit">Return</button>
-            </form>
+        <c:if test="${ empty errors && not empty test}">
+            <div id="bottomBtns">
+                <form action="controller" method="post">
+                    <input type="hidden" name="command" value="saveQuestion">
+                    <input type="hidden" name="testId" value="${test.id}">
+                    <input type="hidden" name="answersNumber" value="${answersNumber}">
+                    <button class="btn btn-warning" type="submit">Add question</button>
+                </form>
 
-            <a href="#top">Back to top</a>
-        </div>
+
+                <a href="#top">Back to top</a>
+            </div>
+        </c:if>
+
+        <form method="post" action="controller">
+            <input type="hidden" name="command" value="listTests">
+            <button class="btn btn-secondary" type="submit">Return</button>
+        </form>
 
 
     </div>

@@ -87,7 +87,7 @@
 
     <c:if test="${'admin'.equals(role)}">
         <form action="controller" method="post">
-            <input type="hidden" name="command" value="addTest">
+            <input type="hidden" name="command" value="editTest">
             <button class="btn btn-info btn-lg">Add new test</button>
         </form>
     </c:if>

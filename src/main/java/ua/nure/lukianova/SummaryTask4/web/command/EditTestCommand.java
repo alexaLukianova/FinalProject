@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 public class EditTestCommand extends Command {
 
     private static final long serialVersionUID = -7228884081045892629L;
+    public static final int ANSWERS_NUMBER = 4;
     private Validator testValidator;
     private Validator answerValidator;
     private Validator questionValidator;
@@ -40,50 +41,104 @@ public class EditTestCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException, DBException {
         errors = new LinkedHashMap<>();
+        long testId;
+        Test test;
+        TestValidationBean testValidationBean;
 
-        long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
 
+        if (isNewTest(request)) { //nothing}
+        }
 
-        Map<Question, List<Answer>> questAnsMap = extractQuestionInfoFromDB(testId);
-        int answersNumber = getAnswersNumber(questAnsMap.keySet().iterator().next().getId());
+        if (isNewTest(request) && isChangedTestInfo(request)) {
+            testValidationBean = extractTestValidationBean(request);
+            if (isValidTestInfo(testValidationBean)) {
+                test = extractTest(testValidationBean);
+                testId = getTestService().create(test);
+                test = getTestService().findById(testId);
 
-        if (isChangedQuestionInfo(request)) {
-            Question question = extractQuestion(request);
-            List<Answer> answers = extractAnswers(request);
-            if (isValidQuestionInfo(question, answers)) {
-                updateQuestionInfo(question, answers);
-                questAnsMap = extractQuestionInfoFromDB(testId);
+                request.setAttribute(Parameter.TEST, test);
+                request.setAttribute(Parameter.TEST_ID, testId);
+            }else{
+                request.setAttribute(Parameter.TEST, testValidationBean);
             }
         }
 
-        Test test;
 
-        if (isChangedTestInfo(request)) {
-            TestValidationBean testValidationBean = extractTestValidationBean(request);
+        if (!isNewTest(request) && !isChangedTestInfo(request)) {
+            testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
+            test = getTestService().findById(testId);
+
+            request.setAttribute(Parameter.TEST, test);
+            request.setAttribute(Parameter.TEST_ID, testId);
+
+            Map<Question, List<Answer>> questAnsMap = extractQuestionInfoFromDB(testId);
+
+            if (isChangedQuestionInfo(request)) {
+                Question question = extractQuestion(request);
+                List<Answer> answers = extractAnswers(request);
+                if (isValidQuestionInfo(question, answers)) {
+                    updateQuestionInfo(question, answers);
+                    questAnsMap = extractQuestionInfoFromDB(testId);
+                }
+            }
+
+            request.setAttribute(Parameter.QUEST_ANS_MAP, questAnsMap);
+
+
+        }
+
+
+        if (isNewTest(request) && !isChangedTestInfo(request)) {
+            // nothing
+        }
+
+
+        if (!isNewTest(request) && isChangedTestInfo(request)) {
+            testValidationBean = extractTestValidationBean(request);
+            testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
             if (isValidTestInfo(testValidationBean)) {
                 test = extractTest(testValidationBean);
-                request.setAttribute(Parameter.TEST, getTestService().update(test));
+                test = getTestService().update(test);
+
+                Map<Question, List<Answer>> questAnsMap = extractQuestionInfoFromDB(testId);
+
+                if (isChangedQuestionInfo(request)) {
+                    Question question = extractQuestion(request);
+                    List<Answer> answers = extractAnswers(request);
+                    if (isValidQuestionInfo(question, answers)) {
+                        updateQuestionInfo(question, answers);
+                        questAnsMap = extractQuestionInfoFromDB(testId);
+                    }
+                }
+
+                request.setAttribute(Parameter.QUEST_ANS_MAP, questAnsMap);
+                request.setAttribute(Parameter.TEST, test);
+
+
             } else {
                 request.setAttribute(Parameter.TEST, testValidationBean);
             }
-        } else {
-            test = getTestService().findById(testId);
-            request.setAttribute(Parameter.TEST, test);
+
+            request.setAttribute(Parameter.TEST_ID, testId);
         }
 
+
         request.setAttribute(Parameter.ERRORS, errors);
-        request.setAttribute(Parameter.TEST_ID, request.getParameter(Parameter.TEST_ID));
-        request.setAttribute(Parameter.ANSWERS_NUMBER, answersNumber);
-        request.setAttribute(Parameter.QUEST_ANS_MAP, questAnsMap);
+//        request.setAttribute(Parameter.TEST_ID, request.getParameter(Parameter.TEST_ID));
+        request.setAttribute(Parameter.ANSWERS_NUMBER, ANSWERS_NUMBER);
+//        request.setAttribute(Parameter.QUEST_ANS_MAP, questAnsMap);
         request.setAttribute(Parameter.QUESTION_ID, request.getParameter(Parameter.QUESTION_ID));
 
 
         return Path.PAGE_EDIT_TEST;
     }
 
+
     private TestValidationBean extractTestValidationBean(HttpServletRequest request) {
         TestValidationBean test = new TestValidationBean();
-        test.setId(Long.valueOf(request.getParameter(Parameter.TEST_ID)));
+        if (!isNewTest(request)) {
+            test.setId(Long.valueOf(request.getParameter(Parameter.TEST_ID)));
+        }
         test.setName(request.getParameter(Parameter.TEST_NAME).trim());
         test.setSubject(request.getParameter(Parameter.TEST_SUBJECT).trim());
         test.setComplexityId(request.getParameter(Parameter.TEST_COMPLEXITY_ID).trim());
@@ -136,9 +191,6 @@ public class EditTestCommand extends Command {
         return map;
     }
 
-    private int getAnswersNumber(long questionId) {
-        return getAnswerService().findByQuestionId(questionId).size();
-    }
 
     public Question extractQuestion(HttpServletRequest request) {
         Question question = new Question();
@@ -169,6 +221,11 @@ public class EditTestCommand extends Command {
         }
 
         return answers;
+    }
+
+    private boolean isNewTest(HttpServletRequest request) {
+        String testId = request.getParameter(Parameter.TEST_ID);
+        return Objects.isNull(testId) || testId.trim().isEmpty();
     }
 
 

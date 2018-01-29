@@ -18,7 +18,7 @@ public class CommandContainer {
         commands.put("login", new LoginCommand());
         commands.put("listUsers", new ListUsersCommand());
         commands.put("listTests", new ListTestsCommand());
-        commands.put("addTest", new TestAddCommand());
+        //commands.put("addTest", new TestAddCommand());
         //commands.put("addQuestions", new QuestionAddCommand());
         commands.put("saveTest", new SaveTestCommand());
         commands.put("deleteTest", new DeleteTestCommand());
