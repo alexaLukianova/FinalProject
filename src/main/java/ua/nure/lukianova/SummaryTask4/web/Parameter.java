@@ -16,7 +16,7 @@ public class Parameter {
 
     public static final String QUESTION_ID ="questionId";
     public static final String QUESTION ="question";
-    public static final String QUESTIONS ="questions";
+
 
 
     public static final String  ANSWER ="answer";
@@ -34,15 +34,21 @@ public class Parameter {
     public static final String USER = "user";
     public static final String USERS = "users";
     public static final String USERNAME = "username";
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
     public static final String PASSWORD = "password";
+    public static final String REENTER_PASSWORD = "reenterPassword";
     public static final String USER_ROLE = "userRole";
     public static final String LOGIN = "login";
 
     public static final String START_TIME = "startTime";
     public static final String RESULT_ID = "resultId";
 
+    public static final String MARK = "mark";
+
 
 
 }
+
 
 

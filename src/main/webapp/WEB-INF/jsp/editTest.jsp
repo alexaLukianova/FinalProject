@@ -12,7 +12,6 @@
 <body>
 
 
-
 <div class="container">
 
     <div class="bs-component col-lg-6">
@@ -129,18 +128,17 @@
 
 
                 <c:choose>
-                    <%--<c:when test="${errors.containsKey('question') && map.key.id eq questionId}">--%>
-                    <c:when test="${not empty errors && not errors.containsKey('test')}">
+                    <c:when test="${not empty errors && not errors.containsKey('test') && map.key.id eq questionId}">
                         <div class="form-group has-danger">
                             <input type="text" class="form-control form-control-sm is-invalid" name="question"
                                    value="${map.key.text}">
-                            <c:if test="${errors.containsKey('question') && map.key.id eq questionId}">
+                            <c:if test="${errors.containsKey('question')}">
                                 <div class="invalid-feedback"><fmt:message key="${errors.get('question')}"/></div>
                             </c:if>
-                            <c:if test="${errors.containsKey('answer') && map.key.id eq questionId}">
+                            <c:if test="${errors.containsKey('answer') }">
                                 <div class="invalid-feedback"><fmt:message key="${errors.get('answer')}"/></div>
                             </c:if>
-                            <c:if test="${errors.containsKey('correct') && map.key.id eq questionId}">
+                            <c:if test="${errors.containsKey('correct')}">
                                 <div class="invalid-feedback"><fmt:message key="${errors.get('correct')}"/></div>
                             </c:if>
                         </div>
@@ -160,7 +158,7 @@
                         <input type="checkbox" name="correct" value="${answer.id}"
                                <c:if test="${answer.correct}">checked="checked"</c:if>>
                         <c:choose>
-                            <c:when test="${ errors.containsKey('answer')}">
+                            <c:when test="${ errors.containsKey('answer') && map.key.id eq questionId}">
                                 <div class="form-group has-danger">
                                     <input type="text" class="form-control form-control-sm is-invalid" name="answer"
                                            value="${answer.text}">
@@ -208,10 +206,10 @@
         </c:if>
 
         <div id="bottomBtns">
-        <form method="post" action="controller">
-            <input type="hidden" name="command" value="listTests">
-            <button class="btn btn-secondary" type="submit">Return</button>
-        </form>
+            <form method="post" action="controller">
+                <input type="hidden" name="command" value="listTests">
+                <button class="btn btn-secondary" type="submit">Return</button>
+            </form>
         </div>
 
     </div>

@@ -21,12 +21,12 @@ public class CommandContainer {
         commands.put("deleteTest", new DeleteTestCommand());
         commands.put("editTest", new EditTestCommand());
 
-        //commands.put("addNewQuestion", new ShowAddQuestionForm());
+
 
         commands.put("deleteQuestion", new DeleteQuestionCommand());
         commands.put("saveQuestion", new SaveQuestionCommand());
 
-       // commands.put("updateQuestion", new UpdateQuestionsCommand());
+
         commands.put("lockUser", new LockUserCommand());
 
         commands.put("runTest", new RunTestCommand());
@@ -38,14 +38,10 @@ public class CommandContainer {
 
 
 //        commands.put("logout", new LogoutCommand());
-//        commands.put("viewSettings", new ViewSettingsCommand());
+//
 //        commands.put("noCommand", new NoCommand());
 //
-//        // client commands
-//        commands.put("listMenu", new ListMenuCommand());
-//
-//        // admin commands
-//        commands.put("listOrders", new ListOrdersCommand());
+
 
         LOGGER.debug("Command container was successfully initialized");
         LOGGER.trace("Number of commands --> " + commands.size());

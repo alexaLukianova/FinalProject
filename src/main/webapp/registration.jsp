@@ -164,11 +164,11 @@
                     <c:if test="${not 'admin'.equals(userRole.toString())}"> style="display: none"
                     </c:if>>
                 <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="role" value="1" checked="checked">
+                    <input type="radio" class="form-check-input" name="userRole" value="1" checked="checked">
                     Student
                 </label><br>
                 <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="role" value="0">
+                    <input type="radio" class="form-check-input" name="userRole" value="0">
                     Admin
                 </label>
             </div>
