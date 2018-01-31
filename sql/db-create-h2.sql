@@ -14,9 +14,9 @@ CREATE TABLE complexity (
 
 CREATE TABLE users (
   id         INT     AUTO_INCREMENT,
-  first_name VARCHAR(45),
-  last_name  VARCHAR(45),
-  username   VARCHAR(45) UNIQUE NOT NULL,
+  first_name VARCHAR(255),
+  last_name  VARCHAR(255),
+  username   VARCHAR(255) UNIQUE NOT NULL,
   password   VARCHAR(45)        NOT NULL,
   role_id    INT                NOT NULL,
   locked     BOOLEAN DEFAULT FALSE,
