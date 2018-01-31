@@ -4,6 +4,9 @@ import ua.nure.lukianova.SummaryTask4.db.entity.Answer;
 
 import java.util.*;
 
+import static ua.nure.lukianova.SummaryTask4.web.Parameter.ANSWER;
+import static ua.nure.lukianova.SummaryTask4.web.Parameter.ANSWER_CORRECT;
+
 public class AddAnswersValidator implements Validator {
 
     private Map<String, String> errors;
@@ -21,17 +24,17 @@ public class AddAnswersValidator implements Validator {
     private void textValidate(Answer answer) {
         String text = answer.getText();
         if (Objects.isNull(text) || text.trim().isEmpty()) {
-            errors.put(FieldKeys.ANSWER_TEXT, "error.answer.required");
+            errors.put(ANSWER, "error.answer.required");
         } else {
             if (text.length() > UPPER_TEXT_BOUND) {
-                errors.put(FieldKeys.ANSWER_TEXT, "error.answer.long");
+                errors.put(ANSWER, "error.answer.long");
             }
         }
     }
 
     private void correctAnswerValidate(List<Answer> answers) {
         if (answers.stream().noneMatch(Answer::isCorrect)) {
-            errors.put(FieldKeys.ANSWER_CORRECT, "error.correct.required");
+            errors.put(ANSWER_CORRECT, "error.correct.required");
         }
     }
 }

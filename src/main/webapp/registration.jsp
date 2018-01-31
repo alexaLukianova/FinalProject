@@ -183,6 +183,17 @@
 
 
         </form>
+
+
+        <c:if test="${'admin'.equals(userRole.toString())}">
+            <form method="get" action="controller">
+                <input type="hidden" name="command" value="listUsers">
+                <button class="btn btn-lg btn-outline-secondary btn-block" type="submit">Return</button>
+            </form>
+
+        </c:if>
+
+
     </div>
 </div>
 

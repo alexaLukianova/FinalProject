@@ -12,7 +12,6 @@
 <body>
 
 
-
 <div class="container">
     <div class="bs-component col-lg-6">
 
@@ -51,8 +50,6 @@
             </c:choose>
 
 
-
-
             <label class="form-control-label">Answers</label>
             <c:forEach var="j" begin="1" end="${answersNumber}">
                 <input type="hidden" name="answersNumber" value="${answersNumber}">
@@ -83,16 +80,17 @@
 
             </c:forEach>
 
-            <button class="btn btn-success" type="submit">Save</button> <br><br>
+            <button class="btn btn-success" type="submit">Save</button>
+            <br><br>
 
         </form>
 
         <div id="bottomBtns">
-        <form method="post" action="controller">
-            <input type="hidden" name="command" value="editTest">
-            <input type="hidden" name="testId" value="${testId}">
-            <button class="btn btn-secondary" type="submit">Cancel</button>
-        </form>
+            <form method="get" action="controller">
+                <input type="hidden" name="command" value="showEditForm">
+                <input type="hidden" name="testId" value="${testId}">
+                <button class="btn btn-secondary" type="submit">Cancel</button>
+            </form>
         </div>
     </div>
 </div>

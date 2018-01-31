@@ -38,13 +38,13 @@ public class RegisterCommand extends Command {
         LOGGER.debug("Command starts");
 
         UserValidatorBean userValidatorBean = extractUserValidationBean(request);
-
         errors = validator.validate(userValidatorBean);
 
         if (!errors.isEmpty()) {
             setUserInfoBack(request, userValidatorBean);
-            return Path.PAGE_REGISTRATION;
+            return Path.COMMAND_SHOW_REGISTER_FORM;
         }
+
 
         getUserService().create(userValidatorBean);
         User user = getUserService().findByLogin(userValidatorBean.getUsername());
@@ -71,12 +71,9 @@ public class RegisterCommand extends Command {
     }
 
     private void setUserInfoBack(HttpServletRequest request, UserValidatorBean userValidatorBean) {
-        request.setAttribute(ERRORS, errors);
-        request.setAttribute(USERNAME, userValidatorBean.getUsername());
-        request.setAttribute(FIRST_NAME, userValidatorBean.getFirstName());
-        request.setAttribute(LAST_NAME, userValidatorBean.getLastName());
-        request.setAttribute(PASSWORD, userValidatorBean.getPassword());
-        request.setAttribute(REENTER_PASSWORD, userValidatorBean.getReenterPassword());
+       HttpSession session = request.getSession();
+       session.setAttribute(Parameter.USER, userValidatorBean);
+        session.setAttribute(Parameter.ERRORS, errors);
     }
 
     private UserValidatorBean extractUserValidationBean(HttpServletRequest request) {

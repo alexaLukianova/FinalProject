@@ -21,6 +21,11 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
+    public List<Test> findAllWithQuestions() throws DBException {
+        return testDAO.findAllWithQuestions();
+    }
+
+    @Override
     public List<Test> findAllTests() throws DBException {
         return testDAO.findAll();
     }

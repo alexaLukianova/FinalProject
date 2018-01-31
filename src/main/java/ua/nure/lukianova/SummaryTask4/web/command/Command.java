@@ -11,6 +11,10 @@ import java.io.Serializable;
 
 public abstract class Command implements Serializable {
 
+    protected static final int ANSWERS_NUMBER = 4;
+    protected static final String DELIMITER = "&";
+    protected static final String EQUAL_SIGN = "=";
+
 
     private TestService testService;
     private QuestionService questionService;
@@ -59,5 +63,6 @@ public abstract class Command implements Serializable {
     protected ResultService getResultService() {
         return resultService;
     }
+
 
 }

@@ -19,8 +19,6 @@ public class CommandContainer {
         commands.put("listUsers", new ListUsersCommand());
         commands.put("listTests", new ListTestsCommand());
         commands.put("deleteTest", new DeleteTestCommand());
-        commands.put("editTest", new EditTestCommand());
-
 
 
         commands.put("deleteQuestion", new DeleteQuestionCommand());
@@ -35,6 +33,18 @@ public class CommandContainer {
         commands.put("register", new RegisterCommand());
         commands.put("logout", new LogoutCommand());
         commands.put("deleteUser", new DeleteUserCommand());
+
+
+        commands.put("showSaveForm", new ShowSaveQuestionCommand());
+        commands.put("showEditForm", new ShowEditFormCommand());
+        commands.put("updateTestForm", new UpdateTestInfoCommand());
+        commands.put("updateQuestionForm", new UpdateQuestionInfoCommand());
+        commands.put("addTest", new AddTestCommand());
+        commands.put("saveNewTest", new SaveNewTestCommand());
+
+
+        commands.put("showRegister", new ShowRegisterCommand());
+        commands.put("showResult", new ShowResultCommand());
 
 
 //        commands.put("logout", new LogoutCommand());

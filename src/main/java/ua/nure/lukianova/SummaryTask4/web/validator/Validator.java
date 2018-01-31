@@ -1,25 +1,9 @@
 package ua.nure.lukianova.SummaryTask4.web.validator;
 
-import javax.print.DocFlavor;
 import java.util.Map;
 
 public interface Validator {
 
     Map<String, String> validate(Object o);
 
-    interface FieldKeys {
-        String USER_USERNAME = "username";
-        String USER_FIRST_NAME = "firstName";
-        String USER_LAST_NAME = "lastName";
-        String USER_PASSWORD = "password";
-        String USER_REENTER_PASSWORD = "reenterPassword";
-
-        String TEST_NAME = "name";
-        String TEST_SUBJECT = "subject";
-        String TEST_DURATION = "duration";
-
-        String ANSWER_TEXT = "answer";
-        String ANSWER_CORRECT = "correct";
-        String QUESTION_TEXT = "question";
-    }
 }

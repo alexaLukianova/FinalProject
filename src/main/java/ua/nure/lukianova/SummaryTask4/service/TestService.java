@@ -16,4 +16,6 @@ public interface TestService {
     Test findById(long testId) throws DBException;
 
     Test update(Test test) throws DBException;
+
+    List<Test> findAllWithQuestions() throws DBException;
 }

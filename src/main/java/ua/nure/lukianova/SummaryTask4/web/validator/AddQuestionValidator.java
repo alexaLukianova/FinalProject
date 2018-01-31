@@ -1,10 +1,13 @@
 package ua.nure.lukianova.SummaryTask4.web.validator;
 
 import ua.nure.lukianova.SummaryTask4.db.entity.Question;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import static ua.nure.lukianova.SummaryTask4.web.Parameter.*;
 
 public class AddQuestionValidator implements Validator {
 
@@ -22,10 +25,10 @@ public class AddQuestionValidator implements Validator {
     private void textValidate(Question question) {
         String text = question.getText();
         if (Objects.isNull(text) || text.trim().isEmpty()) {
-            errors.put(FieldKeys.QUESTION_TEXT, "error.question.required");
+            errors.put(QUESTION, "error.question.required");
         } else {
             if (text.length() > UPPER_TEXT_BOUND) {
-                errors.put(FieldKeys.QUESTION_TEXT, "error.question.long");
+                errors.put(QUESTION, "error.question.long");
             }
         }
     }

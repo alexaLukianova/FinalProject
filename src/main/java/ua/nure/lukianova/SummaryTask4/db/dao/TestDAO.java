@@ -17,4 +17,6 @@ public interface TestDAO {
 
     Test update(Test test) throws DBException;
 
+    List<Test> findAllWithQuestions() throws DBException;
+
 }

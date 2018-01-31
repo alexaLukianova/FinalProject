@@ -19,7 +19,7 @@
             <h4 class="card-title"> You result is ${mark}%.</h4>
             <p class="card-text">Nice try.</p>
         </div>
-        <form action="controller" method="post">
+        <form action="controller" method="get">
             <input type="hidden" name="command" value="listTests">
             <center>
                 <button class="btn btn-success btn-md">OK</button>

@@ -67,7 +67,7 @@
 </div>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
+<nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-bottom">
     <h4 class="text-secondary"> ${test.name}</h4>
 
     <div class="collapse navbar-collapse" id="navbarColor02">

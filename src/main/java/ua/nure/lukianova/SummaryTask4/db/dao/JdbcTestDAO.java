@@ -6,6 +6,7 @@ import ua.nure.lukianova.SummaryTask4.exception.DBException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class JdbcTestDAO extends JdbcAbstractDAO<Test> implements TestDAO {
 
@@ -17,6 +18,8 @@ public class JdbcTestDAO extends JdbcAbstractDAO<Test> implements TestDAO {
             "SELECT * FROM TESTS WHERE ID=(?)";
     private static final String SQL__UPDATE = "UPDATE TESTS SET NAME = ?, SUBJECT = ?, COMPLEXITY_ID =?, DURATION = ? WHERE ID = ?";
     private static final String SQL__SELECT_ALL_TEST = "SELECT * FROM TESTS";
+    private static final String SQL__SELECT_ALL_TESTS_WITH_QUESTIONS = "SELECT * FROM TESTS  WHERE ID IN ( SELECT TEST_ID from QUESTIONS GROUP BY TEST_ID HAVING COUNT(*)>0)";
+
 
     {
         sqlSelectAll = SQL__SELECT_ALL_TEST;
@@ -32,11 +35,15 @@ public class JdbcTestDAO extends JdbcAbstractDAO<Test> implements TestDAO {
 
     @Override
     public Test update(Test test) throws DBException {
-         execute(SQL__UPDATE, test.getName(), test.getSubject(), String.valueOf(test.getComplexityId()),
+        execute(SQL__UPDATE, test.getName(), test.getSubject(), String.valueOf(test.getComplexityId()),
                 String.valueOf(test.getDuration()), String.valueOf(test.getId()));
-         return findById(test.getId());
+        return findById(test.getId());
     }
 
+    @Override
+    public List<Test> findAllWithQuestions() throws DBException {
+        return findBy(SQL__SELECT_ALL_TESTS_WITH_QUESTIONS);
+    }
 
 
     @Override

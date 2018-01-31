@@ -26,11 +26,11 @@
         <filter-class>ua.nure.lukianova.SummaryTask4.web.filter.CommandAccessFilter</filter-class>
         <init-param>
             <param-name>admin</param-name>
-            <param-value>showProfile listUsers listTests addTest addQuestion addQuestions saveTest deleteTest editTest addNewQuestion updateTest deleteQuestion saveQuestion updateQuestion lockUser deleteUser</param-value>
+            <param-value>showProfile  addTest saveNewTest showSaveForm listUsers updateQuestionForm showEditForm updateTestForm listTests addTest addQuestion addQuestions saveTest deleteTest editTest addNewQuestion updateTest deleteQuestion saveQuestion updateQuestion lockUser deleteUser</param-value>
         </init-param>
         <init-param>
             <param-name>student</param-name>
-            <param-value>showProfile listTests runTest evaluateResult</param-value>
+            <param-value>showProfile showResult listTests runTest evaluateResult</param-value>
         </init-param>
         <init-param>
             <param-name>common</param-name>
@@ -38,7 +38,7 @@
         </init-param>
         <init-param>
             <param-name>out-of-control</param-name>
-            <param-value>login register logout</param-value>
+            <param-value>login register showRegister logout</param-value>
         </init-param>
     </filter>
 

@@ -2,7 +2,7 @@ package ua.nure.lukianova.SummaryTask4.web;
 
 public class Parameter {
 
-    public static  final String CHANGED = "changed";
+
     public static  final String ADD = "add";
 
     public static final String TEST_ID = "testId";

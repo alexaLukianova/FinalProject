@@ -75,7 +75,7 @@
     </table>
 
     <form id="bottomLast" action="/registration.jsp" method="get">
-        <button class="btn btn-primary btn-md" name="userId" value="${user.id}">Add new user
+        <button class="btn btn-primary btn-md" >Add new user
         </button>
     </form>
 </div>

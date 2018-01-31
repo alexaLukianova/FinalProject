@@ -17,10 +17,15 @@ public final class Path {
     public static final String PAGE_REGISTRATION = "/registration.jsp";
 
 
+
+    public static final String COMMAND_SHOW_SAVE_QUESTION_FORM = "/controller?command=showSaveForm";
     public static final String COMMAND_LIST_TESTS = "/controller?command=listTests";
     public static final String COMMAND_LIST_USERS = "/controller?command=listUsers";
     public static final String COMMAND_EDIT_TEST = "/controller?command=editTest";
     public static final String COMMAND_SHOW_PROFILE = "/controller?command=showProfile";
+    public static final String COMMAND_SHOW_EDIT_FORM = "/controller?command=showEditForm";
+    public static final String COMMAND_SHOW_REGISTER_FORM = "/controller?command=showRegister";
+    public static final String COMMAND_SHOW_RESULT_FORM= "/controller?command=showResult";
 
 
 }

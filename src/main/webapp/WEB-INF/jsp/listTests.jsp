@@ -47,8 +47,8 @@
                 <c:choose>
                     <c:when test="${'admin'.equals(role)}">
                         <td>
-                            <form action="controller" method="post">
-                                <input type="hidden" name="command" value="editTest">
+                            <form action="controller" method="get">
+                                <input type="hidden" name="command" value="showEditForm">
                                 <button class="btn btn-success btn-md" name="testId" value="${test.id}"
                                 >View
                                 </button>
@@ -68,10 +68,10 @@
 
                     <c:otherwise>
                         <td>
-                            <form action="controller" method="post">
+                            <form action="controller" method="get">
                                 <input type="hidden" name="command" value="runTest">
                                 <button class="btn btn-warning btn-md " name="testId" value="${test.id}"
-                                        title="Attention!!!Each test can be run only once!">Run
+                                        >Run
                                 </button>
                             </form>
                         </td>
@@ -88,7 +88,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
         <div class="collapse navbar-collapse" id="navbarColor01">
-            <form class="form-inline my-2 my-lg-0" action="controller" method="post">
+            <form class="form-inline my-2 my-lg-0" action="controller" method="get">
                 <ul class="navbar-nav mr-auto">
 
 
@@ -126,8 +126,8 @@
             </form>
 
 
-            <form id="addButton" class="form-inline my-2 my-lg-0" action="controller" method="post">
-                <input class="form-control mr-sm-2" type="hidden" name="command" value="editTest">
+            <form id="addButton" class="form-inline my-2 my-lg-0" action="controller" method="get">
+                <input class="form-control mr-sm-2" type="hidden" name="command" value="addTest">
                 <c:if test="${'admin'.equals(role)}">
                     <button class="btn btn-warning btn-block " type="submit">Add new test</button>
                 </c:if>

@@ -15,10 +15,21 @@
 <div class="container">
 
     <div class="bs-component col-lg-6">
+
         <form method="post" action="controller">
-            <input type="hidden" name="command" value="editTest">
+            <input type="hidden" name="command"
+
+            <c:choose>
+            <c:when test="${empty testId}">
+                   value="saveNewTest"
+            </c:when>
+            <c:otherwise>
+                   value="updateTestForm"
+            </c:otherwise>
+            </c:choose>
+
+            >
             <input type="hidden" name="testId" value="${test.id}">
-            <input type="hidden" name="changed" value="true">
 
             <h2 id="top" class="form-signin-heading">Update necessary information</h2>
 
@@ -43,7 +54,8 @@
             <c:choose>
                 <c:when test="${errors.containsKey('subject')}">
                     <div class="form-group has-danger">
-                        <input type="text" class="form-control form-control-sm is-invalid" name="subject">
+                        <input type="text" class="form-control form-control-sm is-invalid" name="subject"
+                               value="${test.subject}" maxlength="255">
                         <div class="invalid-feedback"><fmt:message key="${errors.get('subject')}"/></div>
                     </div>
                 </c:when>
@@ -95,7 +107,18 @@
 
 
             <button class="btn btn-info" type="reset">Reset</button>
-            <button class="btn btn-success" type="submit">Update</button>
+
+            <button class="btn btn-success" type="submit">
+                <c:choose>
+                    <c:when test="${empty testId}">
+                        Save
+                    </c:when>
+                    <c:otherwise>
+                        Update
+                    </c:otherwise>
+                </c:choose>
+            </button>
+
 
             <hr class="my-6">
         </form>
@@ -122,7 +145,7 @@
 
 
             <form class="questionForm" method="post" action="controller">
-                <input type="hidden" name="command" value="editTest">
+                <input type="hidden" name="command" value="updateQuestionForm">
                 <input type="hidden" name="testId" value="${test.id}">
                 <input type="hidden" name="questionId" value="${map.key.id}">
 
@@ -193,8 +216,8 @@
 
         <c:if test="${ empty errors && not empty test}">
             <div id="bottomBtns">
-                <form action="controller" method="post">
-                    <input type="hidden" name="command" value="saveQuestion">
+                <form action="controller" method="get">
+                    <input type="hidden" name="command" value="showSaveForm">
                     <input type="hidden" name="testId" value="${test.id}">
                     <input type="hidden" name="answersNumber" value="${answersNumber}">
                     <button class="btn btn-warning" type="submit">Add question</button>
@@ -206,7 +229,7 @@
         </c:if>
 
         <div id="bottomBtns">
-            <form method="post" action="controller">
+            <form method="get" action="controller">
                 <input type="hidden" name="command" value="listTests">
                 <button class="btn btn-secondary" type="submit">Return</button>
             </form>
