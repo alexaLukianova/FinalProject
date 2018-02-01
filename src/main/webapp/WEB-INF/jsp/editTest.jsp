@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <%@ taglib prefix="ct" uri="/WEB-INF/customTag.tld" %>
 
-<html>
+<html  lang="${language}">
 <head>
     <title>Title</title>
 
@@ -12,6 +12,7 @@
 </head>
 <body>
 
+<%@ include file="/WEB-INF/jspf/navigation.jspf" %>
 
 <div class="container">
 

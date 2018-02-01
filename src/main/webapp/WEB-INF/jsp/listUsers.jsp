@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
-<html>
+<html  lang="${language}">
 
 <c:set var="title" value="home" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>

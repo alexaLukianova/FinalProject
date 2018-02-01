@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
-<html>
+<html  lang="${language}">
 
 <c:set var="title" value="home" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
@@ -11,6 +11,7 @@
 
 
 <%@ include file="/WEB-INF/jspf/navigation.jspf" %>
+
 <div id="profile" class="container">
     <br>
     <div class="card border-info mb-3">
@@ -20,10 +21,8 @@
             <p class="card-text">First Name: ${user.firstName}</p>
             <p class="card-text">Last Name: ${user.lastName}</p>
             <p class="card-text">Login: ${user.username}</p>
-
         </div>
     </div>
-
 
     <c:if test="${not empty userProgress}">
         <h1 align="center">Your results</h1>
@@ -41,7 +40,6 @@
                     <td>${progress.testSubject}</td>
                     <td>${progress.result}</td>
                     <td> ${progress.date}</td>
-
                 </tr>
             </c:forEach>
             </tbody>
