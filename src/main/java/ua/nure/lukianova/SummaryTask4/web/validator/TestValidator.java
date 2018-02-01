@@ -1,5 +1,6 @@
 package ua.nure.lukianova.SummaryTask4.web.validator;
 
+import org.apache.commons.lang3.StringUtils;
 import ua.nure.lukianova.SummaryTask4.db.bean.TestValidationBean;
 
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class TestValidator implements Validator {
 
     private void nameValidate(TestValidationBean test) {
         String name = test.getName();
-        if (Objects.isNull(name) || name.trim().isEmpty()) {
+        if (StringUtils.isEmpty(name)) {
             errors.put(TEST_NAME, "error.name.required");
         } else {
             if (name.length() > UPPER_TEXT_BOUND) {
@@ -43,7 +44,7 @@ public class TestValidator implements Validator {
 
     private void subjectValidate(TestValidationBean test) {
         String subject = test.getSubject();
-        if (Objects.isNull(subject) || subject.trim().isEmpty()) {
+        if (StringUtils.isEmpty(subject)) {
             errors.put(TEST_SUBJECT, "error.subject.required");
         } else {
             if (subject.length() > UPPER_TEXT_BOUND) {
@@ -54,7 +55,7 @@ public class TestValidator implements Validator {
 
     private void timeValidate(TestValidationBean test) {
         String time = test.getDuration();
-        if (Objects.isNull(time)|| time.trim().isEmpty()) {
+        if (StringUtils.isEmpty(time)) {
             errors.put(TEST_DURATION, "error.duration.required");
         } else {
             Pattern pattern = Pattern.compile(REGEX_NON_NUMERIC, UNICODE_CHARACTER_CLASS);

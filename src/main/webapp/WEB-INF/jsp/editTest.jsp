@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
-<%@taglib prefix="ct" uri="/WEB-INF/customTag.tld" %>
+<%@ taglib prefix="ct" uri="/WEB-INF/customTag.tld" %>
 
 <html>
 <head>
@@ -19,7 +19,6 @@
 
         <form method="post" action="controller">
             <input type="hidden" name="command"
-
             <c:choose>
             <c:when test="${empty testId}">
                    value="saveNewTest"
@@ -27,57 +26,21 @@
             <c:otherwise>
                    value="updateTestForm"
             </c:otherwise>
-            </c:choose>
-
-            >
+            </c:choose>>
             <input type="hidden" name="testId" value="${test.id}">
 
             <h2 id="top" class="form-signin-heading">Update necessary information</h2>
 
 
-           <ct:validateInput errors="${errors}" value="${test.name}" name="name" label="Topic" placeholder="Topic">
-               <fmt:message key="${errors.get('name')}"/>
-           </ct:validateInput>
+            <ct:validateInput errors="${errors}" value="${test.name}" name="name" label="Topic" placeholder="Topic">
+                <fmt:message key="${errors.get('name')}"/>
+            </ct:validateInput>
 
-
-
-            <%--<label class="form-control-label">Topic</label>--%>
-            <%--<c:choose>--%>
-                <%--<c:when test="${errors.containsKey('name')}">--%>
-                    <%--<div class="form-group has-danger">--%>
-                        <%--<input type="text" class="form-control form-control-sm is-invalid" name="name"--%>
-                               <%--value="${test.name}">--%>
-                        <%--<div class="invalid-feedback"><fmt:message key="${errors.get('name')}"/></div>--%>
-                    <%--</div>--%>
-                <%--</c:when>--%>
-                <%--<c:otherwise>--%>
-                    <%--<div class="form-group has-success">--%>
-                        <%--<input type="text" class="form-control form-control-sm is-valid" name="name"--%>
-                               <%--value="${test.name}" maxlength="255">--%>
-                    <%--</div>--%>
-                <%--</c:otherwise>--%>
-            <%--</c:choose>--%>
-
-            <ct:validateInput errors="${errors}" value="${test.subject}" name="subject" label="Subject" placeholder="Subject">
+            <ct:validateInput errors="${errors}" value="${test.subject}" name="subject" label="Subject"
+                              placeholder="Subject">
                 <fmt:message key="${errors.get('subject')}"/>
             </ct:validateInput>
 
-            <%--<label class="form-control-label">Subject</label>--%>
-            <%--<c:choose>--%>
-                <%--<c:when test="${errors.containsKey('subject')}">--%>
-                    <%--<div class="form-group has-danger">--%>
-                        <%--<input type="text" class="form-control form-control-sm is-invalid" name="subject"--%>
-                               <%--value="${test.subject}" maxlength="255">--%>
-                        <%--<div class="invalid-feedback"><fmt:message key="${errors.get('subject')}"/></div>--%>
-                    <%--</div>--%>
-                <%--</c:when>--%>
-                <%--<c:otherwise>--%>
-                    <%--<div class="form-group has-success">--%>
-                        <%--<input type="text" class="form-control form-control-sm is-valid" name="subject"--%>
-                               <%--value="${test.subject}" maxlength="255">--%>
-                    <%--</div>--%>
-                <%--</c:otherwise>--%>
-            <%--</c:choose>--%>
 
             <label class="form-control-label">Complexity</label>
             <div class="form-check">
@@ -99,27 +62,12 @@
                 </label>
             </div>
 
-
-            <label class="form-control-label">Time (min)</label>
-            <c:choose>
-                <c:when test="${errors.containsKey('duration')}">
-                    <div class="form-group has-danger">
-                        <input type="text" class="form-control form-control-sm is-invalid" name="duration"
-                               value="${test.duration}">
-                        <div class="invalid-feedback"><fmt:message key="${errors.get('duration')}"/></div>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="form-group has-success">
-                        <input type="text" class="form-control form-control-sm is-valid" name="duration"
-                               value="${test.duration}" maxlength="255">
-                    </div>
-                </c:otherwise>
-            </c:choose>
-
+            <ct:validateInput errors="${errors}" value="${test.duration}" name="duration" label="Time (min)"
+                              placeholder="10">
+                <fmt:message key="${errors.get('duration')}"/>
+            </ct:validateInput>
 
             <button class="btn btn-info" type="reset">Reset</button>
-
             <button class="btn btn-success" type="submit">
                 <c:choose>
                     <c:when test="${empty testId}">
@@ -130,61 +78,33 @@
                     </c:otherwise>
                 </c:choose>
             </button>
-
-
             <hr class="my-6">
         </form>
 
         <c:if test="${ empty errors && not empty test}">
             <h3 class="form-signin-heading">Questions</h3>
         </c:if>
-
-
         <c:forEach var="map" items="${questAnsMap}" varStatus="questionCount">
-
             <div class="d-inline">
                 <label class="form-control-label">Question #${questionCount.count}</label>
-
-                <c:if test="${questAnsMap.keySet().size() > 1}">
-                    <form id="deleteForm" action="controller" method="post">
-                        <input type="hidden" name="command" value="deleteQuestion">
-                        <input type="hidden" name="testId" value="${test.id}">
-                        <button class="btn btn-outline-warning btn-sm" name="questionId" value="${map.key.id}">Delete
-                        </button>
-                    </form>
-                </c:if>
+                <form id="deleteForm" action="controller" method="post">
+                    <input type="hidden" name="command" value="deleteQuestion">
+                    <input type="hidden" name="testId" value="${test.id}">
+                    <button class="btn btn-outline-warning btn-sm" name="questionId" value="${map.key.id}">Delete
+                    </button>
+                </form>
             </div>
-
 
             <form class="questionForm" method="post" action="controller">
                 <input type="hidden" name="command" value="updateQuestionForm">
                 <input type="hidden" name="testId" value="${test.id}">
                 <input type="hidden" name="questionId" value="${map.key.id}">
 
+                <ct:show text="${map.key.text}"
+                         condition="${ not empty errors && not errors.containsKey('test') && map.key.id eq questionId}"
+                         name="question"
+                         showErrors="true"/>
 
-                <c:choose>
-                    <c:when test="${not empty errors && not errors.containsKey('test') && map.key.id eq questionId}">
-                        <div class="form-group has-danger">
-                            <input type="text" class="form-control form-control-sm is-invalid" name="question"
-                                   value="${map.key.text}">
-                            <c:if test="${errors.containsKey('question')}">
-                                <div class="invalid-feedback"><fmt:message key="${errors.get('question')}"/></div>
-                            </c:if>
-                            <c:if test="${errors.containsKey('answer') }">
-                                <div class="invalid-feedback"><fmt:message key="${errors.get('answer')}"/></div>
-                            </c:if>
-                            <c:if test="${errors.containsKey('correct')}">
-                                <div class="invalid-feedback"><fmt:message key="${errors.get('correct')}"/></div>
-                            </c:if>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="form-group has-success">
-                            <input type="text" class="form-control form-control-sm is-valid" name="question"
-                                   value="${map.key.text}" maxlength="255">
-                        </div>
-                    </c:otherwise>
-                </c:choose>
 
                 <br> <label class="form-control-label">Answers</label>
                 <c:forEach var="answer" items="${map.value}" varStatus="answerCount">
@@ -192,39 +112,19 @@
                     <div>
                         <input type="checkbox" name="correct" value="${answer.id}"
                                <c:if test="${answer.correct}">checked="checked"</c:if>>
-                        <c:choose>
-                            <c:when test="${ errors.containsKey('answer') && map.key.id eq questionId}">
-                                <div class="form-group has-danger">
-                                    <input type="text" class="form-control form-control-sm is-invalid" name="answer"
-                                           value="${answer.text}">
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="form-group has-success">
-                                    <input type="text" class="form-control form-control-sm is-valid" name="answer"
-                                           value="${answer.text}" maxlength="255">
-                                    <div class="valid-feedback"></div>
-                                </div>
 
-                            </c:otherwise>
-
-                        </c:choose>
-
+                        <ct:show text="${answer.text}"
+                                 condition="${ (errors.containsKey('answer'))&& map.key.id eq questionId}"
+                                 name="answer"
+                                 showErrors="false"/>
                     </div>
-
-
                 </c:forEach>
-
                 <button class="btn btn-info" type="reset">Reset</button>
                 <button class="btn btn-success" type="submit">Update</button>
 
-
             </form>
-
             <hr class="my-6">
         </c:forEach>
-
 
         <c:if test="${ empty errors && not empty test}">
             <div id="bottomBtns">

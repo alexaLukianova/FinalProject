@@ -39,6 +39,8 @@
     <form id="finish" action="controller" method="post">
         <input type="hidden" name="command" value="evaluateResult">
         <input type="hidden" name="testId" value="${test.id}">
+        <input type="hidden" name="resultId" value="${resultId}">
+
         <c:forEach var="map" items="${questAnsMap}" varStatus="questionCount">
             <strong>Question #${questionCount.count}. ${map.key.text}</strong>
             <input type="hidden" name="question" value="${map.key.id}"> <br>
@@ -58,7 +60,7 @@
         </c:forEach>
 
         <div id="bottomLast">
-            <button class="btn btn-success btn-lg btn-block" type="submit" name="resultId" value="${resultId}">Finish test</button>
+            <button class="btn btn-success btn-lg btn-block" type="submit">Finish test</button>
         </div>
 
     </form>

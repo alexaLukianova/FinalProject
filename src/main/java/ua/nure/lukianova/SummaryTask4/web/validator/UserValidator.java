@@ -1,5 +1,6 @@
 package ua.nure.lukianova.SummaryTask4.web.validator;
 
+import org.apache.commons.lang3.StringUtils;
 import ua.nure.lukianova.SummaryTask4.db.bean.UserValidatorBean;
 import ua.nure.lukianova.SummaryTask4.service.UserService;
 import ua.nure.lukianova.SummaryTask4.service.UserServiceImpl;
@@ -14,7 +15,7 @@ import static java.util.regex.Pattern.UNICODE_CHARACTER_CLASS;
 import static ua.nure.lukianova.SummaryTask4.web.Parameter.*;
 
 
-public class AddUserValidator implements Validator {
+public class UserValidator implements Validator {
 
     private static final int PASSWORD_LOWER_BOUND = 6;
     private static final int PASSWORD_UPPER_BOUND = 12;
@@ -28,10 +29,8 @@ public class AddUserValidator implements Validator {
     private static final String REGEX_WHITESPACE = "\\s";
 
 
-    public AddUserValidator() {
-
+    public UserValidator() {
         userService = new UserServiceImpl();
-
     }
 
     @Override
@@ -49,7 +48,7 @@ public class AddUserValidator implements Validator {
 
     private void usernameValidate(UserValidatorBean user) {
         String username = user.getUsername();
-        if (Objects.isNull(username) || username.trim().isEmpty()) {
+        if (StringUtils.isEmpty(username)) {
             errors.put(USERNAME, "error.username.required");
         } else {
             if (Objects.nonNull(userService.findByLogin(username))) {
@@ -75,7 +74,7 @@ public class AddUserValidator implements Validator {
 
     private void firstNameValidate(UserValidatorBean user) {
         String firstName = user.getFirstName();
-        if (Objects.isNull(firstName) || firstName.trim().isEmpty()) {
+        if (StringUtils.isEmpty(firstName)) {
             errors.put(FIRST_NAME, "error.first_name.required");
         } else {
             if (firstName.length() < TEXT_LOWER_BOUND) {
@@ -97,7 +96,7 @@ public class AddUserValidator implements Validator {
 
     private void lastNameValidate(UserValidatorBean user) {
         String lastName = user.getLastName();
-        if (Objects.isNull(lastName) || lastName.trim().isEmpty()) {
+        if (StringUtils.isEmpty(lastName)) {
             errors.put(LAST_NAME, "error.last_name.required");
         } else {
             if (lastName.length() < TEXT_LOWER_BOUND) {
@@ -119,7 +118,7 @@ public class AddUserValidator implements Validator {
 
     private void passwordValidate(UserValidatorBean user) {
         String password = user.getPassword();
-        if (Objects.isNull(password) || password.trim().isEmpty()) {
+        if (StringUtils.isEmpty(password)) {
             errors.put(PASSWORD, "error.password.required");
         } else {
             if (password.length() < PASSWORD_LOWER_BOUND || password.length() > PASSWORD_UPPER_BOUND) {
@@ -136,7 +135,7 @@ public class AddUserValidator implements Validator {
 
     private void reenterPasswordValidate(UserValidatorBean user) {
         String reenterPassword = user.getReenterPassword();
-        if (Objects.isNull(reenterPassword) || reenterPassword.trim().isEmpty()) {
+        if (StringUtils.isEmpty(reenterPassword)) {
             errors.put(REENTER_PASSWORD, "error.reenterPassword.required");
         } else {
             if (!reenterPassword.equals(user.getPassword())) {

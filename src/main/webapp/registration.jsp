@@ -84,7 +84,7 @@
                 <br>
                 <button class="btn btn-primary btn-lg" type="submit">Register</button>
 
-                <c:if test="${not 'admin'.equals(userRole.toString())}">
+                <c:if test="${empty sessionScope.user}">
                     <a href="login.jsp">I'm already registered</a>
                 </c:if>
 
@@ -107,7 +107,7 @@
 
             <br>
 
-            <c:if test="${'admin'.equals(userRole.toString())}">
+            <c:if test="${'admin'.equals(sessionScope.userRole.toString())}">
                 <form method="get" action="controller">
                     <input type="hidden" name="command" value="listUsers">
                     <button class="btn btn-lg btn-outline-secondary btn-block" type="submit">Return</button>

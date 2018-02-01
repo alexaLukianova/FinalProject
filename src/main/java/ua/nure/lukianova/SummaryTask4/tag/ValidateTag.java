@@ -67,8 +67,8 @@ public class ValidateTag extends BodyTagSupport {
     private String setInit() {
         StringBuilder result = new StringBuilder("<div class=\"form-group\">");
         result.append("<input type=\"").append(type).append("\"class=\"form-control form-control-sm\"name=\"")
-                .append(name).append("\"placeholder=\"").append(defaultString(placeholder, EMPTY)).append("\"></div>")
-                .append("<div class=\"form-text\"/>");
+                .append(name).append("\"placeholder=\"").append(defaultString(placeholder, EMPTY)).append("\">")
+                .append("<div class=\"form-text\"></div></div>");
         return result.toString();
     }
 

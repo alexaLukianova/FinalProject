@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+<%@taglib prefix="ct" uri="/WEB-INF/customTag.tld" %>
 
 
 <html>
@@ -23,63 +24,21 @@
             <label class="form-control-label">Question</label>
 
 
-            <c:choose>
-                <c:when test="${not empty errors}">
-
-                    <div class="form-group has-danger">
-                        <input type="text" class="form-control form-control-sm is-invalid" name="question"
-                               value="${question}">
-
-                        <c:if test="${errors.containsKey('question')}">
-                            <div class="invalid-feedback"><fmt:message key="${errors.get('question')}"/></div>
-                        </c:if>
-                        <c:if test="${errors.containsKey('answer')}">
-                            <div class="invalid-feedback"><fmt:message key="${errors.get('answer')}"/></div>
-                        </c:if>
-                        <c:if test="${errors.containsKey('correct')}">
-                            <div class="invalid-feedback"><fmt:message key="${errors.get('correct')}"/></div>
-                        </c:if>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="form-group has-success">
-                        <input type="text" class="form-control form-control-sm is-valid" name="question"
-                               value="${question}" maxlength="255">
-                    </div>
-                </c:otherwise>
-            </c:choose>
+            <ct:show text="${question}" condition="${ not empty errors}" name="question" showErrors="true"/>
 
 
             <label class="form-control-label">Answers</label>
             <c:forEach var="j" begin="1" end="${answersNumber}">
-                <input type="hidden" name="answersNumber" value="${answersNumber}">
-
                 <div>
                     <input type="checkbox" name="correct" value="${j}"
                            <c:if test="${answer.correct}">checked="checked"</c:if>>
 
 
-                    <c:choose>
-                        <c:when test="${ errors.containsKey('answer')}">
-                            <div class="form-group has-danger">
-                                <input type="text" class="form-control form-control-sm is-invalid" name="answer"
-                                       value="${answer.text}">
-                                <div class="invalid-feedback"></div>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="form-group has-success">
-                                <input type="text" class="form-control form-control-sm is-valid" name="answer"
-                                       value="${answer.text}" maxlength="255">
-                                <div class="valid-feedback"></div>
-                            </div>
-
-                        </c:otherwise>
-
-                    </c:choose>
-
+                    <ct:show text="${answer.text}"
+                             condition="${errors.containsKey('answer') || errors.containsKey('correct')}"
+                             name="answer"
+                             showErrors="false"/>
                 </div>
-
             </c:forEach>
 
             <button class="btn btn-success" type="submit">Save</button>
@@ -95,6 +54,8 @@
             </form>
         </div>
     </div>
+
+
 </div>
 </body>
 </html>

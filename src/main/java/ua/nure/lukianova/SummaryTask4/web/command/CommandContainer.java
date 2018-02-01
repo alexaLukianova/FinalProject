@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 
+import static ua.nure.lukianova.SummaryTask4.web.command.CommandFactory.*;
+import static ua.nure.lukianova.SummaryTask4.web.command.CommandKeys.*;
+
 public class CommandContainer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandContainer.class);
@@ -15,40 +18,30 @@ public class CommandContainer {
     private static Map<String, Command> commands = new TreeMap<>();
 
     static {
-        // common commands
-        commands.put("login", new LoginCommand());
-        commands.put("listUsers", new ListUsersCommand());
-        commands.put("listTests", new ListTestsCommand());
-        commands.put("deleteTest", new DeleteTestCommand());
+        commands.put(LOGIN, getCommand(LOGIN));
+        commands.put(LIST_USERS, getCommand(LIST_USERS));
+        commands.put(LIST_TESTS, getCommand(LIST_TESTS));
+        commands.put(DELETE_TEST, getCommand(DELETE_TEST));
+        commands.put(DELETE_QUESTION, getCommand(DELETE_QUESTION));
+        commands.put(SAVE_QUESTION, getCommand(SAVE_QUESTION));
+        commands.put(LOCK_USER, getCommand(LOCK_USER));
+        commands.put(RUN_TEST, getCommand(RUN_TEST));
+        commands.put(EVALUATE_RESULT, getCommand(EVALUATE_RESULT));
+        commands.put(SHOW_PROFILE, getCommand(SHOW_PROFILE));
+        commands.put(REGISTER, getCommand(REGISTER));
+        commands.put(LOGOUT, getCommand(LOGOUT));
+        commands.put(DELETE_USER, getCommand(DELETE_USER));
+        commands.put(SHOW_SAVE_FORM, getCommand(SHOW_SAVE_FORM));
+        commands.put(SHOW_EDIT_FORM, getCommand(SHOW_EDIT_FORM));
+        commands.put(UPDATE_TEST_FORM, getCommand(UPDATE_TEST_FORM));
+        commands.put(UPDATE_QUESTION_FORM, getCommand(UPDATE_QUESTION_FORM));
+        commands.put(ADD_TEST, getCommand(ADD_TEST));
+        commands.put(SAVE_NEW_TEST, getCommand(SAVE_NEW_TEST));
+        commands.put(SHOW_REGISTER, getCommand(SHOW_REGISTER));
+        commands.put(SHOW_RESULT, getCommand(SHOW_RESULT));
 
 
-        commands.put("deleteQuestion", CommandFactory.createDeleteQuestionCommand());
-        commands.put("saveQuestion", new SaveQuestionCommand());
 
-
-        commands.put("lockUser", new LockUserCommand());
-
-        commands.put("runTest", new RunTestCommand());
-        commands.put("evaluateResult", new EvaluateResultCommand());
-        commands.put("showProfile", new ShowProfileCommand());
-        commands.put("register", new RegisterCommand());
-        commands.put("logout", new LogoutCommand());
-        commands.put("deleteUser", new DeleteUserCommand());
-
-
-        commands.put("showSaveForm", new ShowSaveQuestionCommand());
-        commands.put("showEditForm", new ShowEditFormCommand());
-        commands.put("updateTestForm", new UpdateTestInfoCommand());
-        commands.put("updateQuestionForm", new UpdateQuestionInfoCommand());
-        commands.put("addTest", new AddTestCommand());
-        commands.put("saveNewTest", new SaveNewTestCommand());
-
-
-        commands.put("showRegister", new ShowRegisterCommand());
-        commands.put("showResult", new ShowResultCommand());
-
-
-//        commands.put("logout", new LogoutCommand());
 //
 //        commands.put("noCommand", new NoCommand());
 //
