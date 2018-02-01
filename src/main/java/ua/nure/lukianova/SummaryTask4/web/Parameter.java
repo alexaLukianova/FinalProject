@@ -31,8 +31,10 @@ public class Parameter {
     public static final String QUESTIONS_COUNT = "questionsCount";
     public static final String DESC_ORDER = "desc";
 
+
     public static final String USER = "user";
     public static final String USERS = "users";
+    public static final String USER_ID =  "userId";
     public static final String USERNAME = "username";
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
@@ -40,6 +42,7 @@ public class Parameter {
     public static final String REENTER_PASSWORD = "reenterPassword";
     public static final String USER_ROLE = "userRole";
     public static final String LOGIN = "login";
+    public static final String USER_PROGRESS ="userProgress";
 
     public static final String START_TIME = "startTime";
     public static final String RESULT_ID = "resultId";

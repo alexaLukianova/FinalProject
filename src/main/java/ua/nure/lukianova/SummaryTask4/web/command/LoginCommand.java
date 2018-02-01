@@ -6,8 +6,6 @@ import ua.nure.lukianova.SummaryTask4.db.Role;
 import ua.nure.lukianova.SummaryTask4.db.entity.User;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.UserService;
-import ua.nure.lukianova.SummaryTask4.service.UserServiceImpl;
-import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.ServletException;
@@ -17,11 +15,18 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
+import static ua.nure.lukianova.SummaryTask4.web.Parameter.*;
+import static ua.nure.lukianova.SummaryTask4.web.Path.PAGE_ERROR_PAGE;
+
 public class LoginCommand extends Command {
 
     private static final long serialVersionUID = 1778223731675825249L;
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginCommand.class);
+    private UserService userService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CommandContainer.class);
+    public LoginCommand(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
@@ -30,27 +35,27 @@ public class LoginCommand extends Command {
         HttpSession session = request.getSession();
 
 
-        String login = request.getParameter(Parameter.USERNAME);
+        String login = request.getParameter(USERNAME);
         LOGGER.trace("Request parameter: loging --> " + login);
 
-        String password = request.getParameter(Parameter.PASSWORD);
+        String password = request.getParameter(PASSWORD);
         if (Objects.isNull(login) || Objects.isNull(password)
                 || login.isEmpty() || password.isEmpty()) {
             // throw new AppException("Login/password cannot be empty");
         }
 
-        User user = getUserService().findByLogin(login);
+        User user = userService.findByLogin(login);
         LOGGER.trace("Found in DB: user --> " + user);
 
         if (Objects.isNull(user) || !password.equals(user.getPassword())) {
             throw new AppException("Cannot find user with such login/password");
         }
 
-        String forward = Path.PAGE_ERROR_PAGE;;
+        String forward = PAGE_ERROR_PAGE;
+        ;
         if (user.isLocked()) {
             throw new AppException("User locked by admin");
-        }
-        else{
+        } else {
             Role userRole = Role.getRole(user);
             LOGGER.trace("userRole --> " + userRole);
 
@@ -64,12 +69,11 @@ public class LoginCommand extends Command {
                 forward = Path.COMMAND_SHOW_PROFILE;
             }
 
-            session.setAttribute(Parameter.USER, user);
+            session.setAttribute(USER, user);
             LOGGER.trace("Set the session attribute: user --> " + user);
 
-            session.setAttribute(Parameter.USER_ROLE, userRole);
+            session.setAttribute(USER_ROLE, userRole);
             LOGGER.trace("Set the session attribute: userRole --> " + userRole);
-
 
 
             LOGGER.info("User " + user + " logged as " + userRole.toString().toLowerCase());
