@@ -2,6 +2,7 @@ package ua.nure.lukianova.SummaryTask4.web.command;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ua.nure.lukianova.SummaryTask4.db.dao.ConnectionFactory;
 
 import java.util.Map;
 import java.util.Objects;
@@ -21,7 +22,7 @@ public class CommandContainer {
         commands.put("deleteTest", new DeleteTestCommand());
 
 
-        commands.put("deleteQuestion", new DeleteQuestionCommand());
+        commands.put("deleteQuestion", CommandFactory.createDeleteQuestionCommand());
         commands.put("saveQuestion", new SaveQuestionCommand());
 
 

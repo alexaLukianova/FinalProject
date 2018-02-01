@@ -14,7 +14,7 @@
 <div class="container ">
     <h1 align="center"><fmt:message key="user.table_name"/></h1>
 
-    <table  class="table table-striped table-sm">
+    <table class="table table-striped table-sm">
         <thead>
 
         <th><fmt:message key="user.first_name"/></th>
@@ -25,14 +25,14 @@
         <th></th>
         </thead>
         <tbody>
-        <c:forEach items="${users}" var="user">
-            <tr <c:if test="${sessionScope.user.username eq user.username}">class="table-warning"</c:if>>
+        <c:forEach items="${users}" var="u">
+            <tr <c:if test="${user.id eq u.id}">class="table-warning"</c:if>>
 
-                <td>${user.firstName}</td>
-                <td>${user.lastName}</td>
-                <td>${user.username}</td>
+                <td>${u.firstName}</td>
+                <td>${u.lastName}</td>
+                <td>${u.username}</td>
                 <td><c:choose>
-                    <c:when test="${userRole.ordinal() eq user.roleId}">
+                    <c:when test="${userRole.ordinal() eq u.roleId}">
                         ADMIN
                     </c:when>
                     <c:otherwise>
@@ -45,10 +45,10 @@
                 <td>
                     <form action="controller" method="post">
                         <input type="hidden" name="command" value="lockUser">
-                        <button class="btn btn-warning btn-md" name="login" value="${user.username}"
-                                <c:if test="${sessionScope.user.username eq user.username}">disabled</c:if>>
+                        <button class="btn btn-warning btn-md" name="login" value="${u.username}"
+                                <c:if test="${user.id eq u.id}">disabled</c:if>>
                             <c:choose>
-                                <c:when test="${user.locked}">
+                                <c:when test="${u.locked}">
                                     Unlock
                                 </c:when>
                                 <c:otherwise>
@@ -63,8 +63,8 @@
                 <td>
                     <form action="controller" method="post">
                         <input type="hidden" name="command" value="deleteUser">
-                        <button class="btn btn-danger btn-md" name="userId" value="${user.id}"
-                                <c:if test="${sessionScope.user.username eq user.username}">disabled</c:if>>Delete
+                        <button class="btn btn-danger btn-md" name="userId" value="${u.id}"
+                                <c:if test="${sessionScope.user.id eq u.id}">disabled</c:if>>Delete
                         </button>
                     </form>
                 </td>
@@ -74,8 +74,9 @@
         </tbody>
     </table>
 
+
     <form id="bottomLast" action="/registration.jsp" method="get">
-        <button class="btn btn-primary btn-md" >Add new user
+        <button class="btn btn-primary btn-md">Add new user
         </button>
     </form>
 </div>

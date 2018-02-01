@@ -15,16 +15,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class UpdateTestInfoCommand extends Command {
-
 
     private static final long serialVersionUID = -2182252148445945757L;
     private Validator testValidator;
 
     private Map<String, String> errors;
-    private Test test;
     private TestValidationBean testValidationBean;
     private long testId;
 
@@ -47,7 +44,7 @@ public class UpdateTestInfoCommand extends Command {
             setErrorsIntoSessionScope(request);
         }
 
-        return getURL(request);
+        return getURL();
     }
 
     private void setErrorsIntoSessionScope(HttpServletRequest request) {
@@ -55,13 +52,12 @@ public class UpdateTestInfoCommand extends Command {
         session.setAttribute(Parameter.ERRORS, new HashMap<>(errors));
     }
 
-    private String getURL(HttpServletRequest request) {
-        StringBuilder url = new StringBuilder(Path.COMMAND_SHOW_EDIT_FORM);
-        url.append(DELIMITER).append(Parameter.TEST_ID).append(EQUAL_SIGN)
-                .append(testId);
-        return url.toString();
+    private String getURL() {
+        return new StringBuilder(Path.COMMAND_SHOW_EDIT_FORM)
+                .append(DELIMITER)
+                .append(Parameter.TEST_ID).append(EQUAL_SIGN).append(testId)
+                .toString();
     }
-
 
     private TestValidationBean extractTestValidationBean(HttpServletRequest request) {
         TestValidationBean test = new TestValidationBean();
@@ -73,7 +69,6 @@ public class UpdateTestInfoCommand extends Command {
 
         return test;
     }
-
 
     private static Test extractTest(TestValidationBean validTest) {
         Test test = new Test();

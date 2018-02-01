@@ -1,6 +1,7 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
+
 <html>
 <head>
     <title>Title</title>
@@ -14,11 +15,10 @@
 
 <div class="container">
     <div class="bs-component col-lg-6">
-
+        <h2 id="top" class="form-signin-heading">Add necessary information</h2>
         <form class="questionForm" method="post" action="controller">
             <input type="hidden" name="command" value="saveQuestion">
             <input type="hidden" name="testId" value="${testId}">
-            <input type="hidden" name="add" value="${true}">
 
             <label class="form-control-label">Question</label>
 
@@ -57,6 +57,8 @@
                 <div>
                     <input type="checkbox" name="correct" value="${j}"
                            <c:if test="${answer.correct}">checked="checked"</c:if>>
+
+
                     <c:choose>
                         <c:when test="${ errors.containsKey('answer')}">
                             <div class="form-group has-danger">

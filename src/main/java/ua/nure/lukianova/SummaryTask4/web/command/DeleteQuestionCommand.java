@@ -1,6 +1,8 @@
 package ua.nure.lukianova.SummaryTask4.web.command;
 
+import ua.nure.lukianova.SummaryTask4.db.entity.Question;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
+import ua.nure.lukianova.SummaryTask4.service.QuestionService;
 import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
@@ -12,7 +14,13 @@ import java.io.IOException;
 
 public class DeleteQuestionCommand extends Command {
 
-    private static final int MIN_QUESTION_NUMBER = 1;
+    private QuestionService questionService;
+
+    public DeleteQuestionCommand(QuestionService questionService) {
+        this.questionService = questionService;
+    }
+
+    private static final int MIN_QUESTION_NUMBER = 0;
     private long testId;
 
     @Override
@@ -21,8 +29,8 @@ public class DeleteQuestionCommand extends Command {
         long questionId = Long.valueOf(request.getParameter(Parameter.QUESTION_ID));
         testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
 
-        if (getQuestionService().findByTestId(testId).size() > MIN_QUESTION_NUMBER) {
-            getQuestionService().delete(questionId);
+        if (questionService.findByTestId(testId).size() > MIN_QUESTION_NUMBER) {
+            questionService.delete(questionId);
         }
 
         return getURL();

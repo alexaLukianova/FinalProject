@@ -1,5 +1,6 @@
 package ua.nure.lukianova.SummaryTask4.web.command;
 
+import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.nure.lukianova.SummaryTask4.db.Role;
@@ -40,7 +41,7 @@ public class RegisterCommand extends Command {
         UserValidatorBean userValidatorBean = extractUserValidationBean(request);
         errors = validator.validate(userValidatorBean);
 
-        if (!errors.isEmpty()) {
+        if (MapUtils.isNotEmpty(errors)) {
             setUserInfoBack(request, userValidatorBean);
             return Path.COMMAND_SHOW_REGISTER_FORM;
         }

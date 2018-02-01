@@ -1,5 +1,7 @@
 package ua.nure.lukianova.SummaryTask4.web.command;
 
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import ua.nure.lukianova.SummaryTask4.db.entity.Answer;
 import ua.nure.lukianova.SummaryTask4.db.entity.Question;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
@@ -23,7 +25,7 @@ public class UpdateQuestionInfoCommand extends Command {
     private Validator answerValidator;
     private Validator questionValidator;
     private Map<String, String> errors;
-    long testId;
+    private long testId;
 
 
     public UpdateQuestionInfoCommand() {
@@ -43,7 +45,7 @@ public class UpdateQuestionInfoCommand extends Command {
         errors.putAll(questionValidator.validate(question));
         errors.putAll(answerValidator.validate(answers));
 
-        if (errors.isEmpty()) {
+        if (MapUtils.isEmpty(errors)) {
             updateQuestionInfo(question, answers);
         } else {
             setAttributesIntoSessionScope(request);
@@ -59,11 +61,11 @@ public class UpdateQuestionInfoCommand extends Command {
     }
 
     private String getURL() {
-        StringBuilder url = new StringBuilder(Path.COMMAND_SHOW_EDIT_FORM);
-        url.append(DELIMITER).append(Parameter.TEST_ID).append(EQUAL_SIGN).append(testId);
-        return url.toString();
+        return new StringBuilder(Path.COMMAND_SHOW_EDIT_FORM)
+                .append(DELIMITER)
+                .append(Parameter.TEST_ID).append(EQUAL_SIGN).append(testId)
+                .toString();
     }
-
 
     private Question extractQuestion(HttpServletRequest request) {
         Question question = new Question();
@@ -75,20 +77,19 @@ public class UpdateQuestionInfoCommand extends Command {
 
     private List<Answer> extractAnswers(HttpServletRequest request) {
         List<Answer> answers = new ArrayList<>();
-        String[] id = request.getParameterValues(Parameter.ANSWER_ID);
-        String[] text = request.getParameterValues(Parameter.ANSWER);
-        String[] correct = request.getParameterValues(Parameter.ANSWER_CORRECT);
-        List<String> correctAnswers = new ArrayList<>();
-        if (Objects.nonNull(correct)) {
-            correctAnswers = new ArrayList<>(Arrays.asList(correct));
-        }
+        String[] ids = request.getParameterValues(Parameter.ANSWER_ID);
+        String[] texts = request.getParameterValues(Parameter.ANSWER);
+        String[] corrects = request.getParameterValues(Parameter.ANSWER_CORRECT);
 
+        List<String> correctAnswers = ArrayUtils.isNotEmpty(corrects)
+                ? Arrays.asList(corrects)
+                : Collections.emptyList();
 
-        for (int i = 0; i < id.length; i++) {
+        for (int i = 0; i < ids.length; i++) {
             Answer answer = new Answer();
-            answer.setId(Long.valueOf(id[i]));
-            answer.setText(text[i]);
-            answer.setCorrect(correctAnswers.contains(id[i]));
+            answer.setId(Long.valueOf(ids[i]));
+            answer.setText(texts[i]);
+            answer.setCorrect(correctAnswers.contains(ids[i]));
             answers.add(answer);
         }
 

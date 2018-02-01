@@ -1,5 +1,6 @@
 package ua.nure.lukianova.SummaryTask4.web.command;
 
+import org.apache.commons.collections4.MapUtils;
 import ua.nure.lukianova.SummaryTask4.db.bean.TestValidationBean;
 import ua.nure.lukianova.SummaryTask4.db.entity.Test;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 public class SaveNewTestCommand extends Command {
     private static final long serialVersionUID = 8894172038521714145L;
@@ -40,9 +42,9 @@ public class SaveNewTestCommand extends Command {
 
         errors = testValidator.validate(testValidationBean);
 
-        if (errors.isEmpty()) {
-            testId = getTestService().create(test);
+        if (MapUtils.isEmpty(errors)) {
             test = extractTest(testValidationBean);
+            testId = getTestService().create(test);
         } else {
             setErrorsIntoSessionScope(request);
         }
@@ -85,6 +87,9 @@ public class SaveNewTestCommand extends Command {
         test.setName(validTest.getName());
         test.setSubject(validTest.getSubject());
         test.setComplexityId(Integer.valueOf(validTest.getComplexityId()));
+//        Optional.ofNullable(validTest.getDuration())
+//                .map(Long::valueOf)
+//                .ifPresent(test::setDuration);
         if (Objects.nonNull(validTest.getDuration())) {
             test.setDuration(Long.valueOf(validTest.getDuration()));
         }

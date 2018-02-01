@@ -1,5 +1,6 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+<%@taglib prefix="ct" uri="/WEB-INF/customTag.tld" %>
 
 <html>
 <head>
@@ -33,39 +34,50 @@
 
             <h2 id="top" class="form-signin-heading">Update necessary information</h2>
 
-            <label class="form-control-label">Topic</label>
-            <c:choose>
-                <c:when test="${errors.containsKey('name')}">
-                    <div class="form-group has-danger">
-                        <input type="text" class="form-control form-control-sm is-invalid" name="name"
-                               value="${test.name}">
-                        <div class="invalid-feedback"><fmt:message key="${errors.get('name')}"/></div>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="form-group has-success">
-                        <input type="text" class="form-control form-control-sm is-valid" name="name"
-                               value="${test.name}" maxlength="255">
-                    </div>
-                </c:otherwise>
-            </c:choose>
 
-            <label class="form-control-label">Subject</label>
-            <c:choose>
-                <c:when test="${errors.containsKey('subject')}">
-                    <div class="form-group has-danger">
-                        <input type="text" class="form-control form-control-sm is-invalid" name="subject"
-                               value="${test.subject}" maxlength="255">
-                        <div class="invalid-feedback"><fmt:message key="${errors.get('subject')}"/></div>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="form-group has-success">
-                        <input type="text" class="form-control form-control-sm is-valid" name="subject"
-                               value="${test.subject}" maxlength="255">
-                    </div>
-                </c:otherwise>
-            </c:choose>
+           <ct:validateInput errors="${errors}" value="${test.name}" name="name" label="Topic" placeholder="Topic">
+               <fmt:message key="${errors.get('name')}"/>
+           </ct:validateInput>
+
+
+
+            <%--<label class="form-control-label">Topic</label>--%>
+            <%--<c:choose>--%>
+                <%--<c:when test="${errors.containsKey('name')}">--%>
+                    <%--<div class="form-group has-danger">--%>
+                        <%--<input type="text" class="form-control form-control-sm is-invalid" name="name"--%>
+                               <%--value="${test.name}">--%>
+                        <%--<div class="invalid-feedback"><fmt:message key="${errors.get('name')}"/></div>--%>
+                    <%--</div>--%>
+                <%--</c:when>--%>
+                <%--<c:otherwise>--%>
+                    <%--<div class="form-group has-success">--%>
+                        <%--<input type="text" class="form-control form-control-sm is-valid" name="name"--%>
+                               <%--value="${test.name}" maxlength="255">--%>
+                    <%--</div>--%>
+                <%--</c:otherwise>--%>
+            <%--</c:choose>--%>
+
+            <ct:validateInput errors="${errors}" value="${test.subject}" name="subject" label="Subject" placeholder="Subject">
+                <fmt:message key="${errors.get('subject')}"/>
+            </ct:validateInput>
+
+            <%--<label class="form-control-label">Subject</label>--%>
+            <%--<c:choose>--%>
+                <%--<c:when test="${errors.containsKey('subject')}">--%>
+                    <%--<div class="form-group has-danger">--%>
+                        <%--<input type="text" class="form-control form-control-sm is-invalid" name="subject"--%>
+                               <%--value="${test.subject}" maxlength="255">--%>
+                        <%--<div class="invalid-feedback"><fmt:message key="${errors.get('subject')}"/></div>--%>
+                    <%--</div>--%>
+                <%--</c:when>--%>
+                <%--<c:otherwise>--%>
+                    <%--<div class="form-group has-success">--%>
+                        <%--<input type="text" class="form-control form-control-sm is-valid" name="subject"--%>
+                               <%--value="${test.subject}" maxlength="255">--%>
+                    <%--</div>--%>
+                <%--</c:otherwise>--%>
+            <%--</c:choose>--%>
 
             <label class="form-control-label">Complexity</label>
             <div class="form-check">

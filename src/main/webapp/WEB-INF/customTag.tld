@@ -9,19 +9,20 @@
     <tag>
         <name>validateInput</name>
         <tag-class>ua.nure.lukianova.SummaryTask4.tag.ValidateTag</tag-class>
-        <body-content>empty</body-content>
+        <body-content>JSP</body-content>
         <attribute>
             <name>errors</name>
-            <type>java.util.Map</type>
+            <required>yes</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.util.Map</type>
         </attribute>
         <attribute>
-            <name>labelName</name>
-            <required>yes</required>
+            <name>label</name>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>value</name>
+            <required>yes</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
@@ -32,6 +33,10 @@
             <name>name</name>
             <required>yes</required>
             <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>passwordType</name>
+            <type>java.lang.Boolean</type>
         </attribute>
     </tag>
 

@@ -40,11 +40,6 @@ public class ShowEditFormCommand extends Command {
         return Path.PAGE_EDIT_TEST;
     }
 
-    private boolean isNewTest(HttpServletRequest request) {
-        return Objects.isNull(request.getParameter(Parameter.TEST_ID))
-                || request.getParameter(Parameter.TEST_ID).trim().isEmpty() ;
-    }
-
     private void checkSessionScope(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (Objects.nonNull(session.getAttribute(Parameter.ERRORS))) {

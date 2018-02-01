@@ -24,12 +24,13 @@ public abstract class Command implements Serializable {
 
     private ResultService resultService;
 
+    public Command()
     {
-        testService = new TestServiceImpl();
-        questionService = new QuestionServiceImpl();
-        answerService = new AnswerServiceImpl();
-        userService = new UserServiceImpl();
-        resultService = new ResultServiceImpl();
+//        testService = new TestServiceImpl();
+//        questionService = new QuestionServiceImpl();
+//        answerService = new AnswerServiceImpl();
+//        userService = new UserServiceImpl();
+//        resultService = new ResultServiceImpl();
     }
 
 
@@ -64,5 +65,23 @@ public abstract class Command implements Serializable {
         return resultService;
     }
 
+    protected void setTestService(TestService testService) {
+        this.testService = testService;
+    }
 
+    protected void setQuestionService(QuestionService questionService) {
+        this.questionService = questionService;
+    }
+
+    protected void setAnswerService(AnswerService answerService) {
+        this.answerService = answerService;
+    }
+
+    protected void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    protected void setResultService(ResultService resultService) {
+        this.resultService = resultService;
+    }
 }
