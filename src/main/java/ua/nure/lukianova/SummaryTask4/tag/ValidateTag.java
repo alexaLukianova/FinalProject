@@ -27,7 +27,6 @@ public class ValidateTag extends BodyTagSupport {
 
     private Map<String, String> errors;
     private String placeholder;
-    private String label;
     private String value;
     private String name;
     private String type;
@@ -41,9 +40,6 @@ public class ValidateTag extends BodyTagSupport {
             BodyContent bodyContent = super.getBodyContent();
             String bodyString = bodyContent.getString();
             JspWriter out = bodyContent.getEnclosingWriter();
-
-            out.write(String.join(EMPTY,
-                    "<label class=\"form-control-label\">", defaultString(label, EMPTY), "</label>"));
 
             if (isEmpty(errors)) {
                 out.write(isNotEmpty(value) ? setSuccess() : setInit());
@@ -99,11 +95,6 @@ public class ValidateTag extends BodyTagSupport {
 
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-
     }
 
     public void setValue(String value) {

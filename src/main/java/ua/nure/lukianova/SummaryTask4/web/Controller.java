@@ -54,18 +54,19 @@ public class Controller extends HttpServlet {
         LOGGER.trace("Obtained command --> " + command);
 
         // execute command and get forward address
-        String path = ""; //= Path.PAGE_ERROR_PAGE;
+
+        String path = Path.PAGE_ERROR_PAGE;
         try {
             path = command.execute(request, response);
         } catch (AppException ex) {
-            request.setAttribute("errorMessage", ex.getMessage());
+            request.setAttribute(Parameter.ERROR_MESSAGE, ex.getMessage());
         }
         LOGGER.trace("Forward address -->" + path);
 
         LOGGER.debug("Controller finished, now go to forward address --> " + path);
 
         HttpSession session = request.getSession();
-        session.setAttribute("command", commandName);
+        session.setAttribute(Parameter.COMMAND, commandName);
 
 
         return path;

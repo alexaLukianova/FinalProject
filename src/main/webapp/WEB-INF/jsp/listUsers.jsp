@@ -9,7 +9,7 @@
 
 <body>
 
-<ct:navigation showMenu="true" hidden="false"/>
+<%@ include file="/WEB-INF/jspf/navigation.jspf" %>
 
 <div class="container ">
     <h1 align="center"><fmt:message key="user.table_name"/></h1>
@@ -20,7 +20,7 @@
         <th><fmt:message key="user.first_name"/></th>
         <th><fmt:message key="user.last_name"/></th>
         <th><fmt:message key="user.username"/></th>
-        <th>Role</th>
+        <th></th>
         <th></th>
         <th></th>
         </thead>
@@ -49,10 +49,10 @@
                                 <c:if test="${user.id eq u.id}">disabled</c:if>>
                             <c:choose>
                                 <c:when test="${u.locked}">
-                                    Unlock
+                                    <fmt:message key="button.unblock"/>
                                 </c:when>
                                 <c:otherwise>
-                                    Lock
+                                    <fmt:message key="button.block"/>
                                 </c:otherwise>
                             </c:choose>
 
@@ -64,7 +64,8 @@
                     <form action="controller" method="post">
                         <input type="hidden" name="command" value="deleteUser">
                         <button class="btn btn-danger btn-md" name="userId" value="${u.id}"
-                                <c:if test="${sessionScope.user.id eq u.id}">disabled</c:if>>Delete
+                                <c:if test="${sessionScope.user.id eq u.id}">disabled</c:if>>
+                            <fmt:message key="button.delete"/>
                         </button>
                     </form>
                 </td>
@@ -76,7 +77,7 @@
 
 
     <form id="bottomLast" action="/registration.jsp" method="get">
-        <button class="btn btn-primary btn-md">Add new user
+        <button class="btn btn-primary btn-md">  <fmt:message key="button.add_new_user"/>
         </button>
     </form>
 </div>

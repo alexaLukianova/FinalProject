@@ -10,13 +10,12 @@
 
 <div id="overlay"></div>
 
-<ct:navigation showMenu="false" hidden="true"/>
 <div class="container">
     <div>
         <h2 class="text-primary">
-            <small class="text-muted">Test</small>
+            <small class="text-muted"><fmt:message key="text.test"/></small>
             ${test.name}</h2>
-        <small class="text-muted">Choose correct answer or answers on each questions:</small>
+        <small class="text-muted"><fmt:message key="text.choose_correct"/></small>
         <hr class="my-4">
     </div>
 
@@ -27,7 +26,7 @@
         <input type="hidden" name="resultId" value="${resultId}">
 
         <c:forEach var="map" items="${questAnsMap}" varStatus="questionCount">
-            <strong>Question #${questionCount.count}. ${map.key.text}</strong>
+            <strong>  <fmt:message key="question"/> #${questionCount.count}. ${map.key.text}</strong>
             <input type="hidden" name="question" value="${map.key.id}"> <br>
 
             <c:forEach var="answer" items="${map.value}">
@@ -45,7 +44,7 @@
         </c:forEach>
 
         <div id="bottomLast">
-            <button class="btn btn-success btn-lg btn-block" type="submit">Finish test</button>
+            <button class="btn btn-success btn-lg btn-block" type="submit"><fmt:message key="button.finish_test"/></button>
         </div>
 
     </form>

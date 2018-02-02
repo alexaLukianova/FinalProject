@@ -7,7 +7,6 @@ import ua.nure.lukianova.SummaryTask4.db.entity.Test;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.TestService;
 import ua.nure.lukianova.SummaryTask4.web.Path;
-import ua.nure.lukianova.SummaryTask4.web.validator.TestValidator;
 import ua.nure.lukianova.SummaryTask4.web.validator.Validator;
 
 import javax.servlet.ServletException;
@@ -40,8 +39,8 @@ public class UpdateTestInfoCommand extends Command {
         errors = new HashMap<>();
         testValidationBean = extractTestValidationBean(request);
         errors = testValidator.validate(testValidationBean);
+        testId = Long.valueOf(request.getParameter(TEST_ID));
         if (errors.isEmpty()) {
-            testId = Long.valueOf(request.getParameter(TEST_ID));
            testService.update(extractTest(testValidationBean));
         } else {
             setErrorsIntoSessionScope(request);

@@ -1,7 +1,9 @@
 package ua.nure.lukianova.SummaryTask4.web.command;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ua.nure.lukianova.SummaryTask4.db.entity.Question;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.QuestionService;
 import ua.nure.lukianova.SummaryTask4.web.Path;
@@ -19,8 +21,8 @@ public class DeleteQuestionCommand extends Command {
     private static final Logger LOGGER = LoggerFactory.getLogger(DeleteQuestionCommand.class);
     private static final long serialVersionUID = 1705333156295756631L;
     private QuestionService questionService;
-    private static final int MIN_QUESTION_COUNT = 0;
     private long testId;
+    private long questionId;
 
     public DeleteQuestionCommand(QuestionService questionService) {
         this.questionService = questionService;
@@ -29,10 +31,10 @@ public class DeleteQuestionCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
-        long questionId = Long.valueOf(request.getParameter(QUESTION_ID));
+        questionId = Long.valueOf(request.getParameter(QUESTION_ID));
         testId = Long.valueOf(request.getParameter(TEST_ID));
 
-        if (questionService.findByTestId(testId).size() > MIN_QUESTION_COUNT) {
+        if (questionService.findByTestId(testId).size() > 0) {
             questionService.delete(questionId);
         }
 

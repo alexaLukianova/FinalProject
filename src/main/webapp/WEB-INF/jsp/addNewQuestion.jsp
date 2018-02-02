@@ -8,36 +8,47 @@
 
 <body>
 
-<ct:navigation showMenu="false" hidden="true"/>
 
 <div class="container">
     <div class="bs-component col-lg-6">
-        <h2 id="top" class="form-signin-heading">Add necessary information</h2>
+        <h2 id="top" class="form-signin-heading"><fmt:message key="text.add_necessary_information"/></h2>
         <form class="questionForm" method="post" action="controller">
             <input type="hidden" name="command" value="saveQuestion">
             <input type="hidden" name="testId" value="${testId}">
 
-            <label class="form-control-label">Question</label>
+            <label class="form-control-label"><fmt:message key="question"/></label>
+
+            <ct:validateInput errors="${errors}" value="${question}" name="question">
+            </ct:validateInput>
+
+            <small class="text-danger">
+                <c:if test="${errors.containsKey('question')}">
+                    <fmt:message key="${errors.get('question')}"/><br>
+                </c:if>
+                <c:if test="${errors.containsKey('answer')}">
+                    <fmt:message key="${errors.get('answer')}"/><br>
+                </c:if>
+                <c:if test="${errors.containsKey('correct')}">
+                    <fmt:message key="${errors.get('correct')}"/><br>
+                </c:if>
+            </small>
 
 
-            <ct:show text="${question}" condition="${ not empty errors}" name="question" showErrors="true"/>
-
-
-            <label class="form-control-label">Answers</label>
+            <label class="form-control-label"><fmt:message key="answers"/></label>
             <c:forEach var="j" begin="1" end="${answersNumber}">
                 <div>
                     <input type="checkbox" name="correct" value="${j}"
                            <c:if test="${answer.correct}">checked="checked"</c:if>>
 
+                    <ct:validateInput errors="${errors}" value="${answer.text}" name="answer">
+                    </ct:validateInput>
 
-                    <ct:show text="${answer.text}"
-                             condition="${errors.containsKey('answer') || errors.containsKey('correct')}"
-                             name="answer"
-                             showErrors="false"/>
+
                 </div>
+
             </c:forEach>
 
-            <button class="btn btn-success" type="submit">Save</button>
+            <button class="btn btn-success" type="submit"><fmt:message key="button.save"/></button>
             <br><br>
 
         </form>
@@ -47,7 +58,7 @@
                 <input type="hidden" name="command" value="showEditForm">
                 <input type="hidden" name="testId" value="${testId}">
                 <input type="hidden" name="question" value="">
-                <button class="btn btn-secondary" type="submit">Cancel</button>
+                <button class="btn btn-secondary" type="submit"><fmt:message key="button.cancel"/></button>
             </form>
         </div>
     </div>

@@ -12,13 +12,8 @@
         <body-content>JSP</body-content>
         <attribute>
             <name>errors</name>
-            <required>yes</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.util.Map</type>
-        </attribute>
-        <attribute>
-            <name>label</name>
-            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>value</name>
@@ -41,18 +36,8 @@
     </tag>
 
     <tag-file>
-        <name>errMessage</name>
-        <path>/WEB-INF/tags/errorMessage.tag</path>
-    </tag-file>
-
-    <tag-file>
         <name>show</name>
-        <path>/WEB-INF/tags/showField.tag</path>
-    </tag-file>
-
-    <tag-file>
-        <name>navigation</name>
-        <path>/WEB-INF/tags/navigation.tag</path>
+        <path>/WEB-INF/tags/progressList.tag</path>
     </tag-file>
 
 

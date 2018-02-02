@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
-<html  lang="${language}">
+<html>
 
 <c:set var="title" value="registration" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<ct:navigation showMenu="false" action="/registration.jsp" hidden="false"/>
 
 <div class="container">
 
@@ -22,28 +21,29 @@
                 <input type="hidden" name="command" value="register">
                 <h2 class="form-signin-heading">Please register</h2>
 
-                <ct:validateInput errors="${errors}" label="First Name" value="${firstName}" name="firstName"
-                                  placeholder="Anna">
+                <label class="form-control-label"><fmt:message key="user.first_name"/></label>
+                <ct:validateInput errors="${errors}" value="${firstName}" name="firstName" placeholder="Anna">
                     <fmt:message key="${errors.get('firstName')}"/>
                 </ct:validateInput>
 
-                <ct:validateInput errors="${errors}" label="Last Name" value="${lastName}" name="lastName"
-                                  placeholder="Petrenko">
+                <label class="form-control-label"><fmt:message key="user.last_name"/></label>
+                <ct:validateInput errors="${errors}" value="${lastName}" name="lastName" placeholder="Petrenko">
                     <fmt:message key="${errors.get('lastName')}"/>
                 </ct:validateInput>
 
-                <ct:validateInput errors="${errors}" label="Login" value="${username}" name="username"
-                                  placeholder="login">
+                <label class="form-control-label"><fmt:message key="user.username"/></label>
+                <ct:validateInput errors="${errors}" value="${username}" name="username" placeholder="login">
                     <fmt:message key="${errors.get('username')}"/>
                 </ct:validateInput>
 
-                <ct:validateInput errors="${errors}" label="Password" value="${password}" name="password"
+                <label class="form-control-label"><fmt:message key="user.password"/></label>
+                <ct:validateInput errors="${errors}" value="${password}" name="password"
                                   placeholder="password" passwordType="true">
                     <fmt:message key="${errors.get('password')}"/>
                 </ct:validateInput>
 
-                <ct:validateInput errors="${errors}" label="Re-enter password" value="${reenterPassword}"
-                                  name="reenterPassword"
+                <label class="form-control-label"><fmt:message key="user.reenter_password"/></label>
+                <ct:validateInput errors="${errors}" value="${reenterPassword}" name="reenterPassword"
                                   placeholder="reenterPassword" passwordType="true">
                     <fmt:message key="${errors.get('reenterPassword')}"/>
                 </ct:validateInput>
@@ -64,10 +64,10 @@
 
 
                 <br>
-                <button class="btn btn-primary btn-lg" type="submit">Register</button>
+                <button class="btn btn-primary btn-lg" type="submit"><fmt:message key="text.register"/></button>
 
                 <c:if test="${empty sessionScope.user}">
-                    <a href="login.jsp">I'm already registered</a>
+                    <a href="login.jsp"><fmt:message key="text.already_registered"/> </a>
                 </c:if>
 
 
@@ -80,11 +80,11 @@
             <br>
             <br>
             <div class="alert alert-dismissible alert-warning">
-                <h4 class="alert-heading">Warning!</h4>
-                <p class="mb-0">First name and last name should contain only letters, whitespaces and dashes.</p>
-                <p class="mb-0">Login should contain only latin letters and numbers.</p>
-                <p class="mb-0">Password must be more then 6 and less the 12 symbols.</p>
-                <p class="mb-0">All fields are mandatory.</p>
+                <h4 class="alert-heading"><fmt:message key="text.warning"/></h4>
+                <p class="mb-0"><fmt:message key="text.warning.first_name"/></p>
+                <p class="mb-0"><fmt:message key="text.warning.login"/></p>
+                <p class="mb-0"><fmt:message key="text.warning.password"/></p>
+                <p class="mb-0"><fmt:message key="text.warning.all"/></p>
             </div>
 
             <br>
@@ -92,13 +92,15 @@
             <c:if test="${'admin'.equals(sessionScope.userRole.toString())}">
                 <form method="get" action="controller">
                     <input type="hidden" name="command" value="listUsers">
-                    <button class="btn btn-lg btn-outline-secondary btn-block" type="submit">Return</button>
+                    <button class="btn btn-lg btn-outline-secondary btn-block" type="submit">
+                        <fmt:message key="button.return"/></button>
                 </form>
 
             </c:if>
             <c:if test="${empty sessionScope.userRole}">
                 <form method="get" action="/login.jsp">
-                    <button class="btn btn-lg btn-outline-secondary btn-block" type="submit">Return</button>
+                    <button class="btn btn-lg btn-outline-secondary btn-block" type="submit">
+                        <fmt:message key="button.return"/></button>
                 </form>
 
             </c:if>

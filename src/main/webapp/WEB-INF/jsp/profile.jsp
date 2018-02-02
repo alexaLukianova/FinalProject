@@ -1,46 +1,38 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
-<html  lang="${language}">
+<html lang="${language}">
 
 <c:set var="title" value="home" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 
-
 <body>
 
-<ct:navigation showMenu="true" hidden="false"/>
+<%@ include file="/WEB-INF/jspf/navigation.jspf" %>
 
 <div id="profile" class="container">
     <br>
     <div class="card border-info mb-3">
-        <div class="card-header">Hello, ${userRole.toString()}!!!</div>
+        <div class="card-header"><fmt:message key="text.hello"/>, ${userRole.toString()}!!!</div>
         <div class="card-body">
-            <h4 class="card-title">Your profile:</h4>
-            <p class="card-text">First Name: ${user.firstName}</p>
-            <p class="card-text">Last Name: ${user.lastName}</p>
-            <p class="card-text">Login: ${user.username}</p>
+            <h4 class="card-title"><fmt:message key="text.your_profile"/>:</h4>
+            <p class="card-text"><fmt:message key="user.first_name"/>: ${user.firstName}</p>
+            <p class="card-text"><fmt:message key="user.last_name"/>: ${user.lastName}</p>
+            <p class="card-text"><fmt:message key="user.username"/>: ${user.username}</p>
         </div>
     </div>
 
     <c:if test="${not empty userProgress}">
-        <h1 align="center">Your results</h1>
+        <h1 align="center"><fmt:message key="text.your_results"/></h1>
         <table id="bottomLast" class="table table-striped table-sm">
             <thead>
-            <th>Test</th>
-            <th>Subject</th>
-            <th>Score</th>
-            <th>Date of test</th>
+            <th><fmt:message key="test.name"/></th>
+            <th><fmt:message key="test.subject"/></th>
+            <th><fmt:message key="test.result"/> (%)</th>
+            <th><fmt:message key="test.date"/></th>
             </thead>
             <tbody>
-            <c:forEach items="${userProgress}" var="progress">
-                <tr>
-                    <td>${progress.testName}</td>
-                    <td>${progress.testSubject}</td>
-                    <td>${progress.result}</td>
-                    <td> ${progress.date}</td>
-                </tr>
-            </c:forEach>
+            <ct:show list="${userProgress}"></ct:show>
             </tbody>
         </table>
     </c:if>

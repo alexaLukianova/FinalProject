@@ -8,7 +8,7 @@
 
 <body>
 
-<ct:navigation showMenu="true" hidden="false"/>
+<%@ include file="/WEB-INF/jspf/navigation.jspf" %>
 
 <div class="container">
     <h1 align="center"><fmt:message key="test.table_name"/></h1>
@@ -19,7 +19,7 @@
         <th><fmt:message key="test.subject"/></th>
         <th><fmt:message key="test.complexity"/></th>
         <th><fmt:message key="test.duration"/></th>
-        <th>Question number</th>
+        <th><fmt:message key="text.question_number"/></th>
         <th colspan="2"></th>
         </thead>
         <tbody>
@@ -30,12 +30,12 @@
                 <td>
                     <c:choose>
                         <c:when test="${test.complexityId eq 0}">
-                            Easy
+                            <fmt:message key="test.complexity.easy"/>
                         </c:when>
                         <c:when test="${test.complexityId eq 1}">
-                            Medium
+                            <fmt:message key="test.complexity.medium"/>
                         </c:when>
-                        <c:otherwise>Hard</c:otherwise>
+                        <c:otherwise><fmt:message key="test.complexity.hard"/></c:otherwise>
                     </c:choose>
 
                 </td>
@@ -48,7 +48,7 @@
                             <form action="controller" method="get">
                                 <input type="hidden" name="command" value="showEditForm">
                                 <button class="btn btn-success btn-md" name="testId" value="${test.id}"
-                                >View
+                                ><fmt:message key="button.view"/>
                                 </button>
                             </form>
                         </td>
@@ -56,7 +56,7 @@
                             <form action="controller" method="post">
                                 <input type="hidden" name="command" value="deleteTest">
                                 <button class="btn btn-danger btn-md" name="testId" value="${test.id}">
-                                    Delete
+                                    <fmt:message key="button.delete"/>
                                 </button>
                             </form>
                         </td>
@@ -69,7 +69,7 @@
                             <form action="controller" method="get">
                                 <input type="hidden" name="command" value="runTest">
                                 <button class="btn btn-warning btn-md " name="testId" value="${test.id}"
-                                >Run
+                                ><fmt:message key="button.run"/>
                                 </button>
                             </form>
                         </td>
@@ -92,16 +92,17 @@
 
                     <input type="hidden" name="command" value="listTests">
                     <li class="nav-item active">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Sort</button>
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+                            <fmt:message key="button.sort"/></button>
                     </li>
                     <li class="nav-item">
                         <div id="bottomSides" class="form-group">
                             <select class="form-control" name="parameter">
-                                <option value="name">topic</option>
-                                <option value="duration">duration</option>
-                                <option value="subject">subject</option>
-                                <option value="questionsCount">question quantity</option>
-                                <option value="complexityId">complexity</option>
+                                <option value="name"><fmt:message key="text.topic"/></option>
+                                <option value="duration"><fmt:message key="text.duration"/></option>
+                                <option value="subject"><fmt:message key="text.subject"/></option>
+                                <option value="questionsCount"><fmt:message key="text.question_quantity"/></option>
+                                <option value="complexityId"><fmt:message key="text.complexity"/></option>
                             </select>
                         </div>
                     </li>
@@ -113,8 +114,8 @@
                     <li class="nav-item">
                         <div class="form-group">
                             <select class="form-control" name="order">
-                                <option value="desc">DECS</option>
-                                <option value="acs">ACS</option>
+                                <option value="desc"><fmt:message key="text.decs"/></option>
+                                <option value="acs"><fmt:message key="text.acs"/></option>
                             </select>
                         </div>
                     </li>
@@ -127,7 +128,7 @@
             <form id="addButton" class="form-inline my-2 my-lg-0" action="controller" method="get">
                 <input class="form-control mr-sm-2" type="hidden" name="command" value="addTest">
                 <c:if test="${'admin'.equals(role)}">
-                    <button class="btn btn-warning btn-block " type="submit">Add new test</button>
+                    <button class="btn btn-warning btn-block " type="submit"><fmt:message key="button.add_new_test"/></button>
                 </c:if>
             </form>
 

@@ -1,0 +1,19 @@
+<div class="topnav">
+    <a class="active" href="/controller?command=showProfile"><fmt:message key="text.profile"/></a>
+    <c:if test="${'admin'.equals(userRole.toString())}">
+        <a href="/controller?command=listUsers"><fmt:message key="text.users"/> </a>
+    </c:if>
+    <a href="/controller?command=listTests"><fmt:message key="text.tests"/></a>
+    <a href="/controller?command=logout"><fmt:message key="text.logout"/></a>
+
+
+    <div class="lang-selector">
+        <form class="form-group" action="/controller?command=${command}" method="get">
+            <input type="hidden" name="command" value="${command}">
+            <select class="form-control" id="language" name="language" onchange="submit()">
+                <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
+                <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
+            </select>
+        </form>
+    </div>
+</div>
