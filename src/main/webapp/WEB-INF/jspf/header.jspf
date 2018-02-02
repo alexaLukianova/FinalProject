@@ -1,8 +1,0 @@
-<form class="form-group" action="controller" method="post">
-    <input type="hidden" name="command" value="${sessionScope.command}">
-    <select class="form-control" id="language" name="language" onchange="submit()">
-        <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
-        <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
-    </select>
-</form>
-

@@ -1,18 +1,15 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
-<%@ taglib prefix="ct" uri="/WEB-INF/customTag.tld" %>
+
 
 <html  lang="${language}">
-<head>
-    <title>Title</title>
 
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css"/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
-</head>
+<c:set var="title" value="edit" scope="page"/>
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
+
 <body>
 
-<%@ include file="/WEB-INF/jspf/navigation.jspf" %>
+<ct:navigation showMenu="false" hidden="true"/>
 
 <div class="container">
 

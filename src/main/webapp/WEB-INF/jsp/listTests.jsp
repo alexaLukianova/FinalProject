@@ -1,16 +1,14 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
-<html  lang="${language}">
+<html lang="${language}">
 
-<c:set var="title" value="home" scope="page"/>
+<c:set var="title" value="tests" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
-
 
 <body>
 
-
-<%@ include file="/WEB-INF/jspf/navigation.jspf" %>
+<ct:navigation showMenu="true" hidden="false"/>
 
 <div class="container">
     <h1 align="center"><fmt:message key="test.table_name"/></h1>
@@ -71,7 +69,7 @@
                             <form action="controller" method="get">
                                 <input type="hidden" name="command" value="runTest">
                                 <button class="btn btn-warning btn-md " name="testId" value="${test.id}"
-                                        >Run
+                                >Run
                                 </button>
                             </form>
                         </td>
@@ -132,7 +130,6 @@
                     <button class="btn btn-warning btn-block " type="submit">Add new test</button>
                 </c:if>
             </form>
-
 
 
         </div>

@@ -2,26 +2,14 @@
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <html>
 <head>
+    <title>Login</title>
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.css"/>"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/loginStyle.css"/>"/>
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
 </head>
 <body>
 
-
-<div class="topnav">
-    <div class="lang-selector">
-        <form class="form-group" action="/login.jsp" method="get">
-            <select class="form-control" id="language" name="language" onchange="submit()">
-                <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
-                <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
-            </select>
-        </form>
-    </div>
-</div>
-
-
-</div>
+<ct:navigation showMenu="false" action="/login.jsp" hidden="false"/>
 
 <div class="wrapper">
     <form class="form-signin" id="login_form" method="POST" action="controller">

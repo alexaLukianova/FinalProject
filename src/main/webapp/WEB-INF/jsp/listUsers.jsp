@@ -1,15 +1,15 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
-<html  lang="${language}">
 
-<c:set var="title" value="home" scope="page"/>
+<html lang="${language}">
+
+<c:set var="title" value="users" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 
 <body>
 
-
-<%@ include file="/WEB-INF/jspf/navigation.jspf" %>
+<ct:navigation showMenu="true" hidden="false"/>
 
 <div class="container ">
     <h1 align="center"><fmt:message key="user.table_name"/></h1>

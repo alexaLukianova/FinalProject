@@ -5,12 +5,11 @@
 
 <c:set var="title" value="home" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
-<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css"/>"/>
+
 
 <body>
 
-
-<%@ include file="/WEB-INF/jspf/navigation.jspf" %>
+<ct:navigation showMenu="true" hidden="false"/>
 
 <div id="profile" class="container">
     <br>

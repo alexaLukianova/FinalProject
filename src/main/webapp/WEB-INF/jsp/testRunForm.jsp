@@ -1,31 +1,16 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<html  lang="${language}">
-<head>
-    <title>Title</title>
-    <style>
-        #overlay {
-            position: fixed;
-            display: none;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 2;
-            cursor: pointer;
-        }
-    </style>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css"/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
-</head>
+<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<html lang="${language}">
+
+<c:set var="title" value="home" scope="page"/>
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
+
 <body>
 
-
 <div id="overlay"></div>
+
+<ct:navigation showMenu="false" hidden="true"/>
 <div class="container">
     <div>
         <h2 class="text-primary">
@@ -111,18 +96,6 @@
         }
 
     }, 1000);
-</script>
-<script>
-    function enable(elemId) {
-        var c = document.getElementById(elemId).children;
-
-
-        for (var i = 0; i < c.length; i++) {
-            c[i].disabled = false;
-        }
-    }
-
-
 </script>
 
 

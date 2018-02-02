@@ -37,7 +37,7 @@ public class ShowSaveQuestionCommand extends Command {
             session.removeAttribute(ERRORS);
             request.setAttribute(ERRORS, errors);
         }
-        if (Objects.nonNull(session.getAttribute(QUESTION_ID))) {
+        if (Objects.nonNull(session.getAttribute(QUESTION))) {
             String questionId = (String) session.getAttribute(QUESTION);
             session.removeAttribute(QUESTION);
             request.setAttribute(QUESTION, questionId);

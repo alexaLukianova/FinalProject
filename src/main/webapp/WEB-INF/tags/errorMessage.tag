@@ -1,4 +1,5 @@
 <%@ tag language="java" pageEncoding="UTF-8" %>
+<%@ tag body-content="empty" %>
 <%@ attribute name="errors" type="java.util.Map" required="true" rtexprvalue="true" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

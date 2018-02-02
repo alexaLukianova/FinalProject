@@ -1,14 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<html>
-<head>
-    <title>Title</title>
+<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
-</head>
+<html lang="${language}">
+<c:set var="title" value="message" scope="page"/>
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
 <body>
 
+<ct:navigation showMenu="false" hidden="true"/>
 
 <div class="container">
     <br>

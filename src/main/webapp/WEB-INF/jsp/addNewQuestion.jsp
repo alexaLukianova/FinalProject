@@ -1,18 +1,14 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
-<%@taglib prefix="ct" uri="/WEB-INF/customTag.tld" %>
 
+<html lang="${language}">
 
-<html>
-<head>
-    <title>Title</title>
+<c:set var="title" value="new question" scope="page"/>
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
 
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css"/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
-</head>
 <body>
 
+<ct:navigation showMenu="false" hidden="true"/>
 
 <div class="container">
     <div class="bs-component col-lg-6">
@@ -50,12 +46,11 @@
             <form method="get" action="controller">
                 <input type="hidden" name="command" value="showEditForm">
                 <input type="hidden" name="testId" value="${testId}">
+                <input type="hidden" name="question" value="">
                 <button class="btn btn-secondary" type="submit">Cancel</button>
             </form>
         </div>
     </div>
-
-
 </div>
 </body>
 </html>

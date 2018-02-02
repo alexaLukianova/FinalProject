@@ -1,4 +1,5 @@
 <%@ tag language="java" pageEncoding="UTF-8" %>
+<%@ tag body-content="empty" %>
 <%@ attribute name="text" required="true" rtexprvalue="true" %>
 <%@ attribute name="condition" type="java.lang.Boolean" required="true" rtexprvalue="true" %>
 <%@ attribute name="showErrors" type="java.lang.Boolean" required="true" rtexprvalue="true" %>

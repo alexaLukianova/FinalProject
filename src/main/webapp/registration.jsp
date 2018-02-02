@@ -1,33 +1,15 @@
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
-<%@taglib prefix="ct" uri="/WEB-INF/customTag.tld" %>
 
+<html  lang="${language}">
 
-<head>
-
-    <title>
-        ${title}
-    </title>
-
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/navigation.css"/>"/>
-    <%--<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>--%>
-
+<c:set var="title" value="registration" scope="page"/>
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
 
 </head>
 <body>
 
-<div class="topnav">
-    <div class="lang-selector">
-        <form class="form-group" action="/registration.jsp" method="get">
-            <select class="form-control" id="language" name="language" onchange="submit()">
-                <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
-                <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
-            </select>
-        </form>
-    </div>
-</div>
-
+<ct:navigation showMenu="false" action="/registration.jsp" hidden="false"/>
 
 <div class="container">
 
