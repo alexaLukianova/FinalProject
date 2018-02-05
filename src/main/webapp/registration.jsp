@@ -19,7 +19,7 @@
 
             <form method="POST" action="controller">
                 <input type="hidden" name="command" value="register">
-                <h2 class="form-signin-heading">Please register</h2>
+                <h2 class="form-signin-heading"><fmt:message key="text.please_register"/></h2>
 
                 <label class="form-control-label"><fmt:message key="user.first_name"/></label>
                 <ct:validateInput errors="${errors}" value="${firstName}" name="firstName" placeholder="Anna">
@@ -44,7 +44,7 @@
 
                 <label class="form-control-label"><fmt:message key="user.reenter_password"/></label>
                 <ct:validateInput errors="${errors}" value="${reenterPassword}" name="reenterPassword"
-                                  placeholder="reenterPassword" passwordType="true">
+                                  placeholder="password" passwordType="true">
                     <fmt:message key="${errors.get('reenterPassword')}"/>
                 </ct:validateInput>
 

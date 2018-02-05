@@ -2,6 +2,7 @@ package ua.nure.lukianova.SummaryTask4.web.command;
 
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.nure.lukianova.SummaryTask4.db.entity.Answer;
@@ -11,8 +12,6 @@ import ua.nure.lukianova.SummaryTask4.exception.DBException;
 import ua.nure.lukianova.SummaryTask4.service.AnswerService;
 import ua.nure.lukianova.SummaryTask4.service.QuestionService;
 import ua.nure.lukianova.SummaryTask4.web.Path;
-import ua.nure.lukianova.SummaryTask4.web.validator.AnswersValidator;
-import ua.nure.lukianova.SummaryTask4.web.validator.QuestionValidator;
 import ua.nure.lukianova.SummaryTask4.web.validator.Validator;
 
 import javax.servlet.ServletException;
@@ -52,6 +51,9 @@ public class UpdateQuestionInfoCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         errors = new LinkedHashMap<>();
+        if(StringUtils.isEmpty(request.getParameter(TEST_ID))){
+            throw new AppException("Invalid input");
+        }
         testId = Long.valueOf(request.getParameter(TEST_ID));
 
         Question question = extractQuestion(request);

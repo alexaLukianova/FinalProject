@@ -3,7 +3,6 @@ package ua.nure.lukianova.SummaryTask4.web.command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
-import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.ServletException;

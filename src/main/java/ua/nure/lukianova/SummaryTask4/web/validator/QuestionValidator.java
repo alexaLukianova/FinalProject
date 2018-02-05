@@ -6,9 +6,6 @@ import ua.nure.lukianova.SummaryTask4.web.Parameter;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
-import static ua.nure.lukianova.SummaryTask4.web.Parameter.*;
 
 public class QuestionValidator implements Validator {
 
@@ -26,10 +23,10 @@ public class QuestionValidator implements Validator {
     private void textValidate(Question question) {
         String text = question.getText();
         if (StringUtils.isEmpty(text)) {
-            errors.put(QUESTION, "error.question.required");
+            errors.put(Parameter.QUESTION, "error.question.required");
         } else {
             if (text.length() > UPPER_TEXT_BOUND) {
-                errors.put(QUESTION, "error.question.long");
+                errors.put(Parameter.QUESTION, "error.question.long");
             }
         }
     }

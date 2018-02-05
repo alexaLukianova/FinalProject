@@ -1,7 +1,6 @@
 package ua.nure.lukianova.SummaryTask4.web.command;
 
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
-import ua.nure.lukianova.SummaryTask4.service.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

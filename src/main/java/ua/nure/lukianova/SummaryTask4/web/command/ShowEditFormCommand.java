@@ -10,8 +10,8 @@ import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.AnswerService;
 import ua.nure.lukianova.SummaryTask4.service.QuestionService;
 import ua.nure.lukianova.SummaryTask4.service.TestService;
-import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +24,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static ua.nure.lukianova.SummaryTask4.web.Parameter.*;
 
 public class ShowEditFormCommand extends Command {
 
@@ -44,13 +42,13 @@ public class ShowEditFormCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
-        if (Objects.nonNull(request.getParameter(TEST_ID))) {
-            long testId = Long.valueOf(request.getParameter(TEST_ID));
+        if (Objects.nonNull(request.getParameter(Parameter.TEST_ID))) {
+            long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
             Test test = testService.findById(testId);
 
-            request.setAttribute(QUEST_ANS_MAP, extractQuestionInfoFromDB(testId));
-            request.setAttribute(TEST_ID, testId);
-            request.setAttribute(TEST, test);
+            request.setAttribute(Parameter.QUEST_ANS_MAP, extractQuestionInfoFromDB(testId));
+            request.setAttribute(Parameter.TEST_ID, testId);
+            request.setAttribute(Parameter.TEST, test);
         }
 
         checkSessionScope(request);
@@ -62,20 +60,20 @@ public class ShowEditFormCommand extends Command {
 
     private void checkSessionScope(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (Objects.nonNull(session.getAttribute(ERRORS))) {
-            Map<String, String> errors = (Map<String, String>) session.getAttribute(ERRORS);
-            session.removeAttribute(ERRORS);
-            request.setAttribute(ERRORS, errors);
+        if (Objects.nonNull(session.getAttribute(Parameter.ERRORS))) {
+            Map<String, String> errors = (Map<String, String>) session.getAttribute(Parameter.ERRORS);
+            session.removeAttribute(Parameter.ERRORS);
+            request.setAttribute(Parameter.ERRORS, errors);
         }
-        if (Objects.nonNull(session.getAttribute(QUESTION_ID))) {
-            String questionId = (String) session.getAttribute(QUESTION_ID);
-            session.removeAttribute(QUESTION_ID);
-            request.setAttribute(QUESTION_ID, questionId);
+        if (Objects.nonNull(session.getAttribute(Parameter.QUESTION_ID))) {
+            String questionId = (String) session.getAttribute(Parameter.QUESTION_ID);
+            session.removeAttribute(Parameter.QUESTION_ID);
+            request.setAttribute(Parameter.QUESTION_ID, questionId);
         }
-        if (Objects.nonNull(session.getAttribute(TEST))) {
-            Entity test = (Entity) session.getAttribute(TEST);
-            session.removeAttribute(TEST);
-            request.setAttribute(TEST, test);
+        if (Objects.nonNull(session.getAttribute(Parameter.TEST))) {
+            Entity test = (Entity) session.getAttribute(Parameter.TEST);
+            session.removeAttribute(Parameter.TEST);
+            request.setAttribute(Parameter.TEST, test);
         }
     }
 

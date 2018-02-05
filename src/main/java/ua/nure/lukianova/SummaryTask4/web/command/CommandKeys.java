@@ -23,5 +23,6 @@ public class CommandKeys {
     public static final String SAVE_NEW_TEST = "saveNewTest";
     public static final String SHOW_REGISTER = "showRegister";
     public static final String SHOW_RESULT = "showResult";
+    public static final String NO_COMMAND = "noCommand";
 
 }

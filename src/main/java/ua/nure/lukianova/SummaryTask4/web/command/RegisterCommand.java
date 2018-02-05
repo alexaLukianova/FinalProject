@@ -8,10 +8,9 @@ import ua.nure.lukianova.SummaryTask4.db.bean.UserValidatorBean;
 import ua.nure.lukianova.SummaryTask4.db.entity.User;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.UserService;
-import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
-import ua.nure.lukianova.SummaryTask4.web.validator.UserValidator;
 import ua.nure.lukianova.SummaryTask4.web.validator.Validator;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +39,7 @@ public class RegisterCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOGGER.debug("Command starts");
+
         UserValidatorBean userValidatorBean = extractUserValidationBean(request);
         errors = userValidator.validate(userValidatorBean);
 

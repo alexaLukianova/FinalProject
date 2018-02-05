@@ -5,9 +5,6 @@ public class Test extends Entity {
     private static final long serialVersionUID = -5753114648879271413L;
     private String name;
     private String subject;
-
-
-
     private int complexityId;
     private long duration;
 
@@ -47,5 +44,27 @@ public class Test extends Entity {
     public String toString() {
         return "Test [name=" + name + ", subject=" + subject + ", complexity="
                 + complexityId + ", duration=" + duration + ", getId()=" + getId() + "]";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Test test = (Test) o;
+
+        if (complexityId != test.complexityId) return false;
+        if (duration != test.duration) return false;
+        if (name != null ? !name.equals(test.name) : test.name != null) return false;
+        return subject != null ? subject.equals(test.subject) : test.subject == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (subject != null ? subject.hashCode() : 0);
+        result = 31 * result + complexityId;
+        result = 31 * result + (int) (duration ^ (duration >>> 32));
+        return result;
     }
 }

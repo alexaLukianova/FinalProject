@@ -12,13 +12,11 @@ import ua.nure.lukianova.SummaryTask4.service.TestService;
 import ua.nure.lukianova.SummaryTask4.service.TestServiceImpl;
 import ua.nure.lukianova.SummaryTask4.service.UserService;
 import ua.nure.lukianova.SummaryTask4.service.UserServiceImpl;
-import ua.nure.lukianova.SummaryTask4.web.validator.AnswersValidator;
 import ua.nure.lukianova.SummaryTask4.web.validator.QuestionValidator;
-import ua.nure.lukianova.SummaryTask4.web.validator.TestValidator;
-import ua.nure.lukianova.SummaryTask4.web.validator.UserValidator;
 import ua.nure.lukianova.SummaryTask4.web.validator.Validator;
-
-import static ua.nure.lukianova.SummaryTask4.web.command.CommandKeys.*;
+import ua.nure.lukianova.SummaryTask4.web.validator.UserValidator;
+import ua.nure.lukianova.SummaryTask4.web.validator.AnswersValidator;
+import ua.nure.lukianova.SummaryTask4.web.validator.TestValidator;
 
 public class CommandFactory {
 
@@ -42,76 +40,78 @@ public class CommandFactory {
         resultService = new ResultServiceImpl();
         answerValidator = new AnswersValidator();
         questionValidator = new QuestionValidator();
-        userValidator = new UserValidator();
+        userValidator = new UserValidator(new UserServiceImpl());
         testValidator = new TestValidator();
     }
 
     public static Command getCommand(String commandName) {
         Command command = null;
         switch (commandName) {
-            case LOGIN:
+            case CommandKeys.LOGIN:
                 command = new LoginCommand(userService);
                 break;
-            case LIST_USERS:
+            case CommandKeys.LIST_USERS:
                 command = new ListUsersCommand(userService);
                 break;
-            case LIST_TESTS:
+            case CommandKeys.LIST_TESTS:
                 command = new ListTestsCommand(testService, questionService);
                 break;
-            case DELETE_TEST:
+            case CommandKeys.DELETE_TEST:
                 command = new DeleteTestCommand(testService);
                 break;
-            case DELETE_QUESTION:
+            case CommandKeys.DELETE_QUESTION:
                 command = new DeleteQuestionCommand(questionService);
                 break;
-            case SAVE_QUESTION:
+            case CommandKeys.SAVE_QUESTION:
                 command = new SaveQuestionCommand(answerValidator, questionValidator, questionService, answerService);
                 break;
-            case LOCK_USER:
+            case CommandKeys.LOCK_USER:
                 command = new LockUserCommand(userService);
                 break;
-            case RUN_TEST:
+            case CommandKeys.RUN_TEST:
                 command = new RunTestCommand(testService, questionService, answerService, resultService);
                 break;
-            case EVALUATE_RESULT:
+            case CommandKeys.EVALUATE_RESULT:
                 command = new EvaluateResultCommand(resultService, testService, questionService, answerService);
                 break;
-            case SHOW_PROFILE:
+            case CommandKeys.SHOW_PROFILE:
                 command = new ShowProfileCommand(resultService);
                 break;
-            case REGISTER:
+            case CommandKeys.REGISTER:
                 command = new RegisterCommand(userValidator, userService);
                 break;
-            case LOGOUT:
+            case CommandKeys.LOGOUT:
                 command = new LogoutCommand();
                 break;
-            case DELETE_USER:
+            case CommandKeys.DELETE_USER:
                 command = new DeleteUserCommand(userService);
                 break;
-            case SHOW_SAVE_FORM:
+            case CommandKeys.SHOW_SAVE_FORM:
                 command = new ShowSaveQuestionCommand();
                 break;
-            case SHOW_EDIT_FORM:
+            case CommandKeys.SHOW_EDIT_FORM:
                 command = new ShowEditFormCommand(testService, questionService, answerService);
                 break;
-            case UPDATE_TEST_FORM:
+            case CommandKeys.UPDATE_TEST_FORM:
                 command = new UpdateTestInfoCommand(testService, testValidator);
                 break;
-            case UPDATE_QUESTION_FORM:
+            case CommandKeys.UPDATE_QUESTION_FORM:
                 command = new UpdateQuestionInfoCommand(answerValidator, questionValidator, questionService, answerService);
                 break;
-            case ADD_TEST:
+            case CommandKeys.ADD_TEST:
                 command = new AddTestCommand();
                 break;
-            case SAVE_NEW_TEST:
+            case CommandKeys.SAVE_NEW_TEST:
                 command = new SaveNewTestCommand(testValidator, testService);
                 break;
-            case SHOW_REGISTER:
+            case CommandKeys.SHOW_REGISTER:
                 command = new ShowRegisterCommand();
                 break;
-            case SHOW_RESULT:
+            case CommandKeys.SHOW_RESULT:
                 command = new ShowResultCommand();
                 break;
+            case CommandKeys.NO_COMMAND:
+                command = new NoCommand();
         }
         return command;
     }

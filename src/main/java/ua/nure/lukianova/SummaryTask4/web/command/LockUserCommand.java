@@ -1,5 +1,6 @@
 package ua.nure.lukianova.SummaryTask4.web.command;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
@@ -10,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.concurrent.locks.Lock;
 
 import static ua.nure.lukianova.SummaryTask4.web.Parameter.LOGIN;
 
@@ -26,6 +26,10 @@ public class LockUserCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+
+        if (StringUtils.isEmpty(request.getParameter(LOGIN))) {
+            throw new AppException("Invalid input");
+        }
 
         userService.inverseLockState(request.getParameter(LOGIN));
         return Path.COMMAND_LIST_USERS;

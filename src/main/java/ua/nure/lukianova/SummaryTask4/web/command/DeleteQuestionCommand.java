@@ -3,7 +3,6 @@ package ua.nure.lukianova.SummaryTask4.web.command;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ua.nure.lukianova.SummaryTask4.db.entity.Question;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.QuestionService;
 import ua.nure.lukianova.SummaryTask4.web.Path;
@@ -31,6 +30,11 @@ public class DeleteQuestionCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
 
+
+        if(StringUtils.isEmpty(request.getParameter(QUESTION_ID))
+                || StringUtils.isEmpty(request.getParameter(TEST_ID)) ){
+            throw new AppException("Invalid input");
+        }
         questionId = Long.valueOf(request.getParameter(QUESTION_ID));
         testId = Long.valueOf(request.getParameter(TEST_ID));
 

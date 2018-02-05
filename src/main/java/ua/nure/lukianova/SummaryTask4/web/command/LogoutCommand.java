@@ -19,9 +19,14 @@ public class LogoutCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
-        HttpSession session = request.getSession();
-        session.invalidate();
-        request.getSession(false);
+        LOGGER.debug("Command starts");
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        LOGGER.debug("Command finished");
         return Path.PAGE_LOGIN;
     }
 }

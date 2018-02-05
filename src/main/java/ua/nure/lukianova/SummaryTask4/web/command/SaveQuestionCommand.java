@@ -1,5 +1,6 @@
 package ua.nure.lukianova.SummaryTask4.web.command;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.nure.lukianova.SummaryTask4.db.entity.Answer;
@@ -7,9 +8,8 @@ import ua.nure.lukianova.SummaryTask4.db.entity.Question;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.AnswerService;
 import ua.nure.lukianova.SummaryTask4.service.QuestionService;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
-import ua.nure.lukianova.SummaryTask4.web.validator.AnswersValidator;
-import ua.nure.lukianova.SummaryTask4.web.validator.QuestionValidator;
 import ua.nure.lukianova.SummaryTask4.web.validator.Validator;
 
 import javax.servlet.ServletException;
@@ -24,8 +24,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import static ua.nure.lukianova.SummaryTask4.web.Parameter.*;
 
 public class SaveQuestionCommand extends Command {
 
@@ -49,9 +47,15 @@ public class SaveQuestionCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         errors = new LinkedHashMap<>();
-        testId = Long.valueOf(request.getParameter(TEST_ID));
+
+        if (StringUtils.isEmpty(request.getParameter(Parameter.TEST_ID))) {
+            throw new AppException("Invalid input");
+        }
+
+        testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
         Question question = extractNewQuestion(request);
         List<Answer> answers = extractNewAnswers(request);
+
         if (isValidQuestionInfo(question, answers)) {
             setQuestionInfo(question, answers);
             return getURL(Path.COMMAND_SHOW_EDIT_FORM);
@@ -62,25 +66,25 @@ public class SaveQuestionCommand extends Command {
 
     private void setAttributesIntoSessionScope(HttpServletRequest request, String question) {
         HttpSession session = request.getSession();
-        session.setAttribute(ERRORS, new HashMap<>(errors));
-        session.setAttribute(QUESTION, question);
+        session.setAttribute(Parameter.ERRORS, new HashMap<>(errors));
+        session.setAttribute(Parameter.QUESTION, question);
     }
 
     private String getURL(String path) {
-        return new StringBuilder(path).append(DELIMITER).append(TEST_ID).append(EQUAL_SIGN).append(testId).toString();
+        return new StringBuilder(path).append(DELIMITER).append(Parameter.TEST_ID).append(EQUAL_SIGN).append(testId).toString();
     }
 
     private Question extractNewQuestion(HttpServletRequest request) {
         Question question = new Question();
-        question.setText(request.getParameter(QUESTION));
-        question.setTestId(Long.valueOf(request.getParameter(TEST_ID)));
+        question.setText(request.getParameter(Parameter.QUESTION));
+        question.setTestId(Long.valueOf(request.getParameter(Parameter.TEST_ID)));
         return question;
     }
 
     private List<Answer> extractNewAnswers(HttpServletRequest request) {
         List<Answer> answers = new ArrayList<>();
-        String[] text = request.getParameterValues(ANSWER);
-        String[] correct = request.getParameterValues(ANSWER_CORRECT);
+        String[] text = request.getParameterValues(Parameter.ANSWER);
+        String[] correct = request.getParameterValues(Parameter.ANSWER_CORRECT);
         List<String> correctAnswers = new ArrayList<>();
         if (Objects.nonNull(correct)) {
             correctAnswers = new ArrayList<>(Arrays.asList(correct));

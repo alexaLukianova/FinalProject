@@ -36,7 +36,7 @@ public class ResultServiceImpl  implements  ResultService{
     }
 
     @Override
-    public List<TestResultBean> findResultByUserId(long id) throws DBException {
+    public List<TestResultBean> findByUserId(long id) throws DBException {
         return testResultBeanDAO.findByUserId(id);
     }
 }

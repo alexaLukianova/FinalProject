@@ -29,8 +29,8 @@ public class UserValidator implements Validator {
     private static final String REGEX_WHITESPACE = "\\s";
 
 
-    public UserValidator() {
-        userService = new UserServiceImpl();
+    public UserValidator(UserService userService) {
+        this.userService = userService;
     }
 
     @Override

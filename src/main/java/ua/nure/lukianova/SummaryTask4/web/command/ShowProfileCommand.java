@@ -15,11 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
-
-import static ua.nure.lukianova.SummaryTask4.web.Parameter.*;
 
 public class ShowProfileCommand extends Command {
 
@@ -34,11 +30,11 @@ public class ShowProfileCommand extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(USER);
+        User user = (User) session.getAttribute(Parameter.USER);
 
         if (Role.getRole(user) == Role.STUDENT) {
-            List<TestResultBean> userProgress = resultService.findResultByUserId(user.getId());
-            request.setAttribute(USER_PROGRESS, userProgress);
+            List<TestResultBean> userProgress = resultService.findByUserId(user.getId());
+            request.setAttribute(Parameter.USER_PROGRESS, userProgress);
         }
 
         return Path.PAGE_PROFILE;

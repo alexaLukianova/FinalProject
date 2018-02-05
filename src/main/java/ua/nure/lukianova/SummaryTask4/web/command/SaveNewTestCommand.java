@@ -8,8 +8,8 @@ import ua.nure.lukianova.SummaryTask4.db.entity.Test;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.TestService;
 import ua.nure.lukianova.SummaryTask4.web.Path;
-import ua.nure.lukianova.SummaryTask4.web.validator.TestValidator;
 import ua.nure.lukianova.SummaryTask4.web.validator.Validator;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import static ua.nure.lukianova.SummaryTask4.web.Parameter.*;
 
 public class SaveNewTestCommand extends Command {
 
@@ -56,15 +54,15 @@ public class SaveNewTestCommand extends Command {
 
     private void setErrorsIntoSessionScope(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute(ERRORS, new HashMap<>(errors));
-        session.setAttribute(TEST, testValidationBean);
+        session.setAttribute(Parameter.ERRORS, new HashMap<>(errors));
+        session.setAttribute(Parameter.TEST, testValidationBean);
 
     }
 
     private String getURL(HttpServletRequest request) {
         StringBuilder url = new StringBuilder(Path.COMMAND_SHOW_EDIT_FORM);
         if (MapUtils.isEmpty(errors)) {
-            url.append(DELIMITER).append(TEST_ID).append(EQUAL_SIGN).append(testId);
+            url.append(DELIMITER).append(Parameter.TEST_ID).append(EQUAL_SIGN).append(testId);
         }
 
         return url.toString();
@@ -72,10 +70,10 @@ public class SaveNewTestCommand extends Command {
 
     private TestValidationBean extractTestValidationBean(HttpServletRequest request) {
         TestValidationBean test = new TestValidationBean();
-        test.setName(request.getParameter(TEST_NAME).trim());
-        test.setSubject(request.getParameter(TEST_SUBJECT).trim());
-        test.setComplexityId(request.getParameter(TEST_COMPLEXITY_ID).trim());
-        test.setDuration(request.getParameter(TEST_DURATION).trim());
+        test.setName(request.getParameter(Parameter.TEST_NAME).trim());
+        test.setSubject(request.getParameter(Parameter.TEST_SUBJECT).trim());
+        test.setComplexityId(request.getParameter(Parameter.TEST_COMPLEXITY_ID).trim());
+        test.setDuration(request.getParameter(Parameter.TEST_DURATION).trim());
 
         return test;
     }
@@ -85,9 +83,6 @@ public class SaveNewTestCommand extends Command {
         test.setName(validTest.getName());
         test.setSubject(validTest.getSubject());
         test.setComplexityId(Integer.valueOf(validTest.getComplexityId()));
-//        Optional.ofNullable(validTest.getDuration())
-//                .map(Long::valueOf)
-//                .ifPresent(test::setDuration);
         if (Objects.nonNull(validTest.getDuration())) {
             test.setDuration(Long.valueOf(validTest.getDuration()));
         }

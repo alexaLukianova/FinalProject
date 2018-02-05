@@ -44,5 +44,25 @@ public class TestValidationBean extends Entity {
         this.duration = duration;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        TestValidationBean that = (TestValidationBean) o;
+
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (subject != null ? !subject.equals(that.subject) : that.subject != null) return false;
+        if (complexityId != null ? !complexityId.equals(that.complexityId) : that.complexityId != null) return false;
+        return duration != null ? duration.equals(that.duration) : that.duration == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (subject != null ? subject.hashCode() : 0);
+        result = 31 * result + (complexityId != null ? complexityId.hashCode() : 0);
+        result = 31 * result + (duration != null ? duration.hashCode() : 0);
+        return result;
+    }
 }

@@ -23,5 +23,18 @@ public class Question extends Entity {
         this.testId = testId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Question question = (Question) o;
+
+        return text.equals(question.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return text.hashCode();
+    }
 }

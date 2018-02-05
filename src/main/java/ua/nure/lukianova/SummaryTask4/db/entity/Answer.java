@@ -37,4 +37,18 @@ public class Answer extends Entity {
         return "Answer [text=" + text + ", correct=" + correct + ", getId()=" + getId() + "]";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Answer answer = (Answer) o;
+
+        return text.equals(answer.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return text.hashCode();
+    }
 }
