@@ -28,7 +28,7 @@ public class Parameter {
     public static final String QUESTIONS_COUNT = "questionsCount";
     public static final String DESC_ORDER = "desc";
 
-
+    public static final String USER_BEAN = "userBean";
     public static final String USER = "user";
     public static final String USERS = "users";
     public static final String USER_ID = "userId";

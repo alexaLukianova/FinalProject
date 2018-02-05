@@ -45,6 +45,8 @@ public class RunTestCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
+
         Result result = new Result();
         HttpSession session = request.getSession();
         Map<Question, List<Answer>> questAnsMap = new HashMap<>();
@@ -58,21 +60,34 @@ public class RunTestCommand extends Command {
         long resultId = createResult(result, testId, userId);
 
         Test test = testService.findById(testId);
+        LOGGER.trace("Found in DB: test --> " + test);
 
         List<Question> questions = questionService.findByTestId(testId);
+        LOGGER.trace("Found in DB: questions --> " + questions);
+
         Collections.shuffle(questions);
 
         for (Question question : questions) {
             List<Answer> answers = answerService.findByQuestionId(question.getId());
+            LOGGER.trace("Found in DB: answers --> " + answers);
+
             Collections.shuffle(answers);
             questAnsMap.put(question, answers);
         }
 
         request.setAttribute(Parameter.TEST, test);
-        request.setAttribute(Parameter.QUEST_ANS_MAP, questAnsMap);
-        request.setAttribute(Parameter.START_TIME, result.getStartTime());
-        request.setAttribute(Parameter.RESULT_ID, resultId);
+        LOGGER.trace("Set the request attribute: test --> " + test);
 
+        request.setAttribute(Parameter.QUEST_ANS_MAP, questAnsMap);
+        LOGGER.trace("Set the request attribute: questAnsMap --> " + questAnsMap);
+
+        request.setAttribute(Parameter.START_TIME, result.getStartTime());
+        LOGGER.trace("Set the request attribute: start time --> " + result.getStartTime());
+
+        request.setAttribute(Parameter.RESULT_ID, resultId);
+        LOGGER.trace("Set the request attribute: result id --> " + resultId);
+
+        LOGGER.debug("Command finished");
         return Path.PAGE_TEST_FORM;
     }
 

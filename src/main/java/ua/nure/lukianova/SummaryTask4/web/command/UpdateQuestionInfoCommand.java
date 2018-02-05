@@ -50,6 +50,8 @@ public class UpdateQuestionInfoCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
+
         errors = new LinkedHashMap<>();
         if(StringUtils.isEmpty(request.getParameter(TEST_ID))){
             throw new AppException("Invalid input");
@@ -65,8 +67,11 @@ public class UpdateQuestionInfoCommand extends Command {
         if (MapUtils.isEmpty(errors)) {
             updateQuestionInfo(question, answers);
         } else {
+            LOGGER.trace("Found errors: --> " + errors);
             setAttributesIntoSessionScope(request);
         }
+
+        LOGGER.debug("Command finished");
 
         return getURL();
     }
@@ -74,7 +79,10 @@ public class UpdateQuestionInfoCommand extends Command {
     private void setAttributesIntoSessionScope(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute(ERRORS, new HashMap<>(errors));
+        LOGGER.trace("Set the request attribute: errors --> " + errors);
+
         session.setAttribute(QUESTION_ID, request.getParameter(QUESTION_ID));
+        LOGGER.trace("Set the request attribute: question id --> " + request.getParameter(QUESTION_ID));
     }
 
     private String getURL() {

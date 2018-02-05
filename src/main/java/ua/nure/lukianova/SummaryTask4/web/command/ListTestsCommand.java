@@ -57,6 +57,7 @@ public class ListTestsCommand extends Command {
         tests = Role.ADMIN.equals(session.getAttribute(USER_ROLE))
                 ? testService.findAllTests()
                 : testService.findAllWithQuestions();
+        LOGGER.trace("Found in DB: tests --> " + tests);
 
         String order = request.getParameter(ORDER);
         String parameter = request.getParameter(PARAMETER);
@@ -65,11 +66,14 @@ public class ListTestsCommand extends Command {
                 .collect(Collectors.toMap(Test::getId, test -> questionService.findByTestId(test.getId()).size()));
 
         request.setAttribute(QUESTIONS_COUNT, questionsCount);
+        LOGGER.trace("Set the request attribute: question count --> " + questionsCount);
 
         sort(tests, order, parameter);
 
         request.setAttribute(TESTS, tests);
+        LOGGER.trace("Set the request attribute: tests --> " + tests);
 
+        LOGGER.debug("Command finished");
         return Path.PAGE_LIST_TESTS;
     }
 

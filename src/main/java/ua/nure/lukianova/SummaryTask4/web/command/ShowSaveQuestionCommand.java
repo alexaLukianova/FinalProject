@@ -22,10 +22,15 @@ public class ShowSaveQuestionCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
         checkSessionScope(request);
         request.setAttribute(TEST_ID, request.getParameter(TEST_ID));
-        request.setAttribute(ANSWERS_NUMBER, ANSWERS_COUNT);
+        LOGGER.trace("Set the request attribute: test id --> " + request.getParameter(TEST_ID));
 
+        request.setAttribute(ANSWERS_NUMBER, ANSWERS_COUNT);
+        LOGGER.trace("Set the request attribute: answers number --> " + ANSWERS_COUNT);
+
+        LOGGER.debug("Command finished");
         return Path.PAGE_ADD_NEW_QUESTION;
     }
 
@@ -35,11 +40,13 @@ public class ShowSaveQuestionCommand extends Command {
             Map<String, String> errors = (Map<String, String>) session.getAttribute(ERRORS);
             session.removeAttribute(ERRORS);
             request.setAttribute(ERRORS, errors);
+            LOGGER.trace("Set the request attribute: errors --> " + errors);
         }
         if (Objects.nonNull(session.getAttribute(QUESTION))) {
             String questionId = (String) session.getAttribute(QUESTION);
             session.removeAttribute(QUESTION);
             request.setAttribute(QUESTION, questionId);
+            LOGGER.trace("Set the request attribute: question id --> " + questionId);
         }
     }
 }

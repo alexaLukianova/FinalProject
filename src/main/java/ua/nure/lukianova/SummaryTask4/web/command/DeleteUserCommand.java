@@ -25,12 +25,15 @@ public class DeleteUserCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
 
-        if(StringUtils.isEmpty(request.getParameter(Parameter.USER_ID))){
+        if (StringUtils.isEmpty(request.getParameter(Parameter.USER_ID))) {
             throw new AppException("Invalid input");
         }
         long userId = Long.valueOf(request.getParameter(Parameter.USER_ID));
         userService.delete(userId);
+
+        LOGGER.debug("Command finished");
         return Path.COMMAND_LIST_USERS;
     }
 }

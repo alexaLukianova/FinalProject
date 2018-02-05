@@ -15,7 +15,6 @@ public class JdbcTestResultBeanDAO extends JdbcAbstractDAO<TestResultBean> imple
             "RESULTS.START_TIME FROM TESTS JOIN RESULTS ON TESTS.ID = RESULTS.TEST_ID JOIN USERS ON " +
             "RESULTS.USER_ID = USERS.ID WHERE USERS.ID = ? ORDER BY RESULTS.START_TIME DESC";
 
-
     @Override
     protected TestResultBean extractEntity(ResultSet resultSet) throws SQLException {
         TestResultBean testResultBean = new TestResultBean();
@@ -25,7 +24,6 @@ public class JdbcTestResultBeanDAO extends JdbcAbstractDAO<TestResultBean> imple
         testResultBean.setDate(new Date(resultSet.getLong(Fields.RESULT_START_TIME)));
         return testResultBean;
     }
-
 
     @Override
     public List<TestResultBean> findByUserId(long id) throws DBException {

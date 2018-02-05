@@ -46,6 +46,8 @@ public class SaveQuestionCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
+
         errors = new LinkedHashMap<>();
 
         if (StringUtils.isEmpty(request.getParameter(Parameter.TEST_ID))) {
@@ -60,14 +62,20 @@ public class SaveQuestionCommand extends Command {
             setQuestionInfo(question, answers);
             return getURL(Path.COMMAND_SHOW_EDIT_FORM);
         }
+        LOGGER.trace("Found errors: --> " + errors);
         setAttributesIntoSessionScope(request, question.getText());
+
+        LOGGER.debug("Command finished");
         return getURL(Path.COMMAND_SHOW_SAVE_QUESTION_FORM);
     }
 
     private void setAttributesIntoSessionScope(HttpServletRequest request, String question) {
         HttpSession session = request.getSession();
         session.setAttribute(Parameter.ERRORS, new HashMap<>(errors));
+        LOGGER.trace("Set the session attribute: errors --> " + errors);
+
         session.setAttribute(Parameter.QUESTION, question);
+        LOGGER.trace("Set the session attribute: question --> " + question);
     }
 
     private String getURL(String path) {

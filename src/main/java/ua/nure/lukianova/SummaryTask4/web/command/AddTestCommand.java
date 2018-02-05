@@ -18,6 +18,11 @@ public class AddTestCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+
+        LOGGER.debug("Command starts");
+
+        LOGGER.debug("Command finished");
+
         return Path.COMMAND_SHOW_EDIT_FORM;
     }
 }

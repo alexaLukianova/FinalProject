@@ -85,11 +85,11 @@
 
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
-        <param-value>resources</param-value>
+        <param-value>localization</param-value>
     </context-param>
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
-        <param-value>ru</param-value>
+        <param-value>en</param-value>
     </context-param>
     <context-param>
         <param-name>locales</param-name>

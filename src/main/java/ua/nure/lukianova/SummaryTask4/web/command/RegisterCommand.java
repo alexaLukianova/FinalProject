@@ -45,6 +45,8 @@ public class RegisterCommand extends Command {
 
         if (MapUtils.isNotEmpty(errors)) {
             setUserInfoBack(request, userValidatorBean);
+            LOGGER.debug("Command finished");
+
             return Path.COMMAND_SHOW_REGISTER_FORM;
         }
 
@@ -53,9 +55,13 @@ public class RegisterCommand extends Command {
 
         HttpSession session = request.getSession();
         if (Objects.nonNull(session.getAttribute(USER_ROLE))) {
+
+            LOGGER.debug("Command finished");
             return Path.COMMAND_LIST_USERS;
         }
         setUserInSessionScope(user, session);
+
+        LOGGER.debug("Command finished");
         return Path.COMMAND_SHOW_PROFILE;
     }
 
@@ -71,7 +77,7 @@ public class RegisterCommand extends Command {
 
     private void setUserInfoBack(HttpServletRequest request, UserValidatorBean userValidatorBean) {
         HttpSession session = request.getSession();
-        session.setAttribute(Parameter.USER, userValidatorBean);
+        session.setAttribute(Parameter.USER_BEAN, userValidatorBean);
         session.setAttribute(Parameter.ERRORS, errors);
     }
 

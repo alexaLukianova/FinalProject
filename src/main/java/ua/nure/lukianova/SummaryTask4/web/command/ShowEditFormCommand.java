@@ -41,20 +41,28 @@ public class ShowEditFormCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
 
         if (Objects.nonNull(request.getParameter(Parameter.TEST_ID))) {
             long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
             Test test = testService.findById(testId);
+            LOGGER.trace("Found in DB: test --> " + test);
 
             request.setAttribute(Parameter.QUEST_ANS_MAP, extractQuestionInfoFromDB(testId));
+
             request.setAttribute(Parameter.TEST_ID, testId);
+            LOGGER.trace("Set the request attribute: test id --> " + testId);
+
             request.setAttribute(Parameter.TEST, test);
+            LOGGER.trace("Set the request attribute: test --> " + test);
         }
 
         checkSessionScope(request);
 
         request.setAttribute(Parameter.ANSWERS_NUMBER, ANSWERS_COUNT);
+        LOGGER.trace("Set the request attribute: answers number --> " + ANSWERS_COUNT);
 
+        LOGGER.debug("Command finished");
         return Path.PAGE_EDIT_TEST;
     }
 

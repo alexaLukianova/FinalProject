@@ -26,6 +26,8 @@ public class ListUsersCommand extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOGGER.debug("Command starts");
         request.setAttribute(Parameter.USERS, userService.findAll());
+
+        LOGGER.debug("Command finished");
         return Path.PAGE_LIST_USERS;
     }
 }

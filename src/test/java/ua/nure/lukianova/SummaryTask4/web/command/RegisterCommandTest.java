@@ -55,11 +55,11 @@ public class RegisterCommandTest {
     private HttpSession session;
 
     @Captor
-    ArgumentCaptor<Entity> userArgumentCaptor;
+    private ArgumentCaptor<Entity> userArgumentCaptor;
     @Captor
-    ArgumentCaptor<Role> roleArgumentCaptor;
+    private ArgumentCaptor<Role> roleArgumentCaptor;
     @Captor
-    ArgumentCaptor<Map<String, String>> errorsArgumentCaptor;
+    private ArgumentCaptor<Map<String, String>> errorsArgumentCaptor;
 
     @Before
     public void setUp() throws Exception {
@@ -73,6 +73,7 @@ public class RegisterCommandTest {
         given(request.getParameter(eq(Parameter.USER_ROLE))).willReturn(String.valueOf(userValidatorBean.getRoleId()));
         given(userValidator.validate(anyObject())).willReturn(errors);
 
+        doNothing().when(session).setAttribute(eq(Parameter.USER_BEAN), userArgumentCaptor.capture());
         doNothing().when(session).setAttribute(eq(Parameter.USER), userArgumentCaptor.capture());
         doNothing().when(session).setAttribute(eq(Parameter.ERRORS), errorsArgumentCaptor.capture());
         doNothing().when(session).setAttribute(eq(Parameter.USER_ROLE), roleArgumentCaptor.capture());

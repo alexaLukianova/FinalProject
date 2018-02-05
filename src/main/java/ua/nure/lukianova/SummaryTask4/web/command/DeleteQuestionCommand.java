@@ -29,7 +29,7 @@ public class DeleteQuestionCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
-
+        LOGGER.debug("Command starts");
 
         if(StringUtils.isEmpty(request.getParameter(QUESTION_ID))
                 || StringUtils.isEmpty(request.getParameter(TEST_ID)) ){
@@ -42,6 +42,7 @@ public class DeleteQuestionCommand extends Command {
             questionService.delete(questionId);
         }
 
+        LOGGER.debug("Command finished");
         return getURL();
     }
 

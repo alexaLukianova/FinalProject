@@ -43,7 +43,7 @@ public class TestResultBean extends Entity {
     }
 
     public void setDate(Date date) {
-        this.date = new SimpleDateFormat("MM/DD/YYYY 'at' HH:mm:ss").format(date);
+        this.date = new SimpleDateFormat("MM/dd/YYYY 'at' HH:mm:ss").format(date);
     }
 
     @Override

@@ -29,14 +29,20 @@ public class ShowProfileCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(Parameter.USER);
 
         if (Role.getRole(user) == Role.STUDENT) {
             List<TestResultBean> userProgress = resultService.findByUserId(user.getId());
+            LOGGER.trace("Found in DB: user result --> " + userProgress);
+
             request.setAttribute(Parameter.USER_PROGRESS, userProgress);
+            LOGGER.trace("Set the request attribute: user progress --> " + userProgress);
         }
 
+        LOGGER.debug("Command finished");
         return Path.PAGE_PROFILE;
     }
 }

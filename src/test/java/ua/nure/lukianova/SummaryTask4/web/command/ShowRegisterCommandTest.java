@@ -46,14 +46,19 @@ public class ShowRegisterCommandTest {
 
         given(request.getSession()).willReturn(session);
         given(session.getAttribute(eq(Parameter.ERRORS))).willReturn(errors);
-        given(session.getAttribute(eq(Parameter.USER))).willReturn(user);
+        given(session.getAttribute(eq(Parameter.USER_BEAN))).willReturn(user);
     }
 
     @Test
     public void execute_SetAttributesIfExistsErrors_True() throws Exception {
         command.execute(request, response);
 
-        verify(request, times(7)).setAttribute(anyString(), anyObject());
+        verify(request).setAttribute(Parameter.FIRST_NAME, user.getFirstName());
+        verify(request).setAttribute(Parameter.LAST_NAME, user.getLastName());
+        verify(request).setAttribute(Parameter.USERNAME, user.getUsername());
+        verify(request).setAttribute(Parameter.PASSWORD, user.getPassword());
+        verify(request).setAttribute(Parameter.REENTER_PASSWORD, user.getReenterPassword());
+        verify(request).setAttribute(Parameter.USER_ROLE, user.getRoleId());
     }
 
     @Test

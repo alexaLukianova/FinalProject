@@ -3,6 +3,7 @@ package ua.nure.lukianova.SummaryTask4.web.filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.nure.lukianova.SummaryTask4.db.Role;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.*;
@@ -44,15 +45,14 @@ public class CommandAccessFilter implements Filter {
             LOGGER.debug("Filter finished");
             chain.doFilter(request, response);
         } else {
-            String errorMessasge = "You do not have permission to access the requested resource";
+            String errorMessage = "You do not have permission to access the requested resource";
 
-            request.setAttribute("errorMessage", errorMessasge);
-            LOGGER.trace("Set the request attribute: errorMessage --> " + errorMessasge);
+            request.setAttribute(Parameter.ERROR_MESSAGE, errorMessage);
+            LOGGER.trace("Set the request attribute: errorMessage --> " + errorMessage);
 
 
             request.getRequestDispatcher(Path.PAGE_ERROR_PAGE)
                     .forward(request, response);
-
         }
     }
 

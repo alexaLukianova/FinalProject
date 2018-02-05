@@ -21,13 +21,18 @@ public class ShowResultCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
 
         HttpSession session = request.getSession();
         if (Objects.nonNull(session.getAttribute(MARK))) {
             int mark = (Integer) (session.getAttribute(MARK));
             request.setAttribute(MARK, mark);
+            LOGGER.trace("Set the request attribute: mark --> " + mark);
+
             session.removeAttribute(MARK);
         }
+
+        LOGGER.debug("Command finished");
         return Path.PAGE_MESSAGE;
     }
 }

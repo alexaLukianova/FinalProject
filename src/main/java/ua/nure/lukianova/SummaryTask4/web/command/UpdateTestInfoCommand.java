@@ -38,9 +38,11 @@ public class UpdateTestInfoCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
+
         errors = new HashMap<>();
 
-        if(StringUtils.isEmpty(request.getParameter(TEST_ID))){
+        if (StringUtils.isEmpty(request.getParameter(TEST_ID))) {
             throw new AppException("Invalid input");
         }
 
@@ -48,10 +50,13 @@ public class UpdateTestInfoCommand extends Command {
         errors = testValidator.validate(testValidationBean);
         testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
         if (errors.isEmpty()) {
-           testService.update(extractTest(testValidationBean));
+            testService.update(extractTest(testValidationBean));
         } else {
+            LOGGER.trace("Found in errors: --> " + errors);
             setErrorsIntoSessionScope(request);
         }
+
+        LOGGER.debug("Command finished");
 
         return getURL();
     }
@@ -59,6 +64,7 @@ public class UpdateTestInfoCommand extends Command {
     private void setErrorsIntoSessionScope(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute(Parameter.ERRORS, new HashMap<>(errors));
+        LOGGER.trace("Set the request attribute: errors --> " + errors);
     }
 
     private String getURL() {

@@ -3,6 +3,7 @@ package ua.nure.lukianova.SummaryTask4.db.dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.nure.lukianova.SummaryTask4.exception.DBException;
+import ua.nure.lukianova.SummaryTask4.exception.Message;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public abstract class JdbcAbstractDAO<T> {
                 id = resultSet.getLong(1);
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(Message.ERR_CANNOT_OBTAIN_QUERY, e);
+            throw new DBException(Message.ERR_CANNOT_OBTAIN_QUERY, e);
         }
 
         return id;
@@ -56,8 +58,8 @@ public abstract class JdbcAbstractDAO<T> {
                 entities.add(extractEntity(result));
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
-
+            LOGGER.error(Message.ERR_CANNOT_FIND_ENTITIES, e);
+            throw new DBException(Message.ERR_CANNOT_FIND_ENTITIES, e);
         }
         return entities;
     }

@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class ContextListener implements ServletContextListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UpdateQuestionInfoCommand.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ContextListener.class);
     private static final String LOCALES = "locales";
 
     @Override

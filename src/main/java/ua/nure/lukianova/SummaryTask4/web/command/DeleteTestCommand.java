@@ -26,12 +26,15 @@ public class DeleteTestCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
 
         if (StringUtils.isEmpty(request.getParameter(Parameter.TEST_ID))) {
             throw new AppException("Invalid input");
         }
         long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
         testService.delete(testId);
+
+        LOGGER.debug("Command finished");
         return Path.COMMAND_LIST_TESTS;
     }
 

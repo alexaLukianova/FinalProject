@@ -26,6 +26,9 @@ public class Controller extends HttpServlet {
                          HttpServletResponse response) throws ServletException, IOException {
 
         path = process(request, response);
+
+        LOGGER.debug("Go to forward address --> " + path);
+
         request.getRequestDispatcher(path).forward(request, response);
 
     }
@@ -34,6 +37,9 @@ public class Controller extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
         path = process(request, response);
+
+        LOGGER.debug("Go to sendRedirect address --> " + path);
+
         response.sendRedirect(path);
     }
 
@@ -55,7 +61,7 @@ public class Controller extends HttpServlet {
 
         // execute command and get forward address
 
-        String path = Path.PAGE_ERROR_PAGE;
+        String path = Path.COMMAND_ERROR;
         try {
             path = command.execute(request, response);
         } catch (AppException ex) {
@@ -67,7 +73,6 @@ public class Controller extends HttpServlet {
 
         HttpSession session = request.getSession();
         session.setAttribute(Parameter.COMMAND, commandName);
-
 
         return path;
     }

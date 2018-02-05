@@ -37,17 +37,25 @@ public class SaveNewTestCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
+
         errors = new HashMap<>();
         testValidationBean = extractTestValidationBean(request);
         errors = testValidator.validate(testValidationBean);
+        LOGGER.trace("Validate: test --> " + testValidationBean);
 
         if (MapUtils.isEmpty(errors)) {
             Test test = extractTest(testValidationBean);
             testId = testService.create(test);
+
+            LOGGER.trace("Create in DB: test --> " + test);
+
         } else {
             setErrorsIntoSessionScope(request);
+            LOGGER.trace("Found errors: --> " + errors);
         }
 
+        LOGGER.debug("Command finished");
         return getURL(request);
     }
 
@@ -55,8 +63,10 @@ public class SaveNewTestCommand extends Command {
     private void setErrorsIntoSessionScope(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute(Parameter.ERRORS, new HashMap<>(errors));
-        session.setAttribute(Parameter.TEST, testValidationBean);
+        LOGGER.trace("Set the session attribute: errors --> " + errors);
 
+        session.setAttribute(Parameter.TEST, testValidationBean);
+        LOGGER.trace("Set the session attribute: test --> " + testValidationBean);
     }
 
     private String getURL(HttpServletRequest request) {

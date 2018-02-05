@@ -26,12 +26,16 @@ public class LockUserCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
 
         if (StringUtils.isEmpty(request.getParameter(LOGIN))) {
             throw new AppException("Invalid input");
         }
 
         userService.inverseLockState(request.getParameter(LOGIN));
+
+        LOGGER.debug("Command finished");
+
         return Path.COMMAND_LIST_USERS;
     }
 }

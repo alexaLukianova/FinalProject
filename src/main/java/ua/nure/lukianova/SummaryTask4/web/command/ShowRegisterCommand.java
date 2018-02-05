@@ -22,26 +22,42 @@ public class ShowRegisterCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
+
         HttpSession session = request.getSession();
         if (Objects.nonNull(session.getAttribute(Parameter.ERRORS))) {
             Map<String, String> errors = (Map<String, String>) session.getAttribute(Parameter.ERRORS);
-            UserValidatorBean user = (UserValidatorBean) session.getAttribute(Parameter.USER);
+            UserValidatorBean user = (UserValidatorBean) session.getAttribute(Parameter.USER_BEAN);
             setAttributes(request, errors, user);
             session.removeAttribute(Parameter.ERRORS);
-            session.removeAttribute(Parameter.USER);
+            session.removeAttribute(Parameter.USER_BEAN);
         }
 
+        LOGGER.debug("Command finished");
         return Path.PAGE_REGISTRATION;
     }
 
     private void setAttributes(HttpServletRequest request, Map<String, String> errors, UserValidatorBean user) {
         request.setAttribute(Parameter.FIRST_NAME, user.getFirstName());
+        LOGGER.trace("Set the request attribute: first name --> " + user.getFirstName());
+
         request.setAttribute(Parameter.LAST_NAME, user.getLastName());
+        LOGGER.trace("Set the request attribute: last name --> " + user.getLastName());
+
         request.setAttribute(Parameter.USERNAME, user.getUsername());
+        LOGGER.trace("Set the request attribute: username --> " + user.getUsername());
+
         request.setAttribute(Parameter.PASSWORD, user.getPassword());
+        LOGGER.trace("Set the request attribute: password --> " + user.getPassword());
+
         request.setAttribute(Parameter.REENTER_PASSWORD, user.getReenterPassword());
+        LOGGER.trace("Set the request attribute: reenter password --> " + user.getReenterPassword());
+
         request.setAttribute(Parameter.USER_ROLE, user.getRoleId());
+        LOGGER.trace("Set the request attribute: user role id --> " + user.getRoleId());
+
         request.setAttribute(Parameter.ERRORS, errors);
+        LOGGER.trace("Set the request attribute: errors --> " + errors);
     }
 
 }

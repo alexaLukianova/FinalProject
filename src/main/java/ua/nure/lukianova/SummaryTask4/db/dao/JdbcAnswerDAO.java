@@ -3,6 +3,7 @@ package ua.nure.lukianova.SummaryTask4.db.dao;
 import ua.nure.lukianova.SummaryTask4.db.Fields;
 import ua.nure.lukianova.SummaryTask4.db.entity.Answer;
 import ua.nure.lukianova.SummaryTask4.exception.DBException;
+import ua.nure.lukianova.SummaryTask4.exception.Message;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -75,9 +76,11 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
             try {
                 connection.rollback();
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                LOGGER.error(Message.ERR_CANNOT_ROLLBACK, e1);
+                throw new DBException(Message.ERR_CANNOT_ROLLBACK, e1);
             }
-            e.printStackTrace();
+            LOGGER.error(Message.ERR_CANNOT_UPDATE_ANSWERS, e);
+            throw new DBException(Message.ERR_CANNOT_UPDATE_ANSWERS, e);
         } finally {
             close(connection);
 
@@ -107,15 +110,16 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
             try {
                 connection.rollback();
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                LOGGER.error(Message.ERR_CANNOT_ROLLBACK, e1);
+                throw new DBException(Message.ERR_CANNOT_ROLLBACK, e1);
             }
-            e.printStackTrace();
+            LOGGER.error(Message.ERR_CANNOT_CREATE_ANSWERS, e);
+            throw new DBException(Message.ERR_CANNOT_CREATE_ANSWERS, e);
         } finally {
             close(connection);
 
         }
     }
-
 
 
     @Override
@@ -130,8 +134,8 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
 
     private void executeTransactional(String sql, String... parameters) throws DBException {
         Connection connection = connectionFactory.getConnection();
-        PreparedStatement preparedStatement = null;
-        try  {
+        PreparedStatement preparedStatement;
+        try {
             preparedStatement = connection.prepareStatement(sql);
             int index = 0;
             for (String parameter : parameters) {
@@ -139,17 +143,18 @@ public class JdbcAnswerDAO extends JdbcAbstractDAO<Answer> implements AnswerDAO 
             }
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(Message.ERR_CANNOT_OBTAIN_QUERY, e);
+            throw new DBException(Message.ERR_CANNOT_OBTAIN_QUERY, e);
         }
     }
-
 
     private void close(Connection connection) {
         if (Objects.nonNull(connection)) {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error(Message.ERR_CANNOT_CLOSE_CONNECTION, e);
+                throw new DBException(Message.ERR_CANNOT_CLOSE_CONNECTION, e);
             }
         }
     }

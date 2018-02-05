@@ -46,11 +46,11 @@ public class EvaluateResultCommand extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
+        LOGGER.debug("Command starts");
 
-
-        if(StringUtils.isEmpty(request.getParameter(Parameter.TEST_ID))
+        if (StringUtils.isEmpty(request.getParameter(Parameter.TEST_ID))
                 || StringUtils.isEmpty(request.getParameter(Parameter.RESULT_ID))
-                || Objects.isNull(request.getParameterValues(Parameter.ANSWER_CORRECT))){
+                || Objects.isNull(request.getParameterValues(Parameter.ANSWER_CORRECT))) {
             throw new AppException("Invalid input");
         }
 
@@ -60,9 +60,13 @@ public class EvaluateResultCommand extends Command {
 
 
         Result result = resultService.findById(resultId);
-        Test test = testService.findById(testId);
-        int totalNumberOfQuestions = questionService.findByTestId(testId).size();
+        LOGGER.trace("Found in DB: result --> " + result);
 
+        Test test = testService.findById(testId);
+        LOGGER.trace("Found in DB: test --> " + test);
+
+        int totalNumberOfQuestions = questionService.findByTestId(testId).size();
+        LOGGER.trace("Found in DB: questions count --> " + totalNumberOfQuestions);
 
         int numberOfRightAnswers = ArrayUtils.isNotEmpty(answers) ? getNumberOfRightAnswers(answers) : 0;
 
@@ -72,6 +76,7 @@ public class EvaluateResultCommand extends Command {
 
         setMarkIntoSessionScope(request, mark);
 
+        LOGGER.debug("Command finished");
         return Path.COMMAND_SHOW_RESULT_FORM;
 
     }
@@ -79,6 +84,7 @@ public class EvaluateResultCommand extends Command {
     private void setMarkIntoSessionScope(HttpServletRequest request, int mark) {
         HttpSession session = request.getSession();
         session.setAttribute(Parameter.MARK, mark);
+        LOGGER.trace("Set the session attribute: mark --> " + mark);
     }
 
     private void updateResult(Result result, int mark) {
@@ -126,6 +132,8 @@ public class EvaluateResultCommand extends Command {
 
     private TreeSet<Long> getIdOfCorrectAnswers(long id) throws DBException {
         List<Answer> answers = answerService.findCorrectByQuestionId(id);
+        LOGGER.trace("Found in DB: correct answers --> " + answers);
+
         TreeSet<Long> answersId = new TreeSet<>();
         for (Answer answer : answers) {
             answersId.add(answer.getId());
