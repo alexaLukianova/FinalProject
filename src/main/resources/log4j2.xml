@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm} [%5p] %25c{1}:%6L - %m%n" />
+        </Console>
+        <File name="MyFile" fileName="C:/log/mylog.log" immediateFlush="true" append="false">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm} [%5p] %25c{1}:%6L - %m%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="MyFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
