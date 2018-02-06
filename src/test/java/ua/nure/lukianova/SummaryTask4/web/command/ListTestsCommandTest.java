@@ -10,6 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ua.nure.lukianova.SummaryTask4.db.Role;
 import ua.nure.lukianova.SummaryTask4.db.entity.Question;
 import ua.nure.lukianova.SummaryTask4.service.QuestionService;
+import ua.nure.lukianova.SummaryTask4.service.ResultService;
 import ua.nure.lukianova.SummaryTask4.service.TestService;
 import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
@@ -48,6 +49,8 @@ public class ListTestsCommandTest {
     @Mock
     private TestService testService;
     @Mock
+    private ResultService resultService;
+    @Mock
     private HttpServletRequest request;
     @Mock
     private HttpServletResponse response;
@@ -61,7 +64,7 @@ public class ListTestsCommandTest {
 
     @Before
     public void setUp() throws Exception {
-        command = new ListTestsCommand(testService, questionService);
+        command = new ListTestsCommand(testService, questionService,resultService);
 
         tests = createListTests();
         ascTests = createAscListTests();

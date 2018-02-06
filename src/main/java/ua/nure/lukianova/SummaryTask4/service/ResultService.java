@@ -15,4 +15,6 @@ public interface ResultService {
     void update(long id, int result) throws DBException;
 
     List<TestResultBean> findByUserId(long id) throws  DBException;
+
+    List<Result> findByTestId(long testId) throws  DBException;
 }

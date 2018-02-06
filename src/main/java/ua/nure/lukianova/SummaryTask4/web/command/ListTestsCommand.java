@@ -6,7 +6,9 @@ import ua.nure.lukianova.SummaryTask4.db.Role;
 import ua.nure.lukianova.SummaryTask4.db.entity.Test;
 import ua.nure.lukianova.SummaryTask4.exception.AppException;
 import ua.nure.lukianova.SummaryTask4.service.QuestionService;
+import ua.nure.lukianova.SummaryTask4.service.ResultService;
 import ua.nure.lukianova.SummaryTask4.service.TestService;
+import ua.nure.lukianova.SummaryTask4.web.Parameter;
 import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.ServletException;
@@ -32,6 +34,7 @@ public class ListTestsCommand extends Command {
 
     private TestService testService;
     private QuestionService questionService;
+    private ResultService resultService;
 
     private Map<String, Comparator<Test>> comparatorMap = new HashMap<>();
 
@@ -43,9 +46,10 @@ public class ListTestsCommand extends Command {
         comparatorMap.put(QUESTIONS_COUNT, new CompareByQuestionNumber());
     }
 
-    public ListTestsCommand(TestService testService, QuestionService questionService) {
+    public ListTestsCommand(TestService testService, QuestionService questionService, ResultService resultService) {
         this.testService = testService;
         this.questionService = questionService;
+        this.resultService = resultService;
     }
 
     @Override
@@ -67,6 +71,11 @@ public class ListTestsCommand extends Command {
 
         request.setAttribute(QUESTIONS_COUNT, questionsCount);
         LOGGER.trace("Set the request attribute: question count --> " + questionsCount);
+
+        Map<Long, Integer> testCount = tests.stream()
+                .collect(Collectors.toMap(Test::getId, test -> resultService.findByTestId(test.getId()).size()));
+
+        request.setAttribute(Parameter.TEST_COUNT, testCount);
 
         sort(tests, order, parameter);
 

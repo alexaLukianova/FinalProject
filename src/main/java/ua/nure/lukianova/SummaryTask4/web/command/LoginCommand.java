@@ -52,7 +52,7 @@ public class LoginCommand extends Command {
         }
 
         if (user.isLocked()) {
-            throw new AppException("Access is forbidden");
+            throw new AppException("Access is forbidden. Ask administrator to unlock you");
         } else {
             Role userRole = Role.getRole(user);
             LOGGER.trace("userRole --> " + userRole);

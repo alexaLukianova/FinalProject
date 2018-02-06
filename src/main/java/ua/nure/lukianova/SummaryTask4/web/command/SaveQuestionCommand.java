@@ -55,6 +55,11 @@ public class SaveQuestionCommand extends Command {
         }
 
         testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
+
+        if (testId <= 0) {
+            throw new AppException("Invalid input");
+        }
+
         Question question = extractNewQuestion(request);
         List<Answer> answers = extractNewAnswers(request);
 

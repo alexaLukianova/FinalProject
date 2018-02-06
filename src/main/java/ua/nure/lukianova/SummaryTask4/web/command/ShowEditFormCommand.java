@@ -45,6 +45,9 @@ public class ShowEditFormCommand extends Command {
 
         if (Objects.nonNull(request.getParameter(Parameter.TEST_ID))) {
             long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
+            if (testId <= 0) {
+                throw new AppException("Invalid input");
+            }
             Test test = testService.findById(testId);
             LOGGER.trace("Found in DB: test --> " + test);
 

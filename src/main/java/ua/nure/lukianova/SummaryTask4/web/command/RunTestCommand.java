@@ -56,6 +56,9 @@ public class RunTestCommand extends Command {
         }
 
         long testId = Long.valueOf(request.getParameter(Parameter.TEST_ID));
+        if (testId <= 0) {
+            throw new AppException("Invalid input");
+        }
         long userId = ((User) session.getAttribute(Parameter.USER)).getId();
         long resultId = createResult(result, testId, userId);
 

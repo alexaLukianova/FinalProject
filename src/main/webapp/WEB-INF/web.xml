@@ -38,7 +38,7 @@
         </init-param>
         <init-param>
             <param-name>out-of-control</param-name>
-            <param-value>login register showRegister logout</param-value>
+            <param-value>login register showRegister noCommand logout</param-value>
         </init-param>
     </filter>
 

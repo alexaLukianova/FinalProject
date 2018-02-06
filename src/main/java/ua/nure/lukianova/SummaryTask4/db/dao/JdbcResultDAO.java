@@ -4,6 +4,7 @@ import ua.nure.lukianova.SummaryTask4.db.Fields;
 import ua.nure.lukianova.SummaryTask4.db.entity.Result;
 import ua.nure.lukianova.SummaryTask4.exception.DBException;
 
+import javax.swing.event.ListDataEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,13 +16,12 @@ public class JdbcResultDAO extends JdbcAbstractDAO<Result> implements ResultDAO 
     private static final String SQL__SELECT_ALL_RESULTS = "SELECT * FROM RESULTS";
     private static final String SQL__SELECT_RESULT_BY_ID = "SELECT * FROM RESULTS WHERE ID = ?";
     private static final String SQL__UPDATE = "UPDATE RESULTS SET RESULT = ? WHERE ID = ?";
-
+    private static final String SQL__SELECT_BY_TEST_ID = "SELECT * FROM RESULTS WHERE TEST_ID = ?";
 
     {
         sqlSelectAll = SQL__SELECT_ALL_RESULTS;
         sqlSelectById = SQL__SELECT_RESULT_BY_ID;
     }
-
 
     @Override
     protected Result extractEntity(ResultSet resultSet) throws SQLException {
@@ -48,5 +48,9 @@ public class JdbcResultDAO extends JdbcAbstractDAO<Result> implements ResultDAO 
          execute(SQL__UPDATE, String.valueOf(result), String.valueOf(id));
     }
 
+    @Override
+    public List<Result> findByTestId(long testId) throws DBException {
+         return findBy(SQL__SELECT_BY_TEST_ID, String.valueOf(testId));
+    }
 
 }

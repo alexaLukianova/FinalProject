@@ -54,7 +54,7 @@ public class CommandFactory {
                 command = new ListUsersCommand(userService);
                 break;
             case CommandKeys.LIST_TESTS:
-                command = new ListTestsCommand(testService, questionService);
+                command = new ListTestsCommand(testService, questionService, resultService);
                 break;
             case CommandKeys.DELETE_TEST:
                 command = new DeleteTestCommand(testService);

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class Controller extends HttpServlet {
@@ -48,13 +49,15 @@ public class Controller extends HttpServlet {
                            HttpServletResponse response) throws IOException, ServletException {
 
         LOGGER.debug("Controller starts");
-
+        HttpSession session = request.getSession();
         // extract command name from the request
         String commandName = request.getParameter("command");
         LOGGER.trace("Request parameter: command --> " + commandName);
 
         // obtain command object by its name
         Command command = CommandContainer.get(commandName);
+
+        session.setAttribute(Parameter.COMMAND, commandName);
 
 
         LOGGER.trace("Obtained command --> " + command);
@@ -65,14 +68,11 @@ public class Controller extends HttpServlet {
         try {
             path = command.execute(request, response);
         } catch (AppException ex) {
-            request.setAttribute(Parameter.ERROR_MESSAGE, ex.getMessage());
+            session.setAttribute(Parameter.ERROR_MESSAGE, ex);
         }
         LOGGER.trace("Forward address -->" + path);
 
         LOGGER.debug("Controller finished, now go to forward address --> " + path);
-
-        HttpSession session = request.getSession();
-        session.setAttribute(Parameter.COMMAND, commandName);
 
         return path;
     }

@@ -48,6 +48,7 @@ public class Parameter {
 
     public static final String ERROR_MESSAGE = "errorMessage";
     public static final String COMMAND = "command";
+    public static final String TEST_COUNT = "testCount";
 
 
 

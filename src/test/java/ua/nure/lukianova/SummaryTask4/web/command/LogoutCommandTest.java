@@ -55,7 +55,7 @@ public class LogoutCommandTest {
 
     @Test
     public void execute_InvalidateOfNullSession_False() throws Exception {
-        given(request.getSession(false)).willReturn(null);
+        given(request.getSession()).willReturn(null);
 
         command.execute(request, response);
 

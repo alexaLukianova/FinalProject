@@ -11,29 +11,26 @@
 <div class="container">
     <br>
 
-    <h4 class="error">
-        The following error occurred
-    </h4>
-
     <c:set var="code" value="${requestScope['javax.servlet.error.status_code']}"/>
     <c:set var="message" value="${requestScope['javax.servlet.error.message']}"/>
     <c:set var="exception" value="${requestScope['javax.servlet.error.exception']}"/>
 
-    <c:if test="${not empty code}">
-        <h5>Error code: ${code}</h5>
-    </c:if>
+    <h4>The following error occurred:</h4>
+    ${errorMessage.getMessage()}
 
-    <c:if test="${not empty message}">
-        <h5>${message}</h5>
-    </c:if>
 
     <c:if test="${not empty exception}">
-        <c:out value="${exception.getStackTrace()}"/>
-
-    </c:if>
-
-    <c:if test="${not empty requestScope.errorMessage}">
-        <h5>${requestScope.errorMessage}</h5>
+        <ul>
+            <li>Exception: <c:out value="${requestScope['javax.servlet.error.exception']}"/></li>
+            <li>Exception type: <c:out value="${requestScope['javax.servlet.error.exception_type']}"/></li>
+            <li>Exception message: <c:out value="${requestScope['javax.servlet.error.message']}"/></li>
+            <li>Request URI: <c:out value="${requestScope['javax.servlet.error.request_uri']}"/></li>
+            <li>Servlet name: <c:out value="${requestScope['javax.servlet.error.servlet_name']}"/></li>
+            <li>Status code: <c:out value="${requestScope['javax.servlet.error.status_code']}"/></li>
+            <li>Stack trace:
+                <pre>${pageContext.out.flush()}${exception.printStackTrace(pageContext.response.writer)}</pre>
+            </li>
+        </ul>
     </c:if>
 
 

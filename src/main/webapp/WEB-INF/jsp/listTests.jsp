@@ -11,6 +11,7 @@
 <%@ include file="/WEB-INF/jspf/navigation.jspf" %>
 
 <div class="container">
+    <c:set var="role" scope="session" value="${userRole.toString()}"/>
     <h1 align="center"><fmt:message key="test.table_name"/></h1>
 
     <table id="bottomLast" class="table table-striped table-sm">
@@ -20,6 +21,11 @@
         <th><fmt:message key="test.complexity"/></th>
         <th><fmt:message key="test.duration"/></th>
         <th><fmt:message key="text.question_number"/></th>
+        <c:if test="${'admin'.equals(role)}">
+            <th><fmt:message key="text.passes_count"/></th>
+        </c:if>
+
+
         <th colspan="2"></th>
         </thead>
         <tbody>
@@ -41,7 +47,12 @@
                 </td>
                 <td>${test.duration}</td>
                 <td>${questionsCount.get(test.id)}</td>
-                <c:set var="role" scope="session" value="${userRole.toString()}"/>
+
+                <c:if test="${'admin'.equals(role)}">
+                    <td>${testCount.get(test.id)}</td>
+                </c:if>
+
+
                 <c:choose>
                     <c:when test="${'admin'.equals(role)}">
                         <td>
@@ -128,7 +139,8 @@
             <form id="addButton" class="form-inline my-2 my-lg-0" action="controller" method="get">
                 <input class="form-control mr-sm-2" type="hidden" name="command" value="addTest">
                 <c:if test="${'admin'.equals(role)}">
-                    <button class="btn btn-warning btn-block " type="submit"><fmt:message key="button.add_new_test"/></button>
+                    <button class="btn btn-warning btn-block " type="submit"><fmt:message
+                            key="button.add_new_test"/></button>
                 </c:if>
             </form>
 

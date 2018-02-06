@@ -7,6 +7,8 @@ import ua.nure.lukianova.SummaryTask4.web.Path;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 public class NoCommand extends Command {
 
@@ -18,8 +20,15 @@ public class NoCommand extends Command {
         LOGGER.debug("Command starts");
 
         String errorMessage = "No such command";
+        HttpSession session = request.getSession();
 
-        request.setAttribute(Parameter.ERROR_MESSAGE, errorMessage);
+        if(Objects.nonNull(session.getAttribute(Parameter.ERROR_MESSAGE))){
+            request.setAttribute(Parameter.ERROR_MESSAGE, session.getAttribute(Parameter.ERROR_MESSAGE));
+            session.removeAttribute(Parameter.ERROR_MESSAGE);
+        }else{
+            request.setAttribute(Parameter.ERROR_MESSAGE, errorMessage);
+        }
+
         LOGGER.error("Set the request attribute: errorMessage --> " + errorMessage);
 
         LOGGER.debug("Command finished");

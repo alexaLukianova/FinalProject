@@ -49,8 +49,7 @@ public class EvaluateResultCommand extends Command {
         LOGGER.debug("Command starts");
 
         if (StringUtils.isEmpty(request.getParameter(Parameter.TEST_ID))
-                || StringUtils.isEmpty(request.getParameter(Parameter.RESULT_ID))
-                || Objects.isNull(request.getParameterValues(Parameter.ANSWER_CORRECT))) {
+                || StringUtils.isEmpty(request.getParameter(Parameter.RESULT_ID))) {
             throw new AppException("Invalid input");
         }
 
